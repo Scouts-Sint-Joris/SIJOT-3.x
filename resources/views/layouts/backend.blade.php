@@ -150,5 +150,7 @@
         <script src="{{ asset('js/slimscroll.js') }}"></script>                                                 {{-- SlimScroll --}}
         <script src="{{ asset('js/fastclick.js') }}"></script>                                                  {{-- FastClick --}}
         <script src="{{ asset('js/backend.min.js') }}"></script>                                                {{-- AdminLTE App --}}
+
+        @yield('extra-js') {{-- Include partial javascript. --}}
     </body>
 </html>

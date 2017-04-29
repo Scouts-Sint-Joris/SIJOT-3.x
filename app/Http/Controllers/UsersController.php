@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BanValidator;
+use App\Notifications\BlockNotification;
 use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -59,5 +63,45 @@ class UsersController extends Controller
         $data['permissions']    = $this->permissions->paginate(25);
 
         return view('users.index', $data);
+    }
+
+    /**
+     * Get the user id and name and return it in json.
+     *
+     * @param  int $userId The id for the user in the database.
+     * @return string|void
+     */
+    public function getById($userId)
+    {
+        try { // Try to find and output the record.
+            return(json_encode( $this->userDB->select(['id', 'name'])->findOrFail($userId)));
+        } catch (ModelNotFoundException $notFoundException) { // The user is not found.
+            return app()->abort(404);
+        }
+    }
+
+    /**
+     * Ban a user in the system.
+     *
+     * @param  BanValidator $input The user input validator.
+     * @return \Illuminate\Http\RedirectResponse|void
+     */
+    public function block(BanValidator $input)
+    {
+        try { // To ban the user.
+            $user = $this->userDB->findOrFail($input->id);
+            $user->ban(['comment' => $input->reason, 'expired_at' => $input->eind_datum]);
+
+            $notifyUsers = $this->userDb->role('admin')->get();
+
+            Notification::send($notifyUsers, new BlockNotification());
+
+            session()->flash('class', '');
+            session()->flash('message', '');
+
+            return back();
+        } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
+            return app()->abort(404);
+        }
     }
 }
