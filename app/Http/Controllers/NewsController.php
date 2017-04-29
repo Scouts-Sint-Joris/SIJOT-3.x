@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\News;
+use App\Categories;
+use App\Http\Requests\NewsValidator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -30,8 +32,13 @@ class NewsController extends Controller
      * @param   Categories  $categoriesDb
      * @return  void
      */
-    public function __construct(Categories, $categoriesDb, News $newsDb)
+    public function __construct(Categories $categoriesDb, News $newsDb)
     {
+        $routes = ['store', 'update', 'delete', 'create'];
+
+        $this->middleware('auth')->only($routes);
+        $this->middleware('forbid-banned-user')->only($routes);
+
         $this->categoriesDb = $categoriesDb;
         $this->newsDb       = $newsDb;
     }
@@ -47,7 +54,7 @@ class NewsController extends Controller
         $data['news']       = $this->newsDb->all();
         $data['categories'] = $this->categoriesDb->all();
 
-        return view('', $data);
+        return view('news.index', $data);
     }
 
     /**

@@ -30,3 +30,6 @@ Route::get('/verhuur/verwijder/{id}', 'LeaseController@delete')->name('lease.del
 // ACL routes
 Route::get('/gebruikers', 'UsersController@index')->name('users.index');
 
+// News routes.
+Route::get('/nieuws', 'NewsController@index')->name('news.index');
+Route::post('/nieuws/toevoegen', 'NewsController@store')->name('news.store');
