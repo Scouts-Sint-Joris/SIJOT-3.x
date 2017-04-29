@@ -6,6 +6,7 @@ use App\Http\Requests\LeaseValidator;
 use App\Lease;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class LeaseController
@@ -148,5 +149,20 @@ class LeaseController extends Controller
         $data['leases'] = $this->leaseDB->paginate(15);
 
         return view('lease.lease-backend', $data);
+    }
+
+    /**
+     * Export the domain leases to a excel file.
+     *
+     * @return void
+     */
+    public function export()
+    {
+        Excel::create('Verhuringen', function ($excel) {
+           $excel->sheet('Verhuringen', function ($sheet) {
+               $all = $this->leaseDB->all();
+               $sheet->loadView('lease.export', compact('all'));
+           });
+        })->export('xls');
     }
 }

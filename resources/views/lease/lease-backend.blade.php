@@ -17,7 +17,7 @@
             <h3 class="box-title">Verhuringen</h3>
 
             <div class="pull-right">
-                @if ((int) count($leases) > 0)<a class="label label-danger" href="">Exporteren</a> @endif
+                @if ((int) count($leases) > 0)<a class="label label-danger" href="{{ route('lease.export') }}">Exporteren</a> @endif
                 <a class="label label-danger" href="#" data-toggle="modal" data-target="#create-lease">Verhuring toevoegen</a>
             </div>
         </div>

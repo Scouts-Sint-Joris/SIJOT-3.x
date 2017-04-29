@@ -26,6 +26,7 @@ Route::get('/verhuur/bereikbaarheid', 'LeaseController@domainAccess')->name('lea
 Route::get('/verhuur/beheer', 'LeaseController@backend')->name('lease.backend');
 Route::get('/verhuur/status/{status}/{id}', 'LeaseController@status')->name('lease.status');
 Route::get('/verhuur/verwijder/{id}', 'LeaseController@delete')->name('lease.delete');
+Route::get('/verhuur/exporteer', 'LeaseController@export')->name('lease.export');
 
 // ACL routes
 Route::get('/gebruikers', 'UsersController@index')->name('users.index');
