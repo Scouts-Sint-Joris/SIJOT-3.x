@@ -75,7 +75,7 @@ class UsersController extends Controller
     public function getById($userId)
     {
         try { // Try to find and output the record.
-            return(json_encode( $this->userDB->select(['id', 'name'])->findOrFail($userId)));
+            return(json_encode($this->userDB->select(['id', 'name'])->findOrFail($userId)));
         } catch (ModelNotFoundException $notFoundException) { // The user is not found.
             return app()->abort(404);
         }
@@ -94,9 +94,7 @@ class UsersController extends Controller
             $user->ban(['comment' => $input->reason, 'expired_at' => Carbon::parse($input->eind_datum)]);
 
             $notifyUsers = $this->userDB->role('Admin')->get();
-
-            // TODO: Debug notification
-            Notification::send($notifyUsers, new BlockNotification($notifyUsers));
+            Notification::send($notifyUsers, new BlockNotification($notifyUsers)); // TODO: Debug notification
 
             session()->flash('class', 'alert alert-success');
             session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);

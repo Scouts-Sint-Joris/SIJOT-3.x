@@ -29,7 +29,7 @@
                     <h2>Wat kan ik doen?</h2>
                     <p>
                         Als u denkt dat dit een misverstand of fout is dan kunt u contact opnemen met de media verantwoordelijke,
-                        van Scouts En Gidsen Sint-Joris, Turnhout
+                        van Scouts En Gidsen Sint-Joris, Turnhout.
                     </p>
                 </div>
             </div>
