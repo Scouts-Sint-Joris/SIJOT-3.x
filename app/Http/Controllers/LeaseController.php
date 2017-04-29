@@ -118,20 +118,20 @@ class LeaseController extends Controller
     }
 
     /**
-     * Remove a leae in the database. 
-     * 
-     * @param  intger   $leaseId    The databaseid for the lease. 
+     * Remove a leae in the database.
+     *
+     * @param  intger   $leaseId    The databaseid for the lease.
      * @return \Illuminate\Http\RedirectResponse|void
      */
-    public function delete($leaseId) 
+    public function delete($leaseId)
     {
         try { // Check if the record exists
-            if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted. 
+            if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
                 session()->flash('class', 'alert alert-success');
                 session()->flash('message', 'De verhuring is verwijderd.');
             }
 
-            return back(); 
+            return back();
         } catch (ModelNotFoundException $exception) { // The record doesn't exists.
             return app()->abort(404);
         }
