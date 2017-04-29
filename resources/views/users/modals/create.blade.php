@@ -27,6 +27,22 @@
                             <input type="email" class="form-control" name="email" placeholder="E-mail adres">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Wachtwoord: <span class="text-danger">*</span></label>
+
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" name="password" placeholder="Wachtwoord">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bevestiging: <span class="text-danger">*</span></label>
+
+                        <div class="col-md-9">
+                            <input type="password" class="form-control" placeholder="Wachtwoord bevestiging" name="password_confirmation">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
