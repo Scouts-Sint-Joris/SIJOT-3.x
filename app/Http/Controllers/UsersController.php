@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BanValidator;
 use App\Notifications\BlockNotification;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -90,14 +91,14 @@ class UsersController extends Controller
     {
         try { // To ban the user.
             $user = $this->userDB->findOrFail($input->id);
-            $user->ban(['comment' => $input->reason, 'expired_at' => $input->eind_datum]);
+            $user->ban(['comment' => $input->reason, 'expired_at' => Carbon::parse($input->eind_datum)]);
 
-            $notifyUsers = $this->userDb->role('admin')->get();
+            $notifyUsers = $this->userDB->role('Admin')->get();
 
-            Notification::send($notifyUsers, new BlockNotification());
+            Notification::send($notifyUsers, new BlockNotification($notifyUsers));
 
-            session()->flash('class', '');
-            session()->flash('message', '');
+            session()->flash('class', 'alert alert-success');
+            session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);
 
             return back();
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.

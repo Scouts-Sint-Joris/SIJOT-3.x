@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="myModalLabel">Blokkeer een gebruiker.</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" id="form" action="">
+                <form class="form-horizontal" method="POST" id="form" action="{{ route('users.block') }}">
                     {{ csrf_field() }} {{-- Form security check --}}
                     <input type="hidden"  name="id" value="">
 
