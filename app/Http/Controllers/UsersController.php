@@ -95,6 +95,7 @@ class UsersController extends Controller
 
             $notifyUsers = $this->userDB->role('Admin')->get();
 
+            // TODO: Debug notification
             Notification::send($notifyUsers, new BlockNotification($notifyUsers));
 
             session()->flash('class', 'alert alert-success');
