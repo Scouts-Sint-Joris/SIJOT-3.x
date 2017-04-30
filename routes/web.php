@@ -12,18 +12,7 @@
 */
 
 // Authencation routes.
-use Illuminate\Support\Facades\Mail;
-
 Auth::routes();
-
-Route::get('/sparkpost', function () {
-    Mail::send('auth.passwords.email', [], function ($message) {
-        $message
-            ->from('contact@st-joris-turnhout.be', 'tim joosten')
-      ->to('topairy@gmail.com', 'Receiver Name')
-      ->subject('From SparkPost with ❤');
-  });
-});
 
 // Misc. routes
 Route::get('/', 'HomeController@index')->name('home');

@@ -18,7 +18,7 @@
           <li><a href="https://www.hopper.be/winkel"> Hopper (Winkel)</a></li>
           <li><a href="https://www.hopper.be/jeugdverblijf"> Hopper (Jeugdverblijven)</a></li>
           <li><a href="#"> Disclaimer</a></li>
-          <li><a href="#"> Lid worden</a></li>
+          <li><a href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/lidworden?groep=A4102G"> Lid worden</a></li>
           <li><a href="#"> Verhuur</a></li>
         </ul>
       </div>
