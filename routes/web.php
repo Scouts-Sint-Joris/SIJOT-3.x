@@ -33,3 +33,7 @@ Route::get('/gebruikers', 'UsersController@index')->name('users.index');
 Route::get('/gebruikers/info/{id}', 'UsersController@getById')->name('users.getId');
 Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block');
 
+// Group routes
+Route::get('/takken', 'GroupController@index')->name('groups.index');
+Route::get('/takken/backend', 'GroupController@backend')->name('groups.backend');
+
