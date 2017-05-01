@@ -33,3 +33,5 @@ Route::get('/gebruikers', 'UsersController@index')->name('users.index');
 Route::get('/gebruikers/info/{id}', 'UsersController@getById')->name('users.getId');
 Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block');
 
+// Account routes.
+Route::get('/account', 'AccountController@index')->name('account');
