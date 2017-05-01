@@ -23,16 +23,13 @@
                                 <div class="well well-sm color-kapoenen">
                                     <div class="media">
                                         <a class="pull-left" href="">
-                                            <img class="img-tak color-white img-responsive img-rounded media-object" src="{{ asset('img/kapoenen.svg') }}" alt="{{ $title->sub_title }}">
+                                            <img class="img-tak color-white img-responsive img-rounded media-object" src="{{ asset('img/kapoenen.svg') }}" alt="{{ $kapoenen->title }}">
                                         </a>
                                         <div class="media-body color-white">
                                             <h4 class="font-title media-heading"> {{ $kapoenen->title }} <small> {{ $kapoenen->sub_title }} </small></h4>
 
-                                            <!-- Description -->
-                                            Het leven van een kapoen (6-8jaar) is er één vol spel, fantasie,
-                                            creativiteit en expressie. Spelenderwijs en ongedwongen ontdekken
-                                            we samen met hen de wereld.
-                                            De leiding gaat hierbij uit van de kapoen zelf, van het wat hen boeit en…
+                                            @php $textKapoenen = strip_tags(Markdown::convertToHtml($kapoenen->description)) @endphp
+                                            {{ strip_tags(str_limit($textKapoenen, 250)) }} {{-- Description --}}
                                         </div>
                                     </div>
                                 </div>
@@ -45,11 +42,8 @@
                                         <div class="media-body color-white">
                                             <h4 class="font-title media-heading"> {{ $welpen->title }} <small> {{ $welpen->sub_title }} </small></h4>
 
-                                            <!-- Description -->
-                                            Het leven van een kapoen (6-8jaar) is er één vol spel, fantasie,
-                                            creativiteit en expressie. Spelenderwijs en ongedwongen ontdekken
-                                            we samen met hen de wereld.
-                                            De leiding gaat hierbij uit van de kapoen zelf, van het wat hen boeit en…
+                                            @php $textWelpen = strip_tags(Markdown::convertToHtml($welpen->description)) @endphp
+                                            {{ strip_tags(str_limit($textWelpen, 250)) }} {{-- Description --}}
                                         </div>
                                     </div>
                                 </div>
@@ -62,11 +56,8 @@
                                         <div class="media-body color-white">
                                             <h4 class="font-title media-heading"> {{ $jongGivers->title }} <small> {{ $jongGivers->sub_title }} </small></h4>
 
-                                            <!-- Description -->
-                                            Het leven van een kapoen (6-8jaar) is er één vol spel, fantasie,
-                                            creativiteit en expressie. Spelenderwijs en ongedwongen ontdekken
-                                            we samen met hen de wereld.
-                                            De leiding gaat hierbij uit van de kapoen zelf, van het wat hen boeit en…
+                                            @php $textJongGivers = strip_tags(Markdown::convertToHtml($jongGivers->description)) @endphp
+                                            {{ strip_tags(str_limit($textJongGivers, 250)) }} {{-- Description --}}
                                         </div>
                                     </div>
                                 </div>
@@ -74,16 +65,13 @@
                                 <div class="well well-sm color-givers">
                                     <div class="media">
                                         <a class="pull-left" href="">
-                                            <img class="img-tak color-white img-responsive img-rounded media-object" src="{{ asset('img/givers.svg') }}" alt="{{ $jongGivers->title }}">
+                                            <img class="img-tak color-white img-responsive img-rounded media-object" src="{{ asset('img/givers.svg') }}" alt="{{ $givers->title }}">
                                         </a>
                                         <div class="media-body color-white">
                                             <h4 class="font-title media-heading"> {{ $givers->title }} <small> {{$givers->sub_title}} </small></h4>
 
-                                            <!-- Description -->
-                                            Het leven van een kapoen (6-8jaar) is er één vol spel, fantasie,
-                                            creativiteit en expressie. Spelenderwijs en ongedwongen ontdekken
-                                            we samen met hen de wereld.
-                                            De leiding gaat hierbij uit van de kapoen zelf, van het wat hen boeit en…
+                                            @php $textGivers = strip_tags(Markdown::convertToHtml($givers->description)) @endphp
+                                            {{ strip_tags(str_limit($textGivers, 250)) }}
                                         </div>
                                     </div>
                                 </div>
@@ -96,11 +84,8 @@
                                         <div class="media-body color-white">
                                             <h4 class="font-title media-heading"> {{ $jins->title }} <small> {{ $jins->sub_title }} </small></h4>
 
-                                            <!-- Description -->
-                                            Het leven van een kapoen (6-8jaar) is er één vol spel, fantasie,
-                                            creativiteit en expressie. Spelenderwijs en ongedwongen ontdekken
-                                            we samen met hen de wereld.
-                                            De leiding gaat hierbij uit van de kapoen zelf, van het wat hen boeit en…
+                                            @php $textJins = strip_tags(Markdown::convertToHTml($jins->description)) @endphp
+                                            {{ strip_tags(str_limit($textJins, 250)) }} {{-- Description --}}
                                         </div>
                                     </div>
                                 </div>
@@ -111,13 +96,10 @@
                                             <img class="img-tak color-white img-responsive img-rounded media-object" src="{{ asset('img/leiding.svg') }}" alt="{{ $leiding->title }}">
                                         </a>
                                         <div class="media-body color-white">
-                                            <h4 class="font-title media-heading"> {{ $leiding->title }} <small> van 6 tot 8 jaar </small></h4>
+                                            <h4 class="font-title media-heading"> {{ $leiding->title }} <small> {{ $leiding->sub_title  }} </small></h4>
 
-                                            <!-- Description -->
-                                            Het leven van een kapoen (6-8jaar) is er één vol spel, fantasie,
-                                            creativiteit en expressie. Spelenderwijs en ongedwongen ontdekken
-                                            we samen met hen de wereld.
-                                            De leiding gaat hierbij uit van de kapoen zelf, van het wat hen boeit en…
+                                            @php $textLeiding = strip_tags(Markdown::convertToHtml($leiding->description)) @endphp
+                                            {{ strip_tags(str_limit($textLeiding, 250)) }}
                                         </div>
                                     </div>
                                 </div>

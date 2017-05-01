@@ -36,4 +36,5 @@ Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block'
 // Group routes
 Route::get('/takken', 'GroupController@index')->name('groups.index');
 Route::get('/takken/backend', 'GroupController@backend')->name('groups.backend');
-
+Route::post('/takken/aanpassen/{id}', 'GroupController@update')->name('groups.update');
+Route::get('/takken/{selector}', 'GroupController@show')->name('groups.show');
