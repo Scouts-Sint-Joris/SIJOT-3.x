@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events;
+use App\News;
 use Illuminate\Http\Request;
 
 /**
@@ -17,17 +18,24 @@ class HomeController extends Controller
     private $eventDb;
 
     /**
+     * @var News
+     */
+    private $newsDb;
+
+    /**
      * Create a new controller instance.
      *
      * @param  Events $eventDb
+     * @param  News   $newsDb
      * @return void
      */
-    public function __construct(Events $eventDb)
+    public function __construct(News $newsDb, Events $eventDb)
     {
         $this->middleware('auth')->only('backend');
         $this->middleware('forbid-banned-user')->only('backend');
 
         $this->eventDb = $eventDb;
+        $this->newsDb  = $newsDb;
     }
 
     /**
@@ -39,6 +47,7 @@ class HomeController extends Controller
     {
         $data['title']  = 'Index';
         $data['events'] = $this->eventDb->limit(6)->get();
+        $data['news']   = $this->newsDb->where('publish', 'Y')->paginate(15);
 
         return view('frontend-home', $data);
     }
