@@ -50,7 +50,12 @@
                             </li>
                             <li class="user user-menu"> {{-- User Account: style can be found in dropdown.less --}}
                                 <a href="{{ route('account') }}">
-                                    <img src="{{ asset('img/user.jpg') }}" class="user-image" alt="{{ auth()->user()->name }}">
+                                    @if (file_exists(public_path(auth()->user()->avatar)))
+                                        <img src="{{ asset(auth()->user()->avatar) }}" class="user-image" alt="{{ auth()->user()->name }}">
+                                    @else
+                                        <img src="{{ asset('img/user.jpg') }}" class="user-image" alt="{{ auth()->user()->name }}">
+                                    @endif
+
                                     <span class="hidden-xs">{{ auth()->user()->name }}</span>
                                 </a>
                             </li>
@@ -75,7 +80,7 @@
                     <div class="user-panel"> {{-- Sidebar user panel --}}
                         <div class="pull-left image">
                             @if (file_exists(public_path(auth()->user()->avatar)))
-                                <img src="{{ public_path(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}">
+                                <img src="{{ asset(auth()->user()->avatar) }}" class="img-circle" alt="{{ auth()->user()->name }}">
                             @else
                                 <img src="{{ asset('img/user.jpg') }}" class="img-circle" alt="{{ auth()->user()->name }}">
                             @endif
