@@ -47,3 +47,6 @@ Route::get('/takken/{selector}', 'GroupController@show')->name('groups.show');
 // News routes.
 Route::get('/nieuws', 'NewsController@index')->name('news.index');
 Route::post('/nieuws/toevoegen', 'NewsController@store')->name('news.store');
+
+// Activity routes
+Route::get('activiteiten/backend', 'ActivityController@backend')->name('activity.backend');

@@ -122,7 +122,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('activity.backend') }}">
                                 <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
                             </a>
                         </li>
