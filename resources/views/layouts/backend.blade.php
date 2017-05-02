@@ -101,22 +101,22 @@
 
                     <ul class="sidebar-menu"> {{-- sidebar menu: : style can be found in sidebar.less --}}
                         <li class="header">NAVIGATIE</li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'account') class="active" @endif>
                             <a href="{{ route('account') }}">
                                 <i class="fa fa-user" aria-hidden="true"></i> <span>Mijn account</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'lease.backend') class="active" @endif>
                             <a href="{{ route('lease.backend') }}">
                                 <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'users.index') class="active" @endif>
                             <a href="{{ route('users.index') }}">
                                 <i class="fa fa-users" aria-hidden="true"></i> <span>Gebruikersbeheer</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'groups.backend') class="active" @endif>
                             <a href="{{ route('groups.backend') }}">
                                 <i class="fa fa-leaf" aria-hidden="true"></i> <span>Takken</span>
                             </a>
@@ -131,7 +131,7 @@
                                 <i class="fa fa-asterisk" aria-hidden="true"></i> <span>Evenementen</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'news.index') class="active" @endif>
                             <a href="{{ route('news.index') }}">
                                 <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Nieuws</span>
                             </a>

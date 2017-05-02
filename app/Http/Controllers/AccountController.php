@@ -6,6 +6,7 @@ use App\User;
 use App\Themes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\AccountInfoValidator;
 use App\Http\Requests\AccountSecurityValidator;
@@ -64,6 +65,9 @@ class AccountController extends Controller
      */
     public function updateInfo(AccountInfoValidator $input)
     {
+        // TODO: BUG - the user image is nog deleted when the user applies a new image.
+        //       Check if this also happends on prodcution server.
+
         if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical.
             $user = $this->userDb->find($input->user_id);
 
@@ -71,8 +75,8 @@ class AccountController extends Controller
                 if ($input->hasFile('avatar')) { // The user has given a new avatar.
                     $avatar = public_path(auth()->user()->avatar); 
 
-                    if (file_exists($avatar)) { // If the previous avatar exists. Delete it. 
-                        File::delete($avatar);
+                    if (file_exists($avatar)) { // If the previous avatar exists. Delete it.
+                        Storage::delete($avatar);
                     }
 
                     $image      = $input->file('avatar');

@@ -77,7 +77,11 @@
                                 </ul>
                             </li>
 
-                            <li><a href="{{ route('lease')  }}"><span class="fa fa-home" aria-hidden="true"></span> Verhuur</a></li>
+                            <li @if (Request::route()->getName() === 'lease') class="active" @endif>
+                                <a href="{{ route('lease')  }}">
+                                    <span class="fa fa-home" aria-hidden="true"></span> Verhuur
+                                </a>
+                            </li>
                             <li><a href="#"><span class="fa fa-picture-o" aria-hidden="true"></span> Foto's</a></li>
                             <li><a href="#"><span class="fa fa-info-circle" aria-hidden="true"></span> Info</a></li>
                             <li><a href="mailto:contact@st-joris-turnhout.be"><span class="fa fa-envelope" aria-hidden="true"></span> Contact</a></li>
@@ -126,7 +130,7 @@
 
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ route('backend') }}"><span class="fa fa-arrow-right" aria-hidden="true"></span> Backend</a></li>
-                                        <li><a href=""><span class="fa fa-cogs" aria-hidden="true"></span> Account configuratie</a><li>
+                                        <li><a href="{{ route('account') }}"><span class="fa fa-cogs" aria-hidden="true"></span> Account configuratie</a><li>
                                         <li>
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 <span class="fa fa-sign-out" aria-hidden="true"></span> Uitloggen
