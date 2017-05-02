@@ -22,7 +22,7 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="hold-transition skin-red sidebar-mini">
+    <body class="hold-transition @if(isset(auth()->user()->theme)) {{ auth()->user()->theme }} @else skin-red @endif sidebar-mini">
         <div class="wrapper">  {{-- Site wrapper --}}
 
             <header class="main-header"> {{-- Logo --}}
@@ -74,7 +74,11 @@
                 <section class="sidebar"> {{-- sidebar: style can be found in sidebar.less --}}
                     <div class="user-panel"> {{-- Sidebar user panel --}}
                         <div class="pull-left image">
-                            <img src="{{ asset('img/user.jpg') }}" class="img-circle" alt="User Image">
+                            @if (file_exists(public_path(auth()->user()->avatar)))
+                                <img src="{{ public_path(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}">
+                            @else
+                                <img src="{{ asset('img/user.jpg') }}" class="img-circle" alt="{{ auth()->user()->name }}">
+                            @endif
                         </div>
                         <div class="pull-left info">
                             <p>{{ auth()->user()->name }}</p>
@@ -93,7 +97,7 @@
                     <ul class="sidebar-menu"> {{-- sidebar menu: : style can be found in sidebar.less --}}
                         <li class="header">NAVIGATIE</li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('account') }}">
                                 <i class="fa fa-user" aria-hidden="true"></i> <span>Mijn account</span>
                             </a>
                         </li>
@@ -135,6 +139,13 @@
                 </section>
 
                 <section class="content"> {{-- Main content --}}
+                    @if (session()->get('class') && session()->get('message')) {{-- Flash session --}}
+                        <div class=" alert {{ session()->get('class') }} alert-dismissable fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif {{-- /Flash session --}}
+
                     @yield('content')
                 </section> {{-- /.content --}}
             </div> {{-- /.content-wrapper --}}
@@ -150,6 +161,8 @@
         <script src="{{ asset('js/slimscroll.js') }}"></script>                                                 {{-- SlimScroll --}}
         <script src="{{ asset('js/fastclick.js') }}"></script>                                                  {{-- FastClick --}}
         <script src="{{ asset('js/backend.min.js') }}"></script>                                                {{-- AdminLTE App --}}
+
+        <script> $('div.alert').not('.alert-important').delay(3000).slideUp(300); </script>
 
         @yield('extra-js') {{-- Include partial javascript. --}}
     </body>

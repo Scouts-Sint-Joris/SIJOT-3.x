@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Themes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use App\Http\Requests\AccountInfoValidator;
 use App\Http\Requests\AccountSecurityValidator;
-use App\User;
-use Illuminate\Http\Request;
 
 /**
  * Class AccountController
@@ -20,13 +23,22 @@ class AccountController extends Controller
     private $userDb;
 
     /**
+     * @var Themes
+     */
+    private $themes; 
+
+    /**
      * AccountController constructor.
      *
      * @param  User $userDb
      * @return void
      */
-    public function __construct(User $userDb)
+    public function __construct(Themes $themes, User $userDb)
     {
+        $this->middleware('auth');
+        $this->middleware('forbid-banned-user');
+
+        $this->themes = $themes;
         $this->userDb = $userDb;
     }
 
@@ -37,8 +49,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $data['user']  = auth()->user();
-        $data['title'] = $data['user']->name;
+        $data['user']   = auth()->user();
+        $data['title']  = $data['user']->name;
+        $data['themes'] = $this->themes->all();
 
         return view('account.index', $data);
     }
@@ -51,8 +64,28 @@ class AccountController extends Controller
      */
     public function updateInfo(AccountInfoValidator $input)
     {
-        if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical. 
-            if ($this->userDb-find($input->user_id)->update($input->except(['_token']))) { // The user has been changed. 
+        if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical.
+            $user = $this->userDb->find($input->user_id);
+
+            if ($user->update($input->except(['_token']))) { // The user has been changed.
+                if ($input->hasFile('avatar')) { // The user has given a new avatar.
+                    $avatar = public_path(auth()->user()->avatar); 
+
+                    if (file_exists($avatar)) { // If the previous avatar exists. Delete it. 
+                        File::delete($avatar);
+                    }
+
+                    $image      = $input->file('avatar');
+                    $filename   = time() . '.' . $image->getClientOriginalExtension();
+                    $path       = public_path('avatars/' . $filename);
+
+                    Image::make($image->getRealPath())->resize(160, 160)->save($path);
+
+                    // Save the avatar path to the database.
+                    $user->avatar = 'avatars/' . $filename;
+                    $user->save();
+                }
+
                 session()->flash('class', 'alert alert-success'); 
                 session()->flash('message', 'Uw account wachtwoord is aangepast.');
             }

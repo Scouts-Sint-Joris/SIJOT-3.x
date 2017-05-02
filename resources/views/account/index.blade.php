@@ -39,7 +39,7 @@
                 <ul class="nav nav-tabs">
                     <li><a href="#settings" data-toggle="tab">Account informatie</a></li>
                     <li><a href="#security" data-toggle="tab">Account veiligheid</a></li>
-                    <li class="active"><a href="#notifications" data-toggle="tab">Notifications</a></li>
+                    <li class="active"><a href="#notifications" data-toggle="tab">Notificaties</a></li>
                 </ul>
                 <div class="tab-content">
                     {{-- Includes --}}

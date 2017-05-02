@@ -24,7 +24,7 @@
 
         <div class="box-body">
             @if ((int) count($leases) === 0)
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-important" role="alert">
                     <strong>
                         <span class="fa fa-info-circle" aria-hidden="true"></span> Info:
                     </strong>

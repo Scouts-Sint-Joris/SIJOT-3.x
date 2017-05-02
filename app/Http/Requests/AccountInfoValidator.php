@@ -13,7 +13,7 @@ class AccountInfoValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class AccountInfoValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'theme' => 'required',
+            'name'  => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
         ];
     }
 }

@@ -13,7 +13,7 @@ class AccountSecurityValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,6 @@ class AccountSecurityValidator extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['password' => 'required|confirmed'];
     }
 }

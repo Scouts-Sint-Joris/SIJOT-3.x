@@ -23,7 +23,7 @@ class User extends Authenticatable implements HasBansContract
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['theme', 'avatar', 'name', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
