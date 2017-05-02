@@ -49,8 +49,8 @@
                                 </a>
                             </li>
                             <li class="user user-menu"> {{-- User Account: style can be found in dropdown.less --}}
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{ asset('img/user.jpg') }}" class="user-image" alt="User Image">
+                                <a href="{{ route('account') }}">
+                                    <img src="{{ asset('img/user.jpg') }}" class="user-image" alt="{{ auth()->user()->name }}">
                                     <span class="hidden-xs">{{ auth()->user()->name }}</span>
                                 </a>
                             </li>
