@@ -37,3 +37,10 @@ Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block'
 Route::get('/account', 'AccountController@index')->name('account');
 Route::post('/account/info', 'AccountController@updateInfo')->name('account.info');
 Route::post('/account/beveiliging', 'AccountController@updateSecurity')->name('account.security');
+
+// Group routes
+Route::get('/takken', 'GroupController@index')->name('groups.index');
+Route::get('/takken/backend', 'GroupController@backend')->name('groups.backend');
+Route::post('/takken/aanpassen/{id}', 'GroupController@update')->name('groups.update');
+Route::get('/takken/{selector}', 'GroupController@show')->name('groups.show');
+

@@ -10,7 +10,6 @@
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 
         <!-- Scripts -->
@@ -45,12 +44,36 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Kapoenen</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Welpen</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jong-Givers</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Givers</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jins</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Leiding</a></li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'kapoenen']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Kapoenen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'welpen']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Welpen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'jongGivers']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jong-Givers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'givers']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Givers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'jins']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jins
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'leiding']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Leiding
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

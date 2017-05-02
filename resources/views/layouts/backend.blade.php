@@ -112,8 +112,13 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('groups.backend') }}">
+                                <i class="fa fa-leaf" aria-hidden="true"></i> <span>Takken</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="">
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span></i>
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
                             </a>
                         </li>
                         <li>
