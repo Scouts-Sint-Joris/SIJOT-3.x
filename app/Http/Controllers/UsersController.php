@@ -94,7 +94,7 @@ class UsersController extends Controller
             $user->ban(['comment' => $input->reason, 'expired_at' => Carbon::parse($input->eind_datum)]);
 
             $notifyUsers = $this->userDB->role('Admin')->get();
-            Notification::send($notifyUsers, new BlockNotification($notifyUsers)); // TODO: Debug notification
+            Notification::send($notifyUsers, new BlockNotification($notifyUsers));
 
             session()->flash('class', 'alert alert-success');
             session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);

@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LeaseValidator;
 use App\Lease;
+use App\Mail\LeaseInfoRequester;
+use App\Mail\LeaseInfoAdmin;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 /**
@@ -21,12 +26,18 @@ class LeaseController extends Controller
     private $leaseDB;
 
     /**
+     * @var User
+     */
+    private $userDB;
+
+    /**
      * LeaseController constructor
-     * .
+     *
      * @param  Lease $leaseDB
+     * @param  User  $userDB
      * @return void
      */
-    public function __construct(Lease $leaseDB)
+    public function __construct(Lease $leaseDB, User $userDB)
     {
         $routes = ['backend', 'status'];
 
@@ -34,6 +45,7 @@ class LeaseController extends Controller
         $this->middleware('forbid-banned-user')->only($routes);
 
         $this->leaseDB = $leaseDB;
+        $this->userDB  = $userDB;
     }
 
     /**
@@ -47,6 +59,11 @@ class LeaseController extends Controller
         return view('lease.index', $data);
     }
 
+    /**
+     * Get the front-end view for a domain lease request. 
+     *
+     * @return  \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function leaseRequest()
     {
         $data['title'] = 'Verhuur aanvragen';
@@ -65,9 +82,22 @@ class LeaseController extends Controller
 
         if ($this->leaseDB->create($input->except('_token'))) { // The rental has been inserted.
             if (auth()->check()) { // Requester is logged in
-
+                //
             } else { // Requester is not logged in.
+                $when = Carbon::now()->addMinutes(15);
+                Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
 
+                // Start mailing to Admins and persons responsible for leases. 
+                $adminUsers = $this->userDB->role('Admin')->get();
+                $leaseUsers = $this->userDB->role('Verhuur')->get();
+
+                foreach ($adminUsers as $admin) { // Send email notification to all the admins. 
+                    Mail::to($admin->email)->send(new LeaseInfoAdmin($input->all()));
+                }
+
+                foreach ($leaseUsers as $lease) { // Set email to all persons responsibel for domain leases.
+                    Mail::to($lease->email)->send(new LeaseInfoAdmin($input->all()));
+                }
             }
 
             // Set flash session output.

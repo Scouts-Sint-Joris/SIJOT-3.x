@@ -21,5 +21,6 @@ class RoleTableSeeder extends Seeder
         $table->delete();
 
         Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Verhuur']);
     }
 }
