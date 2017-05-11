@@ -1,19 +1,24 @@
 @component('mail::message')
-# Order Shipped
+# Nieuwe aanvraag
 
-Your order has been shipped!
+Er is een nieuwe verhuring aangevraagd.
 
 @component('mail::table')
-|       |       | 
-| ------------- | ---------------:|
-| Col 2 is      | Centered      | 
-| Col 3 is      | Right-Aligned | 
+
+|                |                               |
+| -------------- | ----------------------------: |
+| Start datum:   | {{ date("d-m-Y", strtotime($data['start_datum'])) }}      |
+| Eind datum:    | {{ date("d-m-Y", strtotime($data['eind_datum'])) }}       |
+| Groep:         | {{ $data['groeps_naam'] }}      |
+| Contact email: | {{ $data['contact_email'] }}    |
+| Contact gsm:   | {{ $data['tel_nummer'] or 'Niet opgegeven' }}       |
+
 @endcomponent
 
 @component('mail::button', ['url' => 'http://www.st-joris-turnhout.be'])
-    View Order
+    Bekijk verhuring
 @endcomponent
 
 Met vriendelijke groet,<br>
-Scouts en Gidsen - SInt-Joris
+Scouts en Gidsen - Sint-Joris
 @endcomponent

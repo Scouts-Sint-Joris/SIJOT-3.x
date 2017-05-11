@@ -42,6 +42,7 @@ class LeaseInfoAdmin extends Mailable
     {
         return $this->from('postmaster@st-joris-turnhout.be', 'Scouts en Gidsen - Sint-Joris')
             ->subject('Nieuwe verhurings aanvraag')
-            ->markdown('lease.email.infoAdmin');
+            ->markdown('lease.email.infoAdmin')
+            ->with('data', $this->data);
     }
 }
