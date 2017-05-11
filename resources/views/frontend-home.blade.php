@@ -13,7 +13,22 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="col-md-9"> {{-- Content --}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-header" style="margin-top: -20px;">
+                                    <h2 style="margin-bottom: -5px;">Nieuws</h2>
+                                </div>
+                            </div>
 
+                            <div class="col-sm-12">
+                                @if ((int) count($news) === 0)
+                                    <div class="alert alert-info" role="alert">
+                                        Er zijn momenteel geen nieuws berichten.
+                                    </div>
+                                @else
+                                @endif
+                            </div>
+                        </div>
                     </div> {{-- content --}}
                     <div class="col-md-3"> {{-- Sidebar --}}
                         <div class="panel panel-default">
