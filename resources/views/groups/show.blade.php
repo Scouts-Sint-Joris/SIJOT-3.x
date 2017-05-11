@@ -24,7 +24,15 @@
                             </div> {{-- /Content --}}
 
                             <div class="col-sm-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Activiteiten:
+                                    </div>
+                                </div>
 
+                                @if ()
+                                @else
+                                @endif
                             </div>
                         </div>
                     </div>
