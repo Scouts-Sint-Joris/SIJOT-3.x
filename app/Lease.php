@@ -27,6 +27,7 @@ class Lease extends Model
      * @var array
      */
     protected $dates = ['eind_datum', 'start_datum'];
+
     /**
      * Format the timestamp format.
      *
@@ -40,6 +41,7 @@ class Lease extends Model
         // Carbon::createFromFormat('H:i', $date)->format('H:i');
         return $this->attributes['start_datum'] = strtotime(str_replace('/', '-', $date));
     }
+
     /**
      * Format the timestamp format.
      *

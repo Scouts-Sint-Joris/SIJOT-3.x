@@ -27,12 +27,16 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         Activiteiten:
+                                        <a href="" style="color: orange; float: right; padding-top: 5px;" class="fa fa-rss" aria-hidden="true"></a>
                                     </div>
-                                </div>
 
-                                @if ()
-                                @else
-                                @endif
+                                    @if ((int) count($activities) > 0) {{-- There are activities in the database.  --}}
+                                    @else {{-- No activities found. --}}
+                                    <div class="panel-body">
+                                        <small><i>(Geen activiteiten voor deze groep.)</i></small>
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

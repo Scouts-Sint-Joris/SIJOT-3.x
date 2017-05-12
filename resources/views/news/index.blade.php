@@ -27,19 +27,22 @@
 
         <div class="tab-content"> {{-- Tab content --}}
             <div class="tab-pane active" id="tab_1"> {{-- News messages --}}
-
+                @if ()
+                @else
+                @endif
             </div>{{-- /News messages --}}
 
             <div class="tab-pane" id="tab_2"> {{-- Add news message --}}
                 <form class="form-horizontal" action="{{ route('news.store') }}" method="post">
                     {{ csrf_field() }} {{-- CSRF_TOKEN --}}
+                    <input type="hidden" value="{{ auth()->user()->id }}" name="author_id">
 
                     <div class="row">
                         <div class="form-group">
                             <label class="control-label col-md-1">Titel: <span class="text-danger">*</span></label>
 
                             <div class="col-md-3">
-                                <input type="text" name="titel" placeholder="Titel nieuwsbericht" class="form-control">
+                                <input type="text" name="title" placeholder="Titel nieuwsbericht" class="form-control">
                             </div>
                         </div>
 
@@ -56,7 +59,7 @@
                         </div>
 
                         <div class="form-group {{ $errors->has('categories') ? ' has-error' : '' }}">
-                            <label class="control-label col-md-1">Categorie: <span class="text-danger">*</span></label>
+                            <label class="control-label col-md-1">Categorie: <span class="text-danger"></span></label>
 
                             <div class="col-md-3">
                                 <select class="form-control" name="categories" multiple>

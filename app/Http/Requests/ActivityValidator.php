@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsValidator extends FormRequest
+class ActivityValidator extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,13 @@ class NewsValidator extends FormRequest
     public function rules()
     {
         return [
-            'author_id'     => 'required',
-            'publish'       => 'required',
-            'title'         => 'required',
-            // 'categories'    => 'required',
-            'message'       => 'required'
+            'group_id'          => 'required',
+            'status'            => 'required',
+            'title'             => 'required',
+            'activiteit_datum'  => 'required',
+            'start_hour'        => 'required',
+            'end_hour'          => 'required',
+            'description'       => 'required'
         ];
     }
 }

@@ -78,7 +78,11 @@ class NewsController extends Controller
      */
     public function store(NewsValidator $input)
     {
-        if ($this->newsDb->create($input->except(['_token', 'categories']))) { // The news message has been stored.
+        if ($item = $this->newsDb->create($input->except(['_token', 'categories']))) { // The news message has been stored.
+            if (! is_null($input->categories)) {
+                $this->newsDb->find($item->id)->categories()->attach($input->categories);
+            }
+
             session()->flash('class', 'alert alert-success');
             session()->flash('message', 'Het nieuwsbericht is opgeslagen.');
         }
@@ -90,7 +94,7 @@ class NewsController extends Controller
      * Show a specific news item in the application.
      *
      * @param  integer $newsId The news id in the database.
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return mixed
      */
     public function show($newsId)
     {

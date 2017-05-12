@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Groups;
 use App\Http\Requests\GroupValidator;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class GroupController
@@ -105,9 +107,16 @@ class GroupController extends Controller
      */
     public function show($selector)
     {
+        // dd((int) Carbon::today()->timestamp, '1494633600');
         try { // To find the record.
-            $data['group'] = $this->groups->where('selector', $selector)->firstOrFail();
-            $data['title'] = $data['group']->title;
+            $data['group']      = $this->groups->where('selector', $selector)->firstOrFail();
+            $data['title']      = $data['group']->title;
+            $data['activities'] = $this->activity->where('group_id', $data['group']->id)
+                ->where('activiteit_datum', '>=', date('m-d-Y'))
+                ->where('status', '=', 1)
+                ->orderBy('activiteit_datum', 'asc')
+                ->take(7)
+                ->get();
 
             return view('groups.show', $data);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the record.

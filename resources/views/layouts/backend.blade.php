@@ -121,7 +121,7 @@
                                 <i class="fa fa-leaf" aria-hidden="true"></i> <span>Takken</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'activity.backend') class="active" @endif>
                             <a href="{{ route('activity.backend') }}">
                                 <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
                             </a>

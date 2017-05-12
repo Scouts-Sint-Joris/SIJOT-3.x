@@ -15,8 +15,23 @@ class News extends Model
      *
      * @return array
      */
-    protected $fillable = [];
+    protected $fillable = ['author_id', 'publish', 'title', 'message'];
 
+    /**
+     * Get the author for the nezws article.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    /**
+     * Ctageories belongsToMany relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function categories()
     {
         return $this->belongsToMany(Categories::class)->withTimestamps();

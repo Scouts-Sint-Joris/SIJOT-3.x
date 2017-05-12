@@ -51,3 +51,7 @@ Route::post('/nieuws/toevoegen', 'NewsController@store')->name('news.store');
 
 // Activity routes
 Route::get('activiteiten/backend', 'ActivityController@backend')->name('activity.backend');
+Route::post('activiteiten/opslaan', 'ActivityController@store')->name('activity.store');
+Route::get('activiteiten/verwijder{id}', 'ActivityController@destroy')->name('activity.delete');
+Route::get('activiteiten/status/{status}/{id}', 'ActivityController@status')->name('activity.status');
+Route::get('activiteiten/json/{id}', 'ActivityController@getByid')->name('activity.json');
