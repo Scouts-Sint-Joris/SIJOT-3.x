@@ -34,7 +34,7 @@ class LeaseController extends Controller
      * LeaseController constructor
      *
      * @param  Lease $leaseDB
-     * @param  User  $userDB
+     * @param  User $userDB
      * @return void
      */
     public function __construct(Lease $leaseDB, User $userDB)
@@ -45,7 +45,7 @@ class LeaseController extends Controller
         $this->middleware('forbid-banned-user')->only($routes);
 
         $this->leaseDB = $leaseDB;
-        $this->userDB  = $userDB;
+        $this->userDB = $userDB;
     }
 
     /**
@@ -57,6 +57,19 @@ class LeaseController extends Controller
     {
         $data['title'] = 'Verhuur';
         return view('lease.index', $data);
+    }
+
+    /**
+     * Get the lease calendar view.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function calendar()
+    {
+        $data['title']  = 'Verhuur kalender.';
+        $data['leases'] = $this->leaseDB->where('status_id', 3)->paginate(15);
+
+        return view('lease.calendar', $data);
     }
 
     /**
