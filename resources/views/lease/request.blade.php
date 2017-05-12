@@ -30,6 +30,12 @@
                                     </span>
                                 </p>
 
+                                @if (session()->get('class') && session()->get('message'))
+                                    <div class="{{ session()->get('class') }}" role="alert">
+                                        {{ session()->get('message') }}
+                                    </div>
+                                @endif
+
                                 <form method="POST" action="{{ route('lease.store') }}" class="form-lease-request form-horizontal">
                                     {{ csrf_field() }} {{-- CSRF TOKEN --}}
                                     <input type="hidden" name="status_id" value="1"> {{-- Indicates lease status --}}

@@ -91,13 +91,12 @@ class LeaseController extends Controller
      */
     public function store(LeaseValidator $input)
     {
-        // TODO: set notifiers
-
         if ($this->leaseDB->create($input->except('_token'))) { // The rental has been inserted.
             if (auth()->check()) { // Requester is logged in
-                //
+                session()->flash('class', 'alert alert-success');
+                session()->flash('message', 'De verhuring is toegevoegd.');
             } else { // Requester is not logged in.
-                $when = Carbon::now()->addMinutes(15);
+                $when = Carbon::now()->addMinutes(15); // Needed to look your queued email.
                 Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
 
                 // Start mailing to Admins and persons responsible for leases. 
@@ -111,11 +110,11 @@ class LeaseController extends Controller
                 foreach ($leaseUsers as $lease) { // Set email to all persons responsibel for domain leases.
                     Mail::to($lease->email)->send(new LeaseInfoAdmin($input->all()));
                 }
-            }
 
-            // Set flash session output.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'De verhuring is toegevoegd. We nemen spoedig contact met je op.');
+                // Set flash session output.
+                session()->flash('class', 'alert alert-success');
+                session()->flash('message', 'De verhuring is toegevoegd. We nemen spoedig contact met je op.');
+            }
         }
 
         return back();
