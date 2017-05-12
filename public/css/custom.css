@@ -243,3 +243,66 @@ footer {
     height: 75px;
     width: 75px;
 }
+
+/** Icons */
+.footer-icons{
+    margin-top: 25px;
+}
+
+.footer-icons a.icon {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color:  #33383b;
+    border-radius: 2px;
+
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+.footer-icons a.icon-facebook {
+    color: #3b5998;
+}
+
+.footer-icons a.icon-facebook:hover {
+    color: #2E4C8B;
+}
+
+.footer-icons a.icon-twitter {
+    color: #1da1f2;
+}
+
+.footer-icons a.icon-twitter:hover {
+    color: #1094E5;
+}
+
+.footer-icons a.icon-skype {
+    color: #00aff0;
+}
+
+.footer-icons a.icon-skype:hover {
+    color: #00A2E3;
+}
+
+.footer-icons a.icon-phone {
+    color: #d34615;
+}
+
+.footer-icons a.icon-phone:hover {
+    color: #C63908;
+}
+
+.footer-icons a.icon-envelop {
+    color: #d34615;
+}
+
+.footer-icons a.icon-envelop:hover {
+    color: #C63908;
+}
+/** end icons */
