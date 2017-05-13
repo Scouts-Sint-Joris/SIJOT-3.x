@@ -49,6 +49,8 @@ Route::get('/takken/{selector}', 'GroupController@show')->name('groups.show');
 Route::get('/nieuws', 'NewsController@index')->name('news.index');
 Route::post('/nieuws/toevoegen', 'NewsController@store')->name('news.store');
 Route::get('/nieuws/show/{id}', 'NewsController@show')->name('news.show');
+Route::get('/nieuws/status/{status}/{id}', 'NewsController@status')->name('news.status');
+Route::get('/nieuws/verwijder/{id}', 'NewsController@delete')->name('news.delete');
 
 
 // Activity routes

@@ -15,12 +15,14 @@
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_1" data-toggle="tab"><span class="fa fa-btn fa-list" aria-hidden="true"></span> Nieuwsberichten</a></li>
+            <li><a href="#tab_3" data-toggle="tab"><span class="fa fa-btn fa-list" aria-hidden="true"></span> Categorieen</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <span class="fa fa-btn fa-plus" aria-hidden="true"></span> Toevoegen <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="#tab_2" data-toggle="tab">Nieuwsbericht</a></li>
+                    <li role="presentation"><a href="">Categorie</a></li>
                 </ul>
             </li>
         </ul>
@@ -59,14 +61,14 @@
 
                                         <td class="pull-right"> {{-- Options --}}
                                             @if ((string) $item->publish === 'N') {{-- Item is not published --}}
-                                                <a href="" class="label label-success">Publiceer</a>
+                                                <a href="{{ route('news.status', ['status' => 'Y', 'id' => $item->id]) }}" class="label label-success">Publiceer</a>
                                             @elseif((string) $item->publish === 'Y') {{-- Item is published --}}
-                                                <a href="" class="label label-warning">Zet naar klad</a>
+                                                <a href="{{ route('news.status', ['status' => 'N', 'id' => $item->id]) }}" class="label label-warning">Zet naar klad</a>
                                             @endif
 
                                             <a href="" class="label label-info">Bekijk</a>
                                             <a href="" class="label label-default">Aanpassen</a>
-                                            <a href="" class="label label-danger">Verwijder</a>
+                                            <a href="{{ route('news.delete', $item) }}" class="label label-danger">Verwijder</a>
                                         </td> {{-- /Options --}}
                                     </tr>
                                 @endforeach
