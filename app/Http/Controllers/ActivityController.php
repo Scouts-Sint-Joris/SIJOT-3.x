@@ -34,7 +34,7 @@ class ActivityController extends Controller
      */
     public function __construct(Activity $activity, Groups $groups)
     {
-        $routes = ['backend'];
+        $routes = ['backend', 'destroy', 'status'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);

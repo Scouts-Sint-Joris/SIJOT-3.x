@@ -34,7 +34,7 @@ class NewsController extends Controller
      */
     public function __construct(Categories $categoriesDb, News $newsDb)
     {
-        $routes = ['store', 'update', 'delete', 'create'];
+        $routes = ['store', 'update', 'delete', 'create', 'index'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
@@ -51,7 +51,7 @@ class NewsController extends Controller
     public function index()
     {
         $data['title']      = 'Nieuws management';
-        $data['news']       = $this->newsDb->all();
+        $data['news']       = $this->newsDb->with(['author'])->get();
         $data['categories'] = $this->categoriesDb->all();
 
         return view('news.index', $data);

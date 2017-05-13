@@ -28,6 +28,51 @@
         <div class="tab-content"> {{-- Tab content --}}
             <div class="tab-pane active" id="tab_1"> {{-- News messages --}}
                 @if ((int) count($news) > 0)
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Status:</th>
+                                    <th>Auteur:</th>
+                                    <th>Titel:</th>
+                                    <th>Aangemaakt op:</th>
+                                    <th colspan="2">Laatst aangepast:</th> {{-- Colspan="2" needed for the functions --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($news as $item)
+                                    <tr>
+                                        <td><strong>#{{ $item->id }}</strong></td>
+
+                                        <td> {{-- Status --}}
+                                            @if ((string) $item->publish === 'N')
+                                                <span class="label label-warning">Klad versie</span>
+                                            @elseif ((string) $item->publish === 'Y')
+                                                <span class="label label-success">Gepubliceerd</span>
+                                            @endif
+                                        </td> {{-- /Status --}}
+                                        <td>{{ $item->author->name }}</td>
+                                        <td>{{ $item->title }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        <td>{{ $item->updated_at }}</td>
+
+                                        <td class="pull-right"> {{-- Options --}}
+                                            @if ((string) $item->publish === 'N') {{-- Item is not published --}}
+                                                <a href="" class="label label-success">Publiceer</a>
+                                            @elseif((string) $item->publish === 'Y') {{-- Item is published --}}
+                                                <a href="" class="label label-warning">Zet naar klad</a>
+                                            @endif
+
+                                            <a href="" class="label label-info">Bekijk</a>
+                                            <a href="" class="label label-default">Aanpassen</a>
+                                            <a href="" class="label label-danger">Verwijder</a>
+                                        </td> {{-- /Options --}}
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @else
                     <div class="alert alert-info">
                         <strong><span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
