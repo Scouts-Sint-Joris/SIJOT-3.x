@@ -89,23 +89,31 @@
                     <input type="hidden" value="{{ auth()->user()->id }}" name="author_id">
 
                     <div class="row">
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                             <label class="control-label col-md-1">Titel: <span class="text-danger">*</span></label>
 
                             <div class="col-md-3">
                                 <input type="text" name="title" placeholder="Titel nieuwsbericht" class="form-control">
+
+                                @if ($errors->has('title'))
+                                    <span class="help-block">{{ $errors->first('title') }}</span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-1">Status: <span class="text-danger">*</span></label>
 
-                            <div class="col-md-3">
+                            <div class="col-md-3 {{ $errors->has('publish') ? 'has-error' : '' }}">
                                 <select class="form-control" name="publish">
                                     <option value="">-- Selecteer de status --</option>
                                     <option value="Y">Publiceer</option>
                                     <option value="N">Klad versie</option>
                                 </select>
+
+                                @if ($errors->has('publish'))
+                                    <span class="help-block">{{ $errors->first('publish') }}</span>
+                                @endif
                             </div>
                         </div>
 
