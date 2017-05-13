@@ -21,6 +21,13 @@ class CreateNewsTable extends Migration
             $table->text('message');
             $table->timestamps();
         });
+
+        Schema::create('categories_news', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('news_id');
+            $table->string('categories_id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -31,5 +38,6 @@ class CreateNewsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('news');
+        Schema::dropIfExists('categories_news');
     }
 }

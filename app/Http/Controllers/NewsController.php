@@ -99,8 +99,9 @@ class NewsController extends Controller
     public function show($newsId)
     {
         try { // Try to find the record
-            $data['news']  = $this->newsDb->findOrFail($newsId);
-            $data['title'] = $data['news']->title;
+            $data['news']       = $this->newsDb->with(['author'])->findOrFail($newsId);
+            $data['categories'] = $this->categoriesDb->all();
+            $data['title']      = $data['news']->title;
 
             return view('news.show', $data);
         } catch (ModelNotFoundException $exception) { // Record not found.

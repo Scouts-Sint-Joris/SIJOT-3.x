@@ -27,8 +27,12 @@
 
         <div class="tab-content"> {{-- Tab content --}}
             <div class="tab-pane active" id="tab_1"> {{-- News messages --}}
-                @if ()
+                @if ((int) count($news) > 0)
                 @else
+                    <div class="alert alert-info">
+                        <strong><span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
+                        Er zijn geen nieuws berichten in het systeem gevonden.
+                    </div>
                 @endif
             </div>{{-- /News messages --}}
 

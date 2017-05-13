@@ -26,6 +26,49 @@
                                         Er zijn momenteel geen nieuws berichten.
                                     </div>
                                 @else
+                                    @foreach($news as $article)
+                                        <div style="margin-left: -15px;" class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h4><strong><a href="{{ route('news.show', $article) }}">{{ $article->title }}</a></strong></h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <a href="{{ route('news.show', $article) }}" class="thumbnail">
+                                                        <img src="http://placehold.it/260x180" alt="{{ $article->title }}">
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-md-9">
+                                                    <p> {{ $article->message }} </p>
+                                                    <p><a class="btn btn-sm btn-info" href="{{ route('news.show', $article) }}">Lees meer...</a></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: -20px;">
+                                                    <p></p>
+
+                                                    <p>
+                                                        <i class="fa fa-user" aria-hidden="true"></i> Autheur: <a href="#">{{ $article->author->name }}</a>
+                                                        | <i class="fa fa-calendar" aria-hidden="true"></i> {{ $article->created_at }}
+                                                        | <i class="fa fa-tags" aria-hidden="true"></i> Tags:
+
+                                                        @if ((int) count($article->categories) > 0)
+                                                            @foreach($article->categories as $category)
+                                                                <a href="#"><span class="label label-info">{{ $category->category }}</span></a>
+                                                            @endforeach
+                                                        @else
+                                                            <span class="label label-primary">Geen</span>
+                                                        @endif
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>
