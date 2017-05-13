@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="myModalLabel">Nieuwe gebruiker.</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" action="">
+                <form class="form-horizontal" method="POST" id="create" action="">
                     {{ csrf_field() }} {{-- CSRF token --}}
 
                     <div class="form-group">
@@ -46,6 +46,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button form="create" type="submit" class="btn btn-success"><span class="fa fa-check"></span> Aanmaken</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-close" aria-hidden="true"></span> Sluiten</button>
             </div>
         </div>
