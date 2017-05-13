@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Sijot;
 
 use Cog\Ban\Traits\HasBans;
 use Cog\Ban\Contracts\HasBans as HasBansContract;

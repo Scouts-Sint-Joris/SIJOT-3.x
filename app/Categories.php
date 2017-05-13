@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Sijot;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +16,7 @@ class Categories extends Model
      *
      * @return array
      */
-    protected $fillable = ['author_id', 'name', 'description'];
+    protected $fillable = ['author_id', 'module', 'name', 'description'];
 
     /**
      * Get the user data for the creator.

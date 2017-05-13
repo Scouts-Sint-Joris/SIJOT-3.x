@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\Activity;
-use App\Groups;
-use App\Http\Requests\GroupValidator;
+use Sijot\Activity;
+use Sijot\Groups;
+use Sijot\Http\Requests\GroupValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class GroupController
  *
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class GroupController extends Controller
 {

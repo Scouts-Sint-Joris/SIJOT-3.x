@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\Http\Requests\BanValidator;
-use App\Notifications\BlockNotification;
-use App\User;
+use Sijot\Http\Requests\BanValidator;
+use Sijot\Notifications\BlockNotification;
+use Sijot\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Role;
 
 /**
  * Class UsersController
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class UsersController extends Controller
 {

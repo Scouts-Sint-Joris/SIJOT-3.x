@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use Sijot\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 

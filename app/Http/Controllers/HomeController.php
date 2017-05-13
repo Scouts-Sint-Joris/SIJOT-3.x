@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\Events;
-use App\News;
+use Sijot\Events;
+use Sijot\News;
 use Illuminate\Http\Request;
 
 /**
  * Class HomeController
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class HomeController extends Controller
 {

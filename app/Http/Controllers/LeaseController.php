@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\Http\Requests\LeaseValidator;
-use App\Lease;
-use App\Mail\LeaseInfoRequester;
-use App\Mail\LeaseInfoAdmin;
-use App\User;
+use Sijot\Http\Requests\LeaseValidator;
+use Sijot\Lease;
+use Sijot\Mail\LeaseInfoRequester;
+use Sijot\Mail\LeaseInfoAdmin;
+use Sijot\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 /**
  * Class LeaseController
  *
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class LeaseController extends Controller
 {

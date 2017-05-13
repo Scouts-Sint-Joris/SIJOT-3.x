@@ -29,7 +29,7 @@
                         <div class="form-group row"> {{-- Title form-group --}}
                             <label class="control-label col-md-1">Titel: <span class="text-danger">*</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" value="{{ $data->title }}" name="title" placeholder="Titel">
+                                <input type="text" class="form-control" value="{{ $data->title }}" name="title" placeholder="Titel" disabled>
                             </div>
                         </div> {{-- /Title form-group --}}
 

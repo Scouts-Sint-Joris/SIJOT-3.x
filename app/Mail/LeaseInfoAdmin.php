@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace Sijot\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 /**
  * Class LeaseInfoAdmin
  *
- * @package App\Mail
+ * @package Sijot\Mail
  */
 class LeaseInfoAdmin extends Mailable
 {

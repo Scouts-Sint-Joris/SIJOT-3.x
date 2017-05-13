@@ -22,12 +22,16 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li role="presentation"><a href="#tab_2" data-toggle="tab">Nieuwsbericht</a></li>
-                    <li role="presentation"><a href="">Categorie</a></li>
+                    <li role="presentation"><a href="#" data-toggle="modal" data-target="#new-category">Categorie</a></li>
                 </ul>
             </li>
         </ul>
 
         <div class="tab-content"> {{-- Tab content --}}
+            <div class="tab-pane" id="tab_3">
+                @include('categories.index')
+            </div>
+
             <div class="tab-pane active" id="tab_1"> {{-- News messages --}}
                 @if ((int) count($news) > 0)
                     <div class="table-responsive">
@@ -160,4 +164,9 @@
             </div> {{-- /Add news message --}}
         </div> {{-- /.tab-content --}}
     </div>
+
+    {{-- Modal includes --}}
+        @include('news.edit')
+        @include('categories.insert')
+    {{-- /Modal includes --}}
 @endsection

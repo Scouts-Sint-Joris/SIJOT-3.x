@@ -4,7 +4,7 @@ namespace Sijot\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountSecurityValidator extends FormRequest
+class CategoryValidator extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,11 @@ class AccountSecurityValidator extends FormRequest
      */
     public function rules()
     {
-        return ['password' => 'required|confirmed'];
+        return [
+            'author_id'     => 'required',
+            'module'        => 'required',
+            'name'          => 'required',
+            'description'   => 'required',
+        ];
     }
 }

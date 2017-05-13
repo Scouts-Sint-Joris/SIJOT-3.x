@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\User;
-use App\Themes;
+use Sijot\User;
+use Sijot\Themes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
-use App\Http\Requests\AccountInfoValidator;
-use App\Http\Requests\AccountSecurityValidator;
+use Sijot\Http\Requests\AccountInfoValidator;
+use Sijot\Http\Requests\AccountSecurityValidator;
 
 /**
  * Class AccountController
  *
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class AccountController extends Controller
 {

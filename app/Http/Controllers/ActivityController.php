@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\Activity;
-use App\Groups;
-use App\Http\Requests\ActivityValidator;
+use Sijot\Activity;
+use Sijot\Groups;
+use Sijot\Http\Requests\ActivityValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 /**
  * Class ActivityController
  *
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class ActivityController extends Controller
 {

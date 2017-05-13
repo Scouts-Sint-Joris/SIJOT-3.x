@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Sijot\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class BanValidator
  *
- * @package App\Http\Requests
+ * @package Sijot\Http\Requests
  */
 class BanValidator extends FormRequest
 {

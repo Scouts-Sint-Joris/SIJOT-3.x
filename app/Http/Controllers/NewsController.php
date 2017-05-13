@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Sijot\Http\Controllers;
 
-use App\News;
-use App\Categories;
-use App\Http\Requests\NewsValidator;
+use Sijot\News;
+use Sijot\Categories;
+use Sijot\Http\Requests\NewsValidator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class NewsController
  *
- * @package App\Http\Controllers
+ * @package Sijot\Http\Controllers
  */
 class NewsController extends Controller
 {
@@ -34,7 +34,7 @@ class NewsController extends Controller
      */
     public function __construct(Categories $categoriesDb, News $newsDb)
     {
-        $routes = ['store', 'update', 'delete', 'create', 'index', 'status'];
+        $routes = ['store', 'update', 'delete', 'create', 'index', 'status', 'getById'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
@@ -68,6 +68,21 @@ class NewsController extends Controller
         $data['categories'] = $this->categoriesDb->all();
 
         return view('news.create', $data);
+    }
+
+    /**
+     * Try to find a news message en encode it with json.
+     *
+     * @param  integer $newsId The news id in the database.
+     * @return mixed
+     */
+    public function getById($newsId)
+    {
+        try { // Try to find and output the record.
+            return(json_encode($this->newsDb->select(['id', 'name'])->findOrFail($newsId)));
+        } catch (ModelNotFoundException $notFoundException) { // The user is not found.
+            return app()->abort(404);
+        }
     }
 
     /**
