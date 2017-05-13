@@ -27,4 +27,9 @@ class Categories extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+    public function news()
+    {
+        return $this->belongsToMany(News::class)->withTimestamps();
+    }
 }

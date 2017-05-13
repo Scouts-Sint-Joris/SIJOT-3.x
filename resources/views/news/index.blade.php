@@ -170,3 +170,7 @@
         @include('categories.insert')
     {{-- /Modal includes --}}
 @endsection
+
+@section('extra-js')
+    <script src="{{ asset('js/news.js') }}"></script>
+@endsection

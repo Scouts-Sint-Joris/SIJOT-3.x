@@ -4,6 +4,9 @@ namespace Sijot\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed categoryId
+ */
 class CategoryValidator extends FormRequest
 {
     /**

@@ -55,6 +55,7 @@ Route::get('/nieuws/verwijder/{id}', 'NewsController@delete')->name('news.delete
 
 // Category routes
 Route::post('/categorie/toevoegen', 'CategoryController@insert')->name('category.insert');
+Route::get('/categorie/verwijderen/{id}', 'CategoryController@destroy')->name('category.delete');
 
 // Activity routes
 Route::get('activiteiten/backend', 'ActivityController@backend')->name('activity.backend');

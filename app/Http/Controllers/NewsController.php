@@ -65,7 +65,7 @@ class NewsController extends Controller
     public function create()
     {
         $data['title']      = 'Nieuw Nieuwsbericht';
-        $data['categories'] = $this->categoriesDb->all();
+        $data['categories'] = $this->categoriesDb->with(['author', 'news'])->get();
 
         return view('news.create', $data);
     }
@@ -79,7 +79,7 @@ class NewsController extends Controller
     public function getById($newsId)
     {
         try { // Try to find and output the record.
-            return(json_encode($this->newsDb->select(['id', 'name'])->findOrFail($newsId)));
+            return(json_encode($this->newsDb->findOrFail($newsId)));
         } catch (ModelNotFoundException $notFoundException) { // The user is not found.
             return app()->abort(404);
         }
