@@ -4,6 +4,11 @@ namespace Sijot\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class EventValidator
+ *
+ * @package Sijot\Http\Requests
+ */
 class EventValidator extends FormRequest
 {
     /**
@@ -24,14 +29,14 @@ class EventValidator extends FormRequest
     public function rules()
     {
         return [
-            'author_id' => 'required',
-            'title' => 'required',
-            'description' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'status' => 'required',
-            'end_hour' => 'required',
-            'start_hour' => 'required',
+            'author_id'     => 'required',
+            'title'         => 'required',
+            'description'   => 'required',
+            'start_date'    => 'required',
+            'end_date'      => 'required',
+            'status'        => 'required',
+            'end_hour'      => 'required',
+            'start_hour'    => 'required',
         ];
     }
 }

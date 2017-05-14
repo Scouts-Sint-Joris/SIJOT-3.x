@@ -42,7 +42,11 @@ class EventsController extends Controller
      */
     public function store(EventValidator $input)
     {
-        dd($input->all());
+        if ($this->events->create($input->except(['_token']))) { // try to create the event.
+            // The event has been created in the database.
+            session()->flash('class', 'alert alert-success');
+            session()->flash('message', 'Het evenement is aangemaakt.');
+        }
 
         return back(302);
     }

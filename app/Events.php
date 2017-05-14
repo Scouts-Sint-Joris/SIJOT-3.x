@@ -11,12 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Events extends Model
 {
+    // TODO: Set the date mutators.
+
     /**
      * Mass-assign fields for the database.
      *
      * @var array
      */
-    protected $fillable = ['author_id', 'title', 'description', 'end_date', 'end_hour', 'start_date', 'start_hour'];
+    protected $fillable = ['author_id', 'status', 'title', 'description', 'end_date', 'end_hour', 'start_date', 'start_hour'];
 
     /**
      * Get the author for the event.
