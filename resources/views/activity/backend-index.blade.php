@@ -66,7 +66,7 @@
                                             <a href="{{ route('activity.status', ['status' => 0, 'id' => $activity->id]) }}" class="label label-warning">Zet naar klad</a>
                                         @endif
 
-                                        <a href="" class="label label-info">Bekijk</a>
+                                        <a href="{{ route('activity.show', $activity) }}" class="label label-info">Bekijk</a>
                                         <a href="#" onclick="update('{{ route('activity.json', $activity) }}', '#update')" class="label label-warning">Aanpassen</a>
                                         <a href="{{ route('activity.delete', $activity) }}" class="label label-danger">Verwijder</a>
                                     </td> {{-- /Functions --}}

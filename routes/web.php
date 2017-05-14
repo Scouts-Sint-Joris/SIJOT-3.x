@@ -17,6 +17,7 @@ Auth::routes();
 // Misc. routes
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@backend')->name('backend');
+Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer');
 
 // Lease routes.
 Route::get('/verhuur', 'LeaseController@index')->name('lease');
@@ -60,6 +61,7 @@ Route::get('/categorie/verwijderen/{id}', 'CategoryController@destroy')->name('c
 // Activity routes
 Route::get('activiteiten/backend', 'ActivityController@backend')->name('activity.backend');
 Route::post('activiteiten/opslaan', 'ActivityController@store')->name('activity.store');
+Route::get('activiteiten/bekijk/{id}', 'ActivityController@show')->name('activity.show');
 Route::get('activiteiten/verwijder{id}', 'ActivityController@destroy')->name('activity.delete');
 Route::get('activiteiten/status/{status}/{id}', 'ActivityController@status')->name('activity.status');
 Route::get('activiteiten/json/{id}', 'ActivityController@getByid')->name('activity.json');

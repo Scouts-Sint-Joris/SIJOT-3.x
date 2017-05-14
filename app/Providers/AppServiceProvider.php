@@ -3,6 +3,7 @@
 namespace Sijot\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Sijot\News;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layouts.modules.footer', function ($view) {
+            $view->with('posts', News::orderBy('created_at', 'asc')->take(3)->get());
+        });
     }
 
     /**

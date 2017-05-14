@@ -112,7 +112,7 @@ class GroupController extends Controller
             $data['group']      = $this->groups->where('selector', $selector)->firstOrFail();
             $data['title']      = $data['group']->title;
             $data['activities'] = $this->activity->where('group_id', $data['group']->id)
-                ->where('activiteit_datum', '>=', date('m-d-Y'))
+                ->where('activiteit_datum', '>=', date('d-m-Y'))
                 ->where('status', '=', 1)
                 ->orderBy('activiteit_datum', 'asc')
                 ->take(7)

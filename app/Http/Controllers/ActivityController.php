@@ -118,6 +118,18 @@ class ActivityController extends Controller
         }
     }
 
+    public function show($activityId)
+    {
+        try {
+            $data['activity'] = $this->activity->findOrFail($activityId);
+            $data['title']    = $data['activity']->title;
+
+            return view('activity.show', $data);
+        } catch (ModelNotFoundException $modelNotFoundException) {
+            return app()->abort(404);
+        }
+    }
+
     /**
      * Delete an activity out off the database.
      *

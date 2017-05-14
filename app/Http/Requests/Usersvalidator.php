@@ -4,8 +4,15 @@ namespace Sijot\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class Usersvalidator
+ *
+ * @package Sijot\Http\Requests
+ */
 class Usersvalidator extends FormRequest
 {
+    // TODO: Fill in the the validation rules.
+
     /**
      * Determine if the user is authorized to make this request.
      *
