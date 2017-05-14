@@ -35,6 +35,19 @@ class EventsController extends Controller
     }
 
     /**
+     * Store a new event in the database.
+     *
+     * @param   EventValidator $input   The user validation.
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function store(EventValidator $input)
+    {
+        dd($input->all());
+
+        return back(302);
+    }
+
+    /**
      * Get the backend view for the events.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

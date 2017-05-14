@@ -8,7 +8,7 @@
                 <h4 class="modal-title">Nieuw evenement</h4>
             </div>
             <div class="modal-body">
-                <form action="" class="form-horizontal" method="POST">
+                <form action="{{ route('events.store') }}" id="create" class="form-horizontal" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="author_id" value="{{ auth()->user()->id }}">
 
@@ -66,7 +66,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success"><span class="fa fa-check" aria-hidden="true"></span> Aanmaken</button>
+                <button type="submit" form="create" class="btn btn-success"><span class="fa fa-check" aria-hidden="true"></span> Aanmaken</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-close" aria-hidden="true"></span> Sluiten</button>
             </div>
         </div>

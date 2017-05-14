@@ -13,7 +13,7 @@ class EventValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class EventValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'author_id' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'status' => 'required',
+            'end_hour' => 'required',
+            'start_hour' => 'required',
         ];
     }
 }
