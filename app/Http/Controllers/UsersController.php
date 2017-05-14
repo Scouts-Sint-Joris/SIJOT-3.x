@@ -3,6 +3,7 @@
 namespace Sijot\Http\Controllers;
 
 use Sijot\Http\Requests\BanValidator;
+use Sijot\Http\Requests\Usersvalidator;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
 use Carbon\Carbon;
@@ -85,7 +86,7 @@ class UsersController extends Controller
      * Ban a user in the system.
      *
      * @param  BanValidator $input The user input validator.
-     * @return \Illuminate\Http\RedirectResponse|void
+     * @return mixed
      */
     public function block(BanValidator $input)
     {
@@ -103,5 +104,23 @@ class UsersController extends Controller
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
             return app()->abort(404);
         }
+    }
+
+    /**
+     * Create a new login in the database.
+     *
+     * @param  Usersvalidator   $input  The user input validation.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(UsersValidator $input)
+    {
+        // TODO: Register route.
+
+        if ($user = $this->userDB->create($input->except(['except']))) { // Try to create the user.
+            session()->flash('class', 'alert alert-success');
+            session()->flash('message', 'De login is aangemaakt.');
+        }
+
+        return back(302);
     }
 }
