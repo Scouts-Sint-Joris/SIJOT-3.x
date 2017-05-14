@@ -34,7 +34,7 @@
                                             <a href="" class="list-group-item list-group-item-warning"><span class="fa fa-pencil" aria-hidden="true"></span> Wijzig</a>
                                             <a href="" class="list-group-item list-group-item-danger"><span class="fa fa-close" aria-hidden="true"></span> Verwijder</a>
                                         @else
-                                            <a href="" class="list-group-item"><span class="fa fa-btn fa-envelope" aria-hidden="true"></span> Ik heb nog vragen.</a>
+                                            <a href="mailto:" class="list-group-item"><span class="fa fa-btn fa-envelope" aria-hidden="true"></span> Ik heb nog vragen.</a>
                                         @endif
                                     </div>
                                 </div> {{-- /Sidebar --}}

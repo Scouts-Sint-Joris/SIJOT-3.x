@@ -126,8 +126,8 @@
                                 <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li @if (Request::route()->getName() === 'events.index') class="active" @endif>
+                            <a href="{{ route('events.index') }}">
                                 <i class="fa fa-asterisk" aria-hidden="true"></i> <span>Evenementen</span>
                             </a>
                         </li>

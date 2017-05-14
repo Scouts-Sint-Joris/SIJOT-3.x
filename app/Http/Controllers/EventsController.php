@@ -5,6 +5,7 @@ namespace Sijot\Http\Controllers;
 use Sijot\Events;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Sijot\Http\Requests\EventValidator;
 
 /**
  * Class EventsController
@@ -18,9 +19,14 @@ class EventsController extends Controller
      */
     private $events;
 
+    /**
+     * EventsController constructor.
+     *
+     * @param Events $events
+     */
     public function __construct(Events $events)
     {
-        $routes = [];
+        $routes = ['index', 'delete', 'edit'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
@@ -28,10 +34,15 @@ class EventsController extends Controller
         $this->events = $events;
     }
 
+    /**
+     * Get the backend view for the events.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        // TODO: register route.
-        $data['title'] = 'Evenementen';
+        $data['title']  = 'Evenementen';
+        $data['events'] = $this->events->paginate(15);
 
         return view('events.index', $data);
     }
@@ -68,18 +79,33 @@ class EventsController extends Controller
         try {
             return json_encode($this->events->findOrFail($eventId));
         } catch (ModelNotFoundException $modelNotFoundException) {
-            //
+            return app()->abort(404);
         }
     }
 
-    public function edit()
+    /**
+     * Edit an event in the database.
+     *
+     * @param  EventValidator    $input     The user input validator.
+     * @param  integer           $eventId   The event id in the database.
+     * @return mixed
+     */
+    public function edit(EventValidator $input, $eventId)
     {
-        // TODO: register route
+        // TODO: register route.
 
         try {
-            //
-        } catch (ModelNotFoundException $modelNotFoundException) {
-            //
+            $event = $this->events->findOrFail($eventId);
+
+            if ($event->update($input->excetp(['_token']))) { // Try to update an event.
+                // Event has been updated
+                session()->flash();
+                session()->flash();
+            }
+
+            return back(302);
+        } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the event in the database.
+            return app()->abort(404);
         }
     }
 }

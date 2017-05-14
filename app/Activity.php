@@ -67,6 +67,11 @@ class Activity extends Model
         return $this->attributes['activiteit_datum'] = strtotime(str_replace('/', '-', $date));
     }
 
+    /**
+     * Get the group for the activity
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function group()
     {
         return $this->belongsTo(Groups::class, 'group_id');
