@@ -29,6 +29,37 @@
                 </div>
             @else
                 <div class="table-responsive">
+                    <table class="table table-hover table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Aangemaakt door:</th>
+                                <th>Status:</th>
+                                <th>Titel:</th>
+                                <th>Start datum:</th>
+                                <th colspan="2">Eind datum:</th> {{-- colspan="2" needed for the functions. --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($events as $event)
+                                <tr>
+                                    <td><strong>#{{ $event->id }}</strong></td>
+                                    <td>{{ $event->author->name }}</td>
+
+                                    <td> {{-- Status indication --}}
+                                        @if ((int) $event->status === 0)
+                                            <span class="label label-warning">Klad versie</span>
+                                        @elseif ((int) $event->status === 1)
+                                            <span class="label label-success">Gepubliceerd</span>
+                                        @endif
+                                    </td> {{-- /Status indication --}}
+
+                                    <td>{{ $event->title }}</td>
+                                    <td>{{ $event->start_date->format('d-m-Y') }} om {{ $event->start_hour->format('H:i') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             @endif
         </div> {{-- /.box-body --}}

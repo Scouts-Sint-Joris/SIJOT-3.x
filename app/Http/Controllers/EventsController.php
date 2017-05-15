@@ -59,7 +59,7 @@ class EventsController extends Controller
     public function index()
     {
         $data['title']  = 'Evenementen';
-        $data['events'] = $this->events->paginate(15);
+        $data['events'] = $this->events->with(['author'])->paginate(15);
 
         return view('events.index', $data);
     }
