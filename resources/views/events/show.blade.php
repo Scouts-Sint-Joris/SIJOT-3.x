@@ -41,7 +41,7 @@
                                         <a href="" class="list-group-item list-group-item-warning">
                                             <i class="fa fa-btn fa-pencil" aria-hidden="true"></i> Wijzig
                                         </a>
-                                        <a href="" class="list-group-item list-group-item-danger">
+                                        <a href="{{ route('events.delete', $event) }}" class="list-group-item list-group-item-danger">
                                             <i class="fa fa-btn fa-close" aria-hidden="true"></i> Verwijder
                                         </a>
                                     @else

@@ -67,7 +67,7 @@
 
                                         <a href="{{ route('events.show', $event) }}" class="label label-info">Bekijk</a>
                                         <a href="" class="label label-primary">Aanpassen</a>
-                                        <a href="" class="label label-danger">Verwijder</a>
+                                        <a href="{{ route('events.delete', $event) }}" class="label label-danger">Verwijder</a>
                                     </td> {{-- /Options --}}
                                 </tr>
                             @endforeach

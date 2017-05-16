@@ -119,8 +119,6 @@ class EventsController extends Controller
      */
     public function delete($eventId)
     {
-        // TODO: register route.
-
         try {
             $event = $this->events->findOrFail($eventId);
 

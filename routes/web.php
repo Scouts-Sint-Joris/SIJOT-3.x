@@ -66,6 +66,7 @@ Route::get('/events', 'EventsController@index')->name('events.index');
 Route::post('/events/toevoegen', 'EventsController@store')->name('events.store');
 Route::get('/events/status/{status}/{id}', 'EventsController@status')->name('events.status');
 Route::get('/events/bekijk/{id}', 'EventsController@show')->name('events.show');
+Route::get('/events/verwijder/{id}', 'EventsController@delete')->name('events.delete');
 
 // Activity routes
 Route::get('activiteiten/backend', 'ActivityController@backend')->name('activity.backend');
