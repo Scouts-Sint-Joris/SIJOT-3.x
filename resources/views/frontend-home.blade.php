@@ -84,7 +84,13 @@
                                     <small>(Er zijn geen evenementen).</small>
                                 </div>
                             @else
-
+                                <div class="panel-body">
+                                    <ul style="margin-bottom: -5px; margin-top: -5px;" class="list-unstyled">
+                                        @foreach ($events as $event)
+                                            <li> - <a href="{{ route('events.show', $event) }}">{{ ucfirst($event->title) }}</a> </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             @endif
                         </div>
                     </div> {{-- Sidebar --}}
