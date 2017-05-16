@@ -37,7 +37,7 @@ class EventsController extends Controller
     /**
      * Store a new event in the database.
      *
-     * @param   EventValidator $input   The user validation.
+     * @param   EventValidator $input The user validation.
      * @return  \Illuminate\Http\RedirectResponse
      */
     public function store(EventValidator $input)
@@ -58,10 +58,28 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $data['title']  = 'Evenementen';
+        $data['title'] = 'Evenementen';
         $data['events'] = $this->events->with(['author'])->paginate(15);
 
         return view('events.index', $data);
+    }
+
+    /**
+     * Display a specific event in the application.
+     *
+     * @param  integer $eventId The event id in the database.
+     * @return mixed
+     */
+    public function show($eventId)
+    {
+        try { // Try to find the event in the database.
+            $data['event'] = $this->events->findOrFail($eventId);
+            $data['title'] = $data['event']->title;
+
+            return view('events.show', $data);
+        } catch (ModelNotFoundException $modelNotFoundException) { // Event could not found in the database.
+            return app()->abort(404);
+        }
     }
 
     /**

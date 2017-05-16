@@ -65,7 +65,7 @@
                                             <a href="{{ route('events.status', ['status' => 0, 'id' => $event->id]) }}" class="label label-warning">Zet naar klad</a>
                                         @endif
 
-                                        <a href="" class="label label-info">Bekijk</a>
+                                        <a href="{{ route('events.show', $event) }}" class="label label-info">Bekijk</a>
                                         <a href="" class="label label-primary">Aanpassen</a>
                                         <a href="" class="label label-danger">Verwijder</a>
                                     </td> {{-- /Options --}}

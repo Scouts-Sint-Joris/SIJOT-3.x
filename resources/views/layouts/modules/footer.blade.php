@@ -25,9 +25,13 @@
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
         <h6 class="heading7">LAATSTE NIEUWS</h6>
         <div class="post">
-          @foreach($posts as $post)
-            <p>{{ $post->title }} <span>{{ $post->created_at->format('F j, Y') }}</span></p>
-          @endforeach
+            @if ((int) count($posts) === 0)
+                <p>Er zijn geen nieuwsberichten</p>
+              @else
+                @foreach($posts as $post)
+                    <p>{{ $post->title }} <span>{{ $post->created_at->format('F j, Y') }}</span></p>
+                @endforeach
+            @endif
         </div>
       </div>
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
@@ -38,6 +42,7 @@
           <a class="icon icon-skype" href="#" target="_blank"><i class="fa fa-skype"></i></a>
           <a class="icon icon-phone" href="#" target="_blank"><i class="fa fa-phone"></i></a>
           <a class="icon icon-envelop" href="#" target="_blank"><i class="fa fa-envelope"></i></a>
+            <a class="icon icon-github" href="#" target="_blank"><i class="fa fa-github"></i></a>
         </div>
       </div>
     </div>
