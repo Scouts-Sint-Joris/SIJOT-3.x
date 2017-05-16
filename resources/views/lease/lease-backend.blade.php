@@ -82,6 +82,8 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    {{ $leases->render() }} {{-- Pagination --}}
                 </div>
             @endif
         </div> {{-- /.box-body --}}
