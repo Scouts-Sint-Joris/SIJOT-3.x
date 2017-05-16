@@ -30,6 +30,9 @@ Route::get('/verhuur/verwijder/{id}', 'LeaseController@delete')->name('lease.del
 Route::get('/verhuur/exporteer', 'LeaseController@export')->name('lease.export');
 Route::get('/verhuur/kalender', 'LeaseController@calendar')->name('lease.calendar');
 
+// Members routes
+Route::get('/lid-worden', 'MemberController@index')->name('members.new');
+
 // ACL routes
 Route::get('/gebruikers', 'UsersController@index')->name('users.index');
 Route::get('/gebruikers/info/{id}', 'UsersController@getById')->name('users.getId');

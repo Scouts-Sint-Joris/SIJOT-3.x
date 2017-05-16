@@ -83,7 +83,15 @@
                                 </a>
                             </li>
                             <li><a href="#"><span class="fa fa-picture-o" aria-hidden="true"></span> Foto's</a></li>
-                            <li><a href="#"><span class="fa fa-info-circle" aria-hidden="true"></span> Info</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" href="#">
+                                    <span class="fa fa-info-circle" aria-hidden="true"></span> Info
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('members.new') }}">Lid worden</a></li>
+                                </ul>
+                            </li>
                             <li><a href="mailto:contact@st-joris-turnhout.be"><span class="fa fa-envelope" aria-hidden="true"></span> Contact</a></li>
                         </ul>
 

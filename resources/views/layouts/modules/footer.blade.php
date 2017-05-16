@@ -17,8 +17,8 @@
         <ul class="footer-ul">
           <li><a href="https://www.hopper.be/winkel"> Hopper (Winkel)</a></li>
           <li><a href="https://www.hopper.be/jeugdverblijf"> Hopper (Jeugdverblijven)</a></li>
-          <li><a href="{{ route('disclaimer') }}"> Disclaimer</a></li>
-          <li><a href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/lidworden?groep=A4102G"> Lid worden</a></li>
+          <li><a href="{{ route('disclaimer') }}"> Disclaimer</a></li> {{-- https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/lidworden?groep=A4102G --}}
+          <li><a href="{{ route('members.new') }}"> Lid worden</a></li>
           <li><a href="{{ route('lease') }}"> Verhuur</a></li>
         </ul>
       </div>

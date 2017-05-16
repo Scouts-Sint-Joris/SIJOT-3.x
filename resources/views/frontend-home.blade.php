@@ -84,6 +84,7 @@
                                     <small>(Er zijn geen evenementen).</small>
                                 </div>
                             @else
+
                             @endif
                         </div>
                     </div> {{-- Sidebar --}}
