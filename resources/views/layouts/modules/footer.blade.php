@@ -37,12 +37,12 @@
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
         <h6 class="heading7">CONTACT</h6>
         <div class="footer-icons">
-          <a class="icon icon-facebook" href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+          <a class="icon icon-facebook" href="https://www.facebook.com/Scouts-Gidsen-Sint-Joris-Turnhout-144116592770921/?fref=ts" target="_blank"><i class="fa fa-facebook"></i></a>
           <a class="icon icon-twitter" href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-          <a class="icon icon-skype" href="#" target="_blank"><i class="fa fa-skype"></i></a>
+          <a class="icon icon-skype" href="skype:topairy?call" target="_blank"><i class="fa fa-skype"></i></a>
           <a class="icon icon-phone" href="#" target="_blank"><i class="fa fa-phone"></i></a>
-          <a class="icon icon-envelop" href="#" target="_blank"><i class="fa fa-envelope"></i></a>
-            <a class="icon icon-github" href="#" target="_blank"><i class="fa fa-github"></i></a>
+          <a class="icon icon-envelop" href="mailto:contact@st-joris-turnhout.be" target="_blank"><i class="fa fa-envelope"></i></a>
+            <a class="icon icon-github" href="https://github.com/Scouts-Sint-Joris/SIJOT-3.x" target="_blank"><i class="fa fa-github"></i></a>
         </div>
       </div>
     </div>
