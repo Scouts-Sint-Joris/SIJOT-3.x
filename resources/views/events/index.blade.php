@@ -56,6 +56,19 @@
 
                                     <td>{{ $event->title }}</td>
                                     <td>{{ $event->start_date->format('d-m-Y') }} om {{ $event->start_hour->format('H:i') }}</td>
+                                    <td>{{ $event->end_date->format('d-m-y') }} om {{ $event->end_hour->format('H:i') }}</td>
+
+                                    <td class="pull-right"> {{-- Options --}}
+                                        @if ((int) $event->status === 0) {{-- The event has the status 'klad' --}}
+                                            <a href="{{ route('events.status', ['status' => 1, 'id' => $event->id]) }}" class="label label-success">Publiceer</a>
+                                        @elseif ((int) $event->status === 1) {{-- The event has the status 'Publish' --}}
+                                            <a href="{{ route('events.status', ['status' => 0, 'id' => $event->id]) }}" class="label label-warning">Zet naar klad</a>
+                                        @endif
+
+                                        <a href="" class="label label-info">Bekijk</a>
+                                        <a href="" class="label label-primary">Aanpassen</a>
+                                        <a href="" class="label label-danger">Verwijder</a>
+                                    </td> {{-- /Options --}}
                                 </tr>
                             @endforeach
                         </tbody>

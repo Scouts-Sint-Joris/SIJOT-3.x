@@ -65,6 +65,35 @@ class EventsController extends Controller
     }
 
     /**
+     * Change the st§atus for the event.
+     *
+     * @param   integer $statusId
+     * @param   integer $eventId    The id in the database for the event.
+     * @return  mixed
+     */
+    public function status($statusId, $eventId)
+    {
+        try { // To find the event in the database.
+            $event = $this->events->findOrFail($eventId);
+
+            if ($event->update(['status' => $statusId])) { // Try to change the status.
+                // The status has been updated.
+                if ((int) $statusId === 0) { // Klad
+                    session()->flash('class', 'alert alert-success');
+                    session()->flash('message', 'Het evenement is gezet naar een klad versie.');
+                } elseif ((int) $statusId === 1) { // Publicate
+                    session()->flash('class', 'alert alert-success');
+                    session()->flash('message', 'Het evenement is gepubliceerd.');
+                }
+            }
+
+            return back(302);
+        } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the event in the database.
+            return app()->abort(404);
+        }
+    }
+
+    /**
      * Delete an even in the database.
      *
      * @param  integer $eventId The event id in the database.

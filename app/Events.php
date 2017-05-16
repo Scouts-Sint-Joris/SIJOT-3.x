@@ -84,4 +84,11 @@ class Events extends Model
      * @param  string $date The start time from the form
      * @return string
      */
+    public function setStartHourAttribute($date)
+    {
+        // Use with Carbon instance:
+        // -------
+        // Carbon::createFromFormat('H:i', $date)->format('H:i');
+        return $this->attributes['start_hour'] = strtotime(str_replace('/', '-', $date));
+    }
 }

@@ -61,6 +61,7 @@ Route::get('/categorie/verwijderen/{id}', 'CategoryController@destroy')->name('c
 // Events routes
 Route::get('/events', 'EventsController@index')->name('events.index');
 Route::post('/events/toevoegen', 'EventsController@store')->name('events.store');
+Route::get('/events/status/{status}/{id}', 'EventsController@status')->name('events.status');
 
 // Activity routes
 Route::get('activiteiten/backend', 'ActivityController@backend')->name('activity.backend');
