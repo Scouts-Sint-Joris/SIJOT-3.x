@@ -170,15 +170,20 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Cog\Ban\Providers\BanServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+        PrettyRoutes\ServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Sijot\Providers\AppServiceProvider::class,
+        Sijot\Providers\AuthServiceProvider::class,
+        // Sijot\Providers\BroadcastServiceProvider::class,
+        Sijot\Providers\EventServiceProvider::class,
+        Sijot\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -229,6 +234,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class
 
     ],
 

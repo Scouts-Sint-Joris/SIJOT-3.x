@@ -22,7 +22,7 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="hold-transition skin-red sidebar-mini">
+    <body class="hold-transition @if(isset(auth()->user()->theme)) {{ auth()->user()->theme }} @else skin-red @endif sidebar-mini">
         <div class="wrapper">  {{-- Site wrapper --}}
 
             <header class="main-header"> {{-- Logo --}}
@@ -49,8 +49,13 @@
                                 </a>
                             </li>
                             <li class="user user-menu"> {{-- User Account: style can be found in dropdown.less --}}
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{ asset('img/user.jpg') }}" class="user-image" alt="User Image">
+                                <a href="{{ route('account') }}">
+                                    @if (file_exists(public_path(auth()->user()->avatar)))
+                                        <img src="{{ asset(auth()->user()->avatar) }}" class="user-image" alt="{{ auth()->user()->name }}">
+                                    @else
+                                        <img src="{{ asset('img/user.jpg') }}" class="user-image" alt="{{ auth()->user()->name }}">
+                                    @endif
+
                                     <span class="hidden-xs">{{ auth()->user()->name }}</span>
                                 </a>
                             </li>
@@ -74,7 +79,11 @@
                 <section class="sidebar"> {{-- sidebar: style can be found in sidebar.less --}}
                     <div class="user-panel"> {{-- Sidebar user panel --}}
                         <div class="pull-left image">
-                            <img src="{{ asset('img/user.jpg') }}" class="img-circle" alt="User Image">
+                            @if (file_exists(public_path(auth()->user()->avatar)))
+                                <img src="{{ asset(auth()->user()->avatar) }}" class="img-circle" alt="{{ auth()->user()->name }}">
+                            @else
+                                <img src="{{ asset('img/user.jpg') }}" class="img-circle" alt="{{ auth()->user()->name }}">
+                            @endif
                         </div>
                         <div class="pull-left info">
                             <p>{{ auth()->user()->name }}</p>
@@ -92,33 +101,38 @@
 
                     <ul class="sidebar-menu"> {{-- sidebar menu: : style can be found in sidebar.less --}}
                         <li class="header">NAVIGATIE</li>
-                        <li>
-                            <a href="">
+                        <li @if (Request::route()->getName() === 'account') class="active" @endif>
+                            <a href="{{ route('account') }}">
                                 <i class="fa fa-user" aria-hidden="true"></i> <span>Mijn account</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'lease.backend') class="active" @endif>
                             <a href="{{ route('lease.backend') }}">
                                 <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if (Request::route()->getName() === 'users.index') class="active" @endif>
                             <a href="{{ route('users.index') }}">
                                 <i class="fa fa-users" aria-hidden="true"></i> <span>Gebruikersbeheer</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span></i>
+                        <li @if (Request::route()->getName() === 'groups.backend') class="active" @endif>
+                            <a href="{{ route('groups.backend') }}">
+                                <i class="fa fa-leaf" aria-hidden="true"></i> <span>Takken</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li @if (Request::route()->getName() === 'activity.backend') class="active" @endif>
+                            <a href="{{ route('activity.backend') }}">
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
+                            </a>
+                        </li>
+                        <li @if (Request::route()->getName() === 'events.index') class="active" @endif>
+                            <a href="{{ route('events.index') }}">
                                 <i class="fa fa-asterisk" aria-hidden="true"></i> <span>Evenementen</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
+                        <li @if (Request::route()->getName() === 'news.index') class="active" @endif>
+                            <a href="{{ route('news.index') }}">
                                 <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Nieuws</span>
                             </a>
                         </li>
@@ -135,6 +149,13 @@
                 </section>
 
                 <section class="content"> {{-- Main content --}}
+                    @if (session()->get('class') && session()->get('message')) {{-- Flash session --}}
+                        <div class=" alert {{ session()->get('class') }} alert-dismissable fade in">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif {{-- /Flash session --}}
+
                     @yield('content')
                 </section> {{-- /.content --}}
             </div> {{-- /.content-wrapper --}}
@@ -150,5 +171,9 @@
         <script src="{{ asset('js/slimscroll.js') }}"></script>                                                 {{-- SlimScroll --}}
         <script src="{{ asset('js/fastclick.js') }}"></script>                                                  {{-- FastClick --}}
         <script src="{{ asset('js/backend.min.js') }}"></script>                                                {{-- AdminLTE App --}}
+
+        <script> $('div.alert').not('.alert-important').delay(3000).slideUp(300); </script>
+
+        @yield('extra-js') {{-- Include partial javascript. --}}
     </body>
 </html>

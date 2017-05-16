@@ -17,24 +17,32 @@
         <ul class="footer-ul">
           <li><a href="https://www.hopper.be/winkel"> Hopper (Winkel)</a></li>
           <li><a href="https://www.hopper.be/jeugdverblijf"> Hopper (Jeugdverblijven)</a></li>
-          <li><a href="#"> Disclaimer</a></li>
-          <li><a href="#"> Lid worden</a></li>
-          <li><a href="#"> Verhuur</a></li>
+          <li><a href="{{ route('disclaimer') }}"> Disclaimer</a></li> {{-- https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/lidworden?groep=A4102G --}}
+          <li><a href="{{ route('members.new') }}"> Lid worden</a></li>
+          <li><a href="{{ route('lease') }}"> Verhuur</a></li>
         </ul>
       </div>
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
-        <h6 class="heading7">LATEST POST</h6>
+        <h6 class="heading7">LAATSTE NIEUWS</h6>
         <div class="post">
-          <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
-          <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
-          <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
+            @if ((int) count($posts) === 0)
+                <p>Er zijn geen nieuwsberichten</p>
+              @else
+                @foreach($posts as $post)
+                    <p>{{ $post->title }} <span>{{ $post->created_at->format('F j, Y') }}</span></p>
+                @endforeach
+            @endif
         </div>
       </div>
       <div class="col-md-3 col-sm-6 paddingtop-bottom">
-        <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-height="300" data-small-header="false" style="margin-bottom:15px;" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-          <div class="fb-xfbml-parse-ignore">
-            <blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote>
-          </div>
+        <h6 class="heading7">CONTACT</h6>
+        <div class="footer-icons">
+          <a class="icon icon-facebook" href="https://www.facebook.com/Scouts-Gidsen-Sint-Joris-Turnhout-144116592770921/?fref=ts" target="_blank"><i class="fa fa-facebook"></i></a>
+          <a class="icon icon-twitter" href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+          <a class="icon icon-skype" href="skype:topairy?call" target="_blank"><i class="fa fa-skype"></i></a>
+          <a class="icon icon-phone" href="#" target="_blank"><i class="fa fa-phone"></i></a>
+          <a class="icon icon-envelop" href="mailto:contact@st-joris-turnhout.be" target="_blank"><i class="fa fa-envelope"></i></a>
+            <a class="icon icon-github" href="https://github.com/Scouts-Sint-Joris/SIJOT-3.x" target="_blank"><i class="fa fa-github"></i></a>
         </div>
       </div>
     </div>

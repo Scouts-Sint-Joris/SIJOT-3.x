@@ -6,10 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }} - {{ $title }}</title>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
         <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 
@@ -45,18 +44,54 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Kapoenen</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Welpen</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jong-Givers</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Givers</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jins</a></li>
-                                    <li><a href=""><span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Leiding</a></li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'kapoenen']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Kapoenen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'welpen']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Welpen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'jongGivers']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jong-Givers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'givers']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Givers
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'jins']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Jins
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('groups.show', ['selector' => 'leiding']) }}">
+                                            <span class="fa fa-btn fa-asterisk" aria-hidden="true"></span>De Leiding
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 
-                            <li><a href="{{ route('lease')  }}"><span class="fa fa-home" aria-hidden="true"></span> Verhuur</a></li>
+                            <li @if (Request::route()->getName() === 'lease') class="active" @endif>
+                                <a href="{{ route('lease')  }}">
+                                    <span class="fa fa-home" aria-hidden="true"></span> Verhuur
+                                </a>
+                            </li>
                             <li><a href="#"><span class="fa fa-picture-o" aria-hidden="true"></span> Foto's</a></li>
-                            <li><a href="#"><span class="fa fa-info-circle" aria-hidden="true"></span> Info</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" href="#">
+                                    <span class="fa fa-info-circle" aria-hidden="true"></span> Info
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('members.new') }}">Lid worden</a></li>
+                                </ul>
+                            </li>
                             <li><a href="mailto:contact@st-joris-turnhout.be"><span class="fa fa-envelope" aria-hidden="true"></span> Contact</a></li>
                         </ul>
 
@@ -103,7 +138,7 @@
 
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ route('backend') }}"><span class="fa fa-arrow-right" aria-hidden="true"></span> Backend</a></li>
-                                        <li><a href=""><span class="fa fa-cogs" aria-hidden="true"></span> Account configuratie</a><li>
+                                        <li><a href="{{ route('account') }}"><span class="fa fa-cogs" aria-hidden="true"></span> Account configuratie</a><li>
                                         <li>
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 <span class="fa fa-sign-out" aria-hidden="true"></span> Uitloggen

@@ -11,6 +11,10 @@
     </ol>
 @endsection
 
+@section('extra-js')
+    <script src="{{ asset('js/crud.js') }}"></script>
+@endsection
+
 @section('content')
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
@@ -78,7 +82,7 @@
                                         @if ($user->isBanned())
                                             <a href="" class="label label-danger">Deblokkeer gebruiker</a>
                                         @else
-                                            <a href="" class="label label-danger">Blokkeer gebruiker</a>
+                                            <a href="#" onclick="getUser('{{ route('users.getId', $user->id) }}', '#block-user')" class="label label-danger">Blokkeer gebruiker</a>
                                         @endif
 
                                         <a class="label label-danger" href="">Wijzig rechten</a>

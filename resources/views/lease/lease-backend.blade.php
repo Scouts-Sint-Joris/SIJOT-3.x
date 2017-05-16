@@ -17,14 +17,14 @@
             <h3 class="box-title">Verhuringen</h3>
 
             <div class="pull-right">
-                @if ((int) count($leases) > 0)<a class="label label-danger" href="">Exporteren</a> @endif
+                @if ((int) count($leases) > 0)<a class="label label-danger" href="{{ route('lease.export') }}">Exporteren</a> @endif
                 <a class="label label-danger" href="#" data-toggle="modal" data-target="#create-lease">Verhuring toevoegen</a>
             </div>
         </div>
 
         <div class="box-body">
             @if ((int) count($leases) === 0)
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-important" role="alert">
                     <strong>
                         <span class="fa fa-info-circle" aria-hidden="true"></span> Info:
                     </strong>
