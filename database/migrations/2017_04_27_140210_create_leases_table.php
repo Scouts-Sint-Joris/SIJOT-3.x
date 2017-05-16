@@ -18,7 +18,7 @@ class CreateLeasesTable extends Migration
             $table->integer('status_id');
             $table->string('groeps_naam');
             $table->string('contact_email');
-            $table->string('tel_nummer');
+            $table->string('tel_nummer')->nullable();
             $table->string('eind_datum');
             $table->string('start_datum');
             $table->softDeletes();
