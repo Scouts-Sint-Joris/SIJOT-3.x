@@ -22,7 +22,7 @@
 
                         <div class="row">
                             <div class="col-md-9"> {{-- Content --}}
-                                {!! Markdown::convertToHtml($group->description) !!}
+                                {!! Markdown::convertToHtml($event->description) !!}
                             </div> {{-- Content --}}
 
                             <div class="col-md-3"> {{-- Sidebar --}}
