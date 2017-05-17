@@ -25,26 +25,40 @@
                 <div class="tab-pane @if ($groups->first() == $data) active @endif" id="{{ $data->selector }}">
                     <form action="{{ route('groups.update', ['id' => $data->id]) }}" method="POST" class="form-horizontal">
                         {{ csrf_field() }} {{-- CSRF TOKEN --}}
+                        <input type="hidden" name="title" value="{{ $data->title }}">
 
-                        <div class="form-group row"> {{-- Title form-group --}}
+                        <div class="form-group row {{ $errors->has('title') ? 'has-error' : '' }}"> {{-- Title form-group --}}
                             <label class="control-label col-md-1">Titel: <span class="text-danger">*</span></label>
                             <div class="col-md-3">
                                 <input type="text" class="form-control" value="{{ $data->title }}" name="title" placeholder="Titel" disabled>
+
+                                @if ($errors->has('title'))
+                                    <span class="help-block"><strong>{{ $errors->first('title') }}</strong></span>
+                                @endif
                             </div>
                         </div> {{-- /Title form-group --}}
 
-                        <div class="form-group row"> {{-- Sub title form-group --}}
+                        <div class="form-group row {{ $errors->has('sub_title') ? 'has-error' : '' }}"> {{-- Sub title form-group --}}
                             <label class="control-label col-md-1">Sub titel: <span class="text-danger">*</span></label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" value="{{ $data->sub_title }}" name="sub_title" placeholder="Sub titel">
+
+                                @if ($errors->has('sub_title'))
+                                    <span class="help-block"><strong>{{ $errors->first('sub_title') }}</strong></span>
+                                @endif
                             </div>
                         </div> {{-- Sub title form-group --}}
 
-                        <div class="form-group row"> {{-- Description form group --}}
+                        <div class="form-group row {{ $errors->has('description') ? 'has-error' : '' }}"> {{-- Description form group --}}
                             <label class="control-label col-md-1">Beschrijving: <span class="text-danger">*</span></label>
                             <div class="col-sm-5">
                                 <textarea rows="8" class="form-control" name="description" spellcheck="true">{{ $data->description }}</textarea>
-                                <span class="help-block"><i><small>(Dit veld ondersteund markdown).</small></i></span>
+
+                                @if ($errors->has('description'))
+                                    <span class="help-block"><strong>{{ $errors->first('description') }}</strong></span>
+                                @else
+                                    <span class="help-block"><i><small>(Dit veld ondersteund markdown).</small></i></span>
+                                @endif
                             </div>
                         </div> {{-- /Description form-group --}}
 

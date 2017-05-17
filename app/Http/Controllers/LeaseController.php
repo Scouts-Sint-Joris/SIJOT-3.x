@@ -196,7 +196,7 @@ class LeaseController extends Controller
     /**
      * Export the domain leases to a excel file.
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function export()
     {
