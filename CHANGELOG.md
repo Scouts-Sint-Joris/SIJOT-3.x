@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added: Implementeer test voor de lid-worden route.
 - Fix: Implementatie open graph. (website makkelijker te vinden op facebook.)
 - Verhurings datum worden nu gesorteerd op welke aanvraag recent begint. 
+- Er is nu een cronjob ingesteld voor automatische onderhouds taken. (MySQL backups)
+- De server word nu gemonitord door een cronjob. (uptime, ssl certificaten, disk quota's)
+- Implementatie van een readme bestand.
 
 # Version 0.1.0
 

@@ -11,8 +11,6 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class Usersvalidator extends FormRequest
 {
-    // TODO: Fill in the the validation rules.
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -20,7 +18,7 @@ class Usersvalidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,7 +29,9 @@ class Usersvalidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ];
     }
 }

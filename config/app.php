@@ -176,6 +176,7 @@ return [
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         PrettyRoutes\ServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+        EricMakesStuff\ServerMonitor\ServerMonitorServiceProvider::class,
 
         /*
          * Application Service Providers...

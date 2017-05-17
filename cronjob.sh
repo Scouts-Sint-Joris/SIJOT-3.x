@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+* * * * * php artisan schedule:run >> /dev/null 2>&1

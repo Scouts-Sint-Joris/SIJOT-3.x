@@ -161,7 +161,7 @@ class LeaseController extends Controller
     }
 
     /**
-     * Remove a leae in the database.
+     * Remove a lease in the database.
      *
      * @param  integer   $leaseId    The databaseid for the lease.
      * @return mixed

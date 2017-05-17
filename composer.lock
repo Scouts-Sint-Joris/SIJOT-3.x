@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cab0aff6c8b9e9b3b9dd7c2bf710e936",
-    "content-hash": "43b70e77d4845584e8e3a11f5af30a05",
+    "hash": "8b6868061aee4fc9e38e48946053d740",
+    "content-hash": "0180e3068cf4d8bc790925eab11e2670",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -293,6 +293,62 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
+        },
+        {
+            "name": "ericmakesstuff/laravel-server-monitor",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ericmakesstuff/laravel-server-monitor.git",
+                "reference": "116ba383b921c6ea0ff1683cfe630ba5011e7d72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ericmakesstuff/laravel-server-monitor/zipball/116ba383b921c6ea0ff1683cfe630ba5011e7d72",
+                "reference": "116ba383b921c6ea0ff1683cfe630ba5011e7d72",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/console": "^5.1",
+                "illuminate/support": "^5.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.2",
+                "phpunit/phpunit": "4.*"
+            },
+            "suggest": {
+                "maknz/slack": "Allows notifications to be sent via Slack"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EricMakesStuff\\ServerMonitor\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Blount",
+                    "email": "eric@ericmakesstuff.com",
+                    "homepage": "http://ericmakesstuff.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Inspiration/Base Package (Backup)"
+                }
+            ],
+            "description": "Server Monitoring Command for Laravel Applications",
+            "time": "2017-02-08 05:55:13"
         },
         {
             "name": "erusev/parsedown",
