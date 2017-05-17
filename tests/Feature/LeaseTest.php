@@ -15,4 +15,10 @@ class LeaseTest extends TestCase
     {
         $this->get(route('lease'))->assertStatus(200);
     }
+
+
+    public function testLeaseRequestViewNoAuthencation()
+    {
+        $this->get(route('lease.request'))->assertStatus(200);
+    }
 }
