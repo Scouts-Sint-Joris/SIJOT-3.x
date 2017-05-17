@@ -35,6 +35,7 @@ Route::get('/lid-worden', 'MemberController@index')->name('members.new');
 
 // ACL routes
 Route::get('/gebruikers', 'UsersController@index')->name('users.index');
+Route::get('/gebruikers', 'UsersController@store')->name('users.store');
 Route::get('/gebruikers/info/{id}', 'UsersController@getById')->name('users.getId');
 Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block');
 

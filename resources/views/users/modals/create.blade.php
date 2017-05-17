@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="myModalLabel">Nieuwe gebruiker.</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" method="POST" id="create" action="">
+                <form class="form-horizontal" method="POST" id="create" action="{{ route('users.store') }}">
                     {{ csrf_field() }} {{-- CSRF token --}}
 
                     <div class="form-group">
