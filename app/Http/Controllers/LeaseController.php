@@ -67,7 +67,7 @@ class LeaseController extends Controller
     public function calendar()
     {
         $data['title']  = 'Verhuur kalender.';
-        $data['leases'] = $this->leaseDB->where('status_id', 3)->paginate(15);
+        $data['leases'] = $this->leaseDB->where('status_id', 3)->orderBy('start_datum', 'ASC')->paginate(15);
 
         return view('lease.calendar', $data);
     }
@@ -188,7 +188,7 @@ class LeaseController extends Controller
     public function backend()
     {
         $data['title']  = 'Verhuur beheer';
-        $data['leases'] = $this->leaseDB->paginate(15);
+        $data['leases'] = $this->leaseDB->orderBy('start_datum', 'ASC')->paginate(15);
 
         return view('lease.lease-backend', $data);
     }

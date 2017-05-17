@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix: fout in doc blocks -> leasecontroller.
 - Added: Implementeer test voor de lid-worden route.
 - Fix: Implementatie open graph. (website makkelijker te vinden op facebook.)
+- Verhurings datum worden nu gesorteerd op welke aanvraag recent begint. 
 
 # Version 0.1.0
 
