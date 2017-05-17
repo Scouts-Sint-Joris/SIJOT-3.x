@@ -2,23 +2,29 @@
 
 namespace Tests\Feature;
 
+use Sijot\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ExampleTest extends TestCase
+class HomeRouteTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
+    public function testFrontEndRoute()
     {
         $response = $this->get('/');
         $response->assertStatus(200);
+    }
+
+    public function testBackendRoute()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('backend'))
+            ->assertStatus(200);
     }
 }
