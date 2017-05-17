@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Er is nu een cronjob ingesteld voor automatische onderhouds taken. (MySQL backups)
 - De server word nu gemonitord door een cronjob. (uptime, ssl certificaten, disk quota's)
 - Implementatie van een readme bestand.
+- Tail commando geimplementeerd (php artisan tail production). Voor het lezen van de logs op externe plaatsen.
+- Implementatie van een nieuwe disclaimer.
+- Implementatie systeem translatie bestanden.
 
 # Version 0.1.0
 

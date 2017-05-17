@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b6868061aee4fc9e38e48946053d740",
-    "content-hash": "0180e3068cf4d8bc790925eab11e2670",
+    "hash": "0939816710a6f68b900a23ac9d6c0483",
+    "content-hash": "4090d0bfe9d7014878e8f8a426f13df6",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -2152,6 +2152,53 @@
                 "spatie"
             ],
             "time": "2017-03-14 19:14:04"
+        },
+        {
+            "name": "spatie/laravel-tail",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-tail.git",
+                "reference": "5644ad81dddffb719c02027b843cbbe298f5eccd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-tail/zipball/5644ad81dddffb719c02027b843cbbe298f5eccd",
+                "reference": "5644ad81dddffb719c02027b843cbbe298f5eccd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "~5.4.0",
+                "illuminate/support": "~5.4.0",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Tail\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://murze.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily tail the application log in Laravel applications",
+            "homepage": "https://github.com/spatie/laravel-tail",
+            "keywords": [
+                "laravel",
+                "laravel-tail",
+                "log",
+                "tail"
+            ],
+            "time": "2017-03-21 14:36:45"
         },
         {
             "name": "swiftmailer/swiftmailer",

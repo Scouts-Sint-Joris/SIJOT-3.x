@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'nl',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,7 @@ return [
         PrettyRoutes\ServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         EricMakesStuff\ServerMonitor\ServerMonitorServiceProvider::class,
+        Spatie\Tail\TailServiceProvider::class,
 
         /*
          * Application Service Providers...
