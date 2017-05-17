@@ -18,7 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Implementatie van een readme bestand.
 - Tail commando geimplementeerd (php artisan tail production). Voor het lezen van de logs op externe plaatsen.
 - Implementatie van een nieuwe disclaimer.
-- Implementatie systeem translatie bestanden.
+- Implementatie systeem translatie bestanden. (NL, ENG)
+- Fix: Verdwaalde karakter `)` in de verhurings export verwijderd.
 
 # Version 0.1.0
 

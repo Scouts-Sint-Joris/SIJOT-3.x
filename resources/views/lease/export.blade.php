@@ -37,7 +37,7 @@
                     <td>{{ $rental->contact_email }}</td>
 
                     <td>
-                        @if (empty($rental->tel_nummer)))
+                        @if (empty($rental->tel_nummer))
                             Niet opgegeven
                         @else
                             {{ $rental->tel_nummer }}
