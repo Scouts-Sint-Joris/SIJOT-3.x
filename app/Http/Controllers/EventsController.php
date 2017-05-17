@@ -96,11 +96,11 @@ class EventsController extends Controller
 
             if ($event->update(['status' => $statusId])) { // Try to change the status.
                 // The status has been updated.
+                session()->flash('class', 'alert alert-success');
+
                 if ((int) $statusId === 0) { // Klad
-                    session()->flash('class', 'alert alert-success');
                     session()->flash('message', 'Het evenement is gezet naar een klad versie.');
                 } elseif ((int) $statusId === 1) { // Publicate
-                    session()->flash('class', 'alert alert-success');
                     session()->flash('message', 'Het evenement is gepubliceerd.');
                 }
             }
@@ -159,10 +159,10 @@ class EventsController extends Controller
         try {
             $event = $this->events->findOrFail($eventId);
 
-            if ($event->update($input->excetp(['_token']))) { // Try to update an event.
+            if ($event->update($input->except(['_token']))) { // Try to update an event.
                 // Event has been updated
-                session()->flash();
-                session()->flash();
+                session()->flash('class', '');
+                session()->flash('message', '');
             }
 
             return back(302);

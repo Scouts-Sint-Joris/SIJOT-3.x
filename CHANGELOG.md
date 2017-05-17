@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix: formulier validatie bij de groeps wijziging. 
 - Fix: probleem dat groepen niet aangepast konden worden.
 - Fix: fout in doc blocks -> leasecontroller.
+- Added: Implementeer test voor de lid-worden route.
 
 # Version 0.1.0
 
