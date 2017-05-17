@@ -134,13 +134,19 @@ class EventsController extends Controller
         }
     }
 
+    /**
+     * Get a specific event and encode it with json.
+     *
+     * @param  integer $eventId The id from the event in the database.
+     * @return mixed
+     */
     public function getById($eventId)
     {
         // TODO: Register route.
 
-        try {
+        try { // TODO: Documentation.
             return json_encode($this->events->findOrFail($eventId));
-        } catch (ModelNotFoundException $modelNotFoundException) {
+        } catch (ModelNotFoundException $modelNotFoundException) { // TODO: Documentation.
             return app()->abort(404);
         }
     }

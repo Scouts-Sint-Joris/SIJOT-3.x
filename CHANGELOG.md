@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Fix: probleem dat groepen niet aangepast konden worden.
 - Fix: fout in doc blocks -> leasecontroller.
 - Added: Implementeer test voor de lid-worden route.
+- Fix: Implementatie open graph. (website makkelijker te vinden op facebook.)
 
 # Version 0.1.0
 
