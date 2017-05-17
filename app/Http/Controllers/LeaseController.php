@@ -202,7 +202,7 @@ class LeaseController extends Controller
     {
         Excel::create('Verhuringen', function ($excel) {
            $excel->sheet('Verhuringen', function ($sheet) {
-               $all = $this->leaseDB->all();
+               $all = $this->leaseDB->orderBy('start_datum', 'ASC')->get();
                $sheet->loadView('lease.export', compact('all'));
            });
         })->export('xls');

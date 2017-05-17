@@ -109,7 +109,7 @@ class AccountController extends Controller
     public function updateSecurity(AccountSecurityValidator $input) 
     {
         if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical. 
-            if ($this->userDb-find($input->user_id)->update($input->except(['_token', 'password_confirmation']))) { // The user has been changed. 
+            if ($this->userDb->find($input->user_id)->update($input->except(['_token', 'password_confirmation']))) { // The user has been changed.
                 session()->flash('class', 'alert alert-success'); 
                 session()->flash('message', 'Uw account wachtwoord is aangepast.');
             }
