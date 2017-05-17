@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added model factories. 
 - Fix: formulier validatie bij de groeps wijziging. 
 - Fix: probleem dat groepen niet aangepast konden worden.
+- Fix: fout in doc blocks -> leasecontroller.
 
 # Version 0.1.0
 

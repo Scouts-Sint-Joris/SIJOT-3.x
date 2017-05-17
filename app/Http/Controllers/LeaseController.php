@@ -163,8 +163,8 @@ class LeaseController extends Controller
     /**
      * Remove a leae in the database.
      *
-     * @param  intger   $leaseId    The databaseid for the lease.
-     * @return \Illuminate\Http\RedirectResponse|void
+     * @param  integer   $leaseId    The databaseid for the lease.
+     * @return mixed
      */
     public function delete($leaseId)
     {
