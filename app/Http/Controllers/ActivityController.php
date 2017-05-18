@@ -92,8 +92,9 @@ class ActivityController extends Controller
     /**
      * Update an activity status in the database.
      *
-     * @param  integer $statusId    The status id for the activity. 0 = klad, 1 = public
-     * @param  integer $activityId  The database id for the activity.
+     * @param integer $statusId    The status id for the activity. 0 = klad, 1 = public
+     * @param integer $activityId  The database id for the activity.
+     * 
      * @return mixed
      */
     public function status($statusId, $activityId)
