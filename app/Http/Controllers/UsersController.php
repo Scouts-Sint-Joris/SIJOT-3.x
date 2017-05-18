@@ -77,13 +77,14 @@ class UsersController extends Controller
     /**
      * Get the user id and name and return it in json.
      *
-     * @param  int $userId The id for the user in the database.
+     * @param integer $userId The id for the user in the database.
+     * 
      * @return string|void
      */
     public function getById($userId)
     {
         try { // Try to find and output the record.
-            return(json_encode($this->userDB->select(['id', 'name'])->findOrFail($userId)));
+            return json_encode($this->userDB->select(['id', 'name'])->findOrFail($userId));
         } catch (ModelNotFoundException $notFoundException) { // The user is not found.
             return app()->abort(404);
         }
@@ -112,6 +113,18 @@ class UsersController extends Controller
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
             return app()->abort(404);
         }
+    }
+
+    /**
+     * Unblock some user in the system
+     *
+     * @param integer $userId The id for the user in the database. 
+     * 
+     * @return mixed
+     */
+    public function unblock($userId) 
+    {
+
     }
 
     /**

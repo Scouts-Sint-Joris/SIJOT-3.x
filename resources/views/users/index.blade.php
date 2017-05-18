@@ -102,7 +102,11 @@
                         Er zijn geen rechten gevonden in het systeem.
                     </div>
                 @else
-
+                    <div class="table-responsive">
+                        <table class="table-hover table-responsive table-striped table">
+                            
+                        </table>
+                    </div>
                 @endif
             </div>
             <!-- /.tab-pane -->
