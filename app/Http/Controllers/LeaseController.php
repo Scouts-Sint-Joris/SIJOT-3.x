@@ -33,8 +33,9 @@ class LeaseController extends Controller
     /**
      * LeaseController constructor
      *
-     * @param  Lease $leaseDB
-     * @param  User $userDB
+     * @param Lease $leaseDB The lease database model.
+     * @param User  $userDB  The user database model.
+     * 
      * @return void
      */
     public function __construct(Lease $leaseDB, User $userDB)
@@ -55,7 +56,7 @@ class LeaseController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Verhuur';
+        $data['title'] = trans('lease.title-front-index');
         return view('lease.index', $data);
     }
 
@@ -66,8 +67,8 @@ class LeaseController extends Controller
      */
     public function calendar()
     {
-        $data['title']  = 'Verhuur kalender.';
-        $data['leases'] = $this->leaseDB->where('status_id', 3)->paginate(15);
+        $data['title']  = trans('lease.title-front-calendar');
+        $data['leases'] = $this->leaseDB->where('status_id', 3)->orderBy('start_datum', 'ASC')->paginate(15);
 
         return view('lease.calendar', $data);
     }
@@ -75,26 +76,28 @@ class LeaseController extends Controller
     /**
      * Get the front-end view for a domain lease request. 
      *
-     * @return  \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function leaseRequest()
     {
-        $data['title'] = 'Verhuur aanvragen';
+        $data['title'] = trans('lease.title-front-lease-request');
         return view('lease.request', $data);
     }
 
     /**
      * Store the lease request in the db.
      *
-     * @param   LeaseValidator $input The user input validator.
-     * @return  \Illuminate\Http\RedirectResponse
+     * @param LeaseValidator $input The user input validator.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LeaseValidator $input)
     {
         if ($this->leaseDB->create($input->except('_token'))) { // The rental has been inserted.
+            session()->flash('class', 'alert alert-success');
+
             if (auth()->check()) { // Requester is logged in
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuring is toegevoegd.');
+                session()->flash('message', trans('lease.flash-lease-insert-auth'));
             } else { // Requester is not logged in.
                 $when = Carbon::now()->addMinutes(15); // Needed to look your queued email.
                 Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
@@ -112,12 +115,11 @@ class LeaseController extends Controller
                 }
 
                 // Set flash session output.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuring is toegevoegd. We nemen spoedig contact met je op.');
+                session()->flash('message', trans('lease.flash-lease-insert-no-auth'));
             }
         }
 
-        return back();
+        return back(302);
     }
 
     /**
@@ -127,15 +129,16 @@ class LeaseController extends Controller
      */
     public function domainAccess()
     {
-        $data['title'] = 'Bereikbaarheid domein';
+        $data['title'] = trans('lease.title-front-domain-access');
         return view('lease.access', $data);
     }
 
     /**
      * Change the lease status in the database.
      *
-     * @param  string   $status     The new lease status.
-     * @param  integer  $leaseId    The database id for the lease
+     * @param string  $status  The new lease status.
+     * @param integer $leaseId The database id for the lease
+     * 
      * @return \Illuminate\Http\RedirectResponse|void
      */
     public function status($status, $leaseId)
@@ -143,35 +146,37 @@ class LeaseController extends Controller
         try { // Check if the record exists.
             $lease = $this->leaseDB->findOrFail($leaseId);
 
-            switch ($status) {
-                case 'nieuwe':      $status = 1; break;
-                case 'optie':       $status = 2; break;
-                case 'bevestigd':   $status = 3; break;
+            switch ($status) { // Check which status we need to determine.
+                case 'nieuwe': // Status = 'Nieuwe aanvraag'
+                    $status = 1; 
+                    break;
+                case 'optie':     $status = 2; break; // Status = 'Optie'
+                case 'bevestigd': $status = 3; break; // Status = 'Bevestigd'
             }
 
             if ($lease->update(['status_id' => $status])) {
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuur is aangepast.');
+                session()->flash('message', trans('flash-lease-status-change'));
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $exception) { // The record doesn't exists
              return app()->abort(404);
         }
     }
 
     /**
-     * Remove a leae in the database.
+     * Remove a lease in the database.
      *
-     * @param  intger   $leaseId    The databaseid for the lease.
-     * @return \Illuminate\Http\RedirectResponse|void
+     * @param  integer   $leaseId    The databaseid for the lease.
+     * @return mixed
      */
-    public function delete($leaseId)
+    public function delete($leaseId) // TODO: Check for model softDeletes.
     {
         try { // Check if the record exists
             if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuring is verwijderd.');
+                session()->flash('message', trans('lease.flash-lease-delete'));
             }
 
             return back();
@@ -188,7 +193,7 @@ class LeaseController extends Controller
     public function backend()
     {
         $data['title']  = 'Verhuur beheer';
-        $data['leases'] = $this->leaseDB->paginate(15);
+        $data['leases'] = $this->leaseDB->orderBy('start_datum', 'ASC')->paginate(15);
 
         return view('lease.lease-backend', $data);
     }
@@ -196,13 +201,13 @@ class LeaseController extends Controller
     /**
      * Export the domain leases to a excel file.
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function export()
     {
         Excel::create('Verhuringen', function ($excel) {
            $excel->sheet('Verhuringen', function ($sheet) {
-               $all = $this->leaseDB->all();
+               $all = $this->leaseDB->orderBy('start_datum', 'ASC')->get();
                $sheet->loadView('lease.export', compact('all'));
            });
         })->export('xls');

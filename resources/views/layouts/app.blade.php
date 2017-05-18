@@ -8,6 +8,15 @@
 
         <title>{{ config('app.name', 'Laravel') }} - {{ $title }}</title>
 
+        {{-- OpenGraph data (Facebook) --}}
+        <meta property="og:title"        content="Scouts En Gidsen Sint-Joris, Turnhout" />
+        <meta property="og:type"         content="website">
+        <meta property="og:url"          content="{{ Request::fullUrl() }}">
+        <meta property="og:image"        content="{{ asset('img/front.jpg') }}">
+        <meta property="og:locale"       content="nl_NL">
+        <meta property="og:description" content="Wij zijn een scoutsgroep gelegen te Sint-Jorislaan 11, Turnhout. Voor de rest hebben we elke zondag van de maand vergadering vanaf September tot Juni. Deze vergadering gaan door tussen, 2u en 5u. Buiten de laatste zondag van de maand. Dan gaan de vergaderingen door vanaf 10u tot 5u.">
+        {{-- /OpenGraph data (Facebook) --}}
+
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">

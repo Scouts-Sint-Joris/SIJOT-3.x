@@ -21,9 +21,10 @@ class Groups extends Model
     /**
      * The scope used for getting groups.
      *
-     * @param   mixed   $query      The query builder instance.
-     * @param   string  $selector   The where criteria
-     * @return  mixed
+     * @param mixed  $query    The query builder instance.
+     * @param string $selector The where criteria
+     * 
+     * @return mixed
      */
     public function scopeGetGroup($query, $selector)
     {

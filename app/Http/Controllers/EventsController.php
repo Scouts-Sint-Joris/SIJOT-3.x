@@ -10,11 +10,17 @@ use Sijot\Http\Requests\EventValidator;
 /**
  * Class EventsController
  *
- * @package Sijot\Http\Controllers
+ * @category SIJOT-website
+ * @package  Sijot\Http\Controllers
+ * @author   Tim Joosten <topairy@gmail.com>
+ * @license  MIT License
+ * @link     http://www.st-joris-turnhout.be
  */
 class EventsController extends Controller
 {
     /**
+     * The events database model in the application. 
+     * 
      * @var Events
      */
     private $events;
@@ -22,7 +28,7 @@ class EventsController extends Controller
     /**
      * EventsController constructor.
      *
-     * @param Events $events
+     * @param Events $events The events database model in the application.
      */
     public function __construct(Events $events)
     {
@@ -37,8 +43,9 @@ class EventsController extends Controller
     /**
      * Store a new event in the database.
      *
-     * @param   EventValidator $input The user validation.
-     * @return  \Illuminate\Http\RedirectResponse
+     * @param EventValidator $input The user validation.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(EventValidator $input)
     {
@@ -67,7 +74,8 @@ class EventsController extends Controller
     /**
      * Display a specific event in the application.
      *
-     * @param  integer $eventId The event id in the database.
+     * @param integer $eventId The event id in the database.
+     * 
      * @return mixed
      */
     public function show($eventId)
@@ -77,17 +85,18 @@ class EventsController extends Controller
             $data['title'] = $data['event']->title;
 
             return view('events.show', $data);
-        } catch (ModelNotFoundException $modelNotFoundException) { // Event could not found in the database.
-            return app()->abort(404);
+        } catch (ModelNotFoundException $modelNotFoundException) {
+            return app()->abort(404); // Event not found in the db.
         }
     }
 
     /**
      * Change the st§atus for the event.
      *
-     * @param   integer $statusId
-     * @param   integer $eventId    The id in the database for the event.
-     * @return  mixed
+     * @param integer $statusId The id to indicate the status for the event.
+     * @param integer $eventId  The id in the database for the event.
+     * 
+     * @return mixed
      */
     public function status($statusId, $eventId)
     {
@@ -96,11 +105,11 @@ class EventsController extends Controller
 
             if ($event->update(['status' => $statusId])) { // Try to change the status.
                 // The status has been updated.
+                session()->flash('class', 'alert alert-success');
+
                 if ((int) $statusId === 0) { // Klad
-                    session()->flash('class', 'alert alert-success');
                     session()->flash('message', 'Het evenement is gezet naar een klad versie.');
                 } elseif ((int) $statusId === 1) { // Publicate
-                    session()->flash('class', 'alert alert-success');
                     session()->flash('message', 'Het evenement is gepubliceerd.');
                 }
             }
@@ -114,7 +123,8 @@ class EventsController extends Controller
     /**
      * Delete an even in the database.
      *
-     * @param  integer $eventId The event id in the database.
+     * @param integer $eventId The event id in the database.
+     * 
      * @return mixed
      */
     public function delete($eventId)
@@ -134,13 +144,19 @@ class EventsController extends Controller
         }
     }
 
+    /**
+     * Get a specific event and encode it with json.
+     *
+     * @param  integer $eventId The id from the event in the database.
+     * @return mixed
+     */
     public function getById($eventId)
     {
         // TODO: Register route.
 
-        try {
+        try { // TODO: Documentation.
             return json_encode($this->events->findOrFail($eventId));
-        } catch (ModelNotFoundException $modelNotFoundException) {
+        } catch (ModelNotFoundException $modelNotFoundException) { // TODO: Documentation.
             return app()->abort(404);
         }
     }
@@ -148,8 +164,9 @@ class EventsController extends Controller
     /**
      * Edit an event in the database.
      *
-     * @param  EventValidator    $input     The user input validator.
-     * @param  integer           $eventId   The event id in the database.
+     * @param EventValidator $input   The user input validator.
+     * @param integer        $eventId The event id in the database.
+     * 
      * @return mixed
      */
     public function edit(EventValidator $input, $eventId)
@@ -159,10 +176,10 @@ class EventsController extends Controller
         try {
             $event = $this->events->findOrFail($eventId);
 
-            if ($event->update($input->excetp(['_token']))) { // Try to update an event.
+            if ($event->update($input->except(['_token']))) { // Try to update an event.
                 // Event has been updated
-                session()->flash();
-                session()->flash();
+                session()->flash('class', '');
+                session()->flash('message', '');
             }
 
             return back(302);

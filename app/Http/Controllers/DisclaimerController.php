@@ -4,13 +4,18 @@ namespace Sijot\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Class DisclaimerController
+ *
+ * @package Sijot\Http\Controllers
+ */
 class DisclaimerController extends Controller
 {
-    public function __construct()
-    {
-        //
-    }
-
+    /**
+     * Get the disclaimer page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $data['title'] = 'Disclaimer';

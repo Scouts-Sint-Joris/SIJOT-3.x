@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\public",
+    "\\resources",
+    "\\resources\\lang",
+    "\\resources\\lang\\nl",
+    "\\resources\\views",
+    "\\resources\\views\\lease"
+  ],
+  "SelectedNode": "\\resources\\views\\lease\\calendar.blade.php",
+  "PreviewInSolutionExplorer": false
+}

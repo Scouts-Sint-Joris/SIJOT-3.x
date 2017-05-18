@@ -33,7 +33,14 @@
                                 <p>
                                     He betalen via overschrijving: BE00 0000 0000 0000. Vermeld in de mededeling van de
                                     overschrijving van het lidgeld zeker naam, voornaam en tak (die mag u afkorten naar
-                                    KAP, W, K, JV, JG, V, G of J) va je zoon/dochter.
+                                    <abbr title="Kapoenen">KAP</abbr>,
+                                    <abbr title="Welpen">W</abbr>,
+                                    <abbr title="Kabouters">K</abbr>,
+                                    <abbr title="Jong-Verkenners">JV</abbr>,
+                                    <abbr title="Jong-Givers">JG</abbr>,
+                                    <abbr title="Verkenner">V</abbr>,
+                                    <abbr title="Giver">G</abbr> of
+                                    <abbr title="Jins">J</abbr>) van je zoon/dochter.
                                 </p>
 
                                 <p>

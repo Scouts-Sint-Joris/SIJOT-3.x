@@ -79,9 +79,10 @@ class GroupController extends Controller
     /**
      * Edit a group in the backend.
      *
-     * @param   GroupValidator  $input      The user input validator
-     * @param   Integer         $groupId    The group id in the database.
-     * @return  \Illuminate\Http\RedirectResponse
+     * @param GroupValidator $input   The user input validator
+     * @param Integer        $groupId The group id in the database.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(GroupValidator $input, $groupId)
     {
@@ -119,7 +120,7 @@ class GroupController extends Controller
                 ->get();
 
             return view('groups.show', $data);
-        } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the record.
+        } catch (ModelNotFoundException $notFoundErr) { // Could not find the record.
             return app()->abort(404);
         }
     }

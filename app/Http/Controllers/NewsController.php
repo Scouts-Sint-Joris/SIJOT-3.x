@@ -21,7 +21,7 @@ class NewsController extends Controller
     private $newsDb;
 
     /**
-     * @var categoriesDb;
+     * @var mixed categoriesDb;
      */
     private $categoriesDb;
 
