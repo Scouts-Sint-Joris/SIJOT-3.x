@@ -80,7 +80,7 @@
 
                                     <td> {{-- Options --}}
                                         @if ($user->isBanned())
-                                            <a href="" class="label label-danger">Deblokkeer gebruiker</a>
+                                            <a href="{{ route('users.unblock', $user) }}" class="label label-danger">Deblokkeer gebruiker</a>
                                         @else
                                             <a href="#" onclick="getUser('{{ route('users.getId', $user->id) }}', '#block-user')" class="label label-danger">Blokkeer gebruiker</a>
                                         @endif

@@ -109,7 +109,7 @@ class UsersController extends Controller
             session()->flash('class', 'alert alert-success');
             session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
             return app()->abort(404);
         }
@@ -124,7 +124,23 @@ class UsersController extends Controller
      */
     public function unblock($userId) 
     {
+        try { // To find the user in the database. 
+            $user = $this->userDB->findOrFail($userId);
 
+            if ($user->isBanned()) { // The user is banned.
+                $user->unban(); // Unban the user in the system
+
+                session()->flash('class', 'alert alert-success');
+                session()->flash('message', 'De gebruiker is terug geactiveerd');
+            } else { // The user is not banned
+                session()->flash('class', 'alert alert-danger');
+                session()->flash('message', 'Wij konden de gebruiker niet activeren.');
+            }
+
+            return back(302);
+        } catch (ModelNotFoundException $modelNotFoundException) {
+            return app()->abort(404); // Could not find the user in the database. 
+        }
     }
 
     /**
