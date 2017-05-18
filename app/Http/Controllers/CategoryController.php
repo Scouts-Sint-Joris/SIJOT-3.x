@@ -10,11 +10,17 @@ use Illuminate\Http\Request;
 /**
  * Class CategoryController
  *
- * @package Sijot\Http\Controllers
+ * @category SIJOT-platform
+ * @package  Sijot\Http\Controllers
+ * @author   Tim Joosten <Topairy@gmail.com>
+ * @license  MIT License
+ * @link     http://www.st-joris-turnhout.be
  */
 class CategoryController extends Controller
 {
     /**
+     * The categories model variable. 
+     * 
      * @var Categories
      */
     private $categories;
@@ -22,7 +28,7 @@ class CategoryController extends Controller
     /**
      * CategoryController constructor.
      *
-     * @param Categories $categories
+     * @param Categories $categories The categories model.
      */
     public function __construct(Categories $categories)
     {
@@ -36,7 +42,8 @@ class CategoryController extends Controller
     /**
      * Store a new category in the database.
      *
-     * @param  CategoryValidator $input The user input validator.
+     * @param CategoryValidator $input The user input validator.
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function insert(CategoryValidator $input)
@@ -53,7 +60,8 @@ class CategoryController extends Controller
     /**
      * Get a category and encode it with json.
      *
-     * @param  integer $categoryId
+     * @param integer $categoryId The category id in the database.
+     * 
      * @return mixed
      */
     public function getById($categoryId)
@@ -70,7 +78,8 @@ class CategoryController extends Controller
     /**
      * Edit an category in the database.
      *
-     * @param  CategoryValidator $input
+     * @param CategoryValidator $input The input validator data
+     * 
      * @return mixed
      */
     public function edit(CategoryValidator $input)
@@ -95,7 +104,8 @@ class CategoryController extends Controller
     /**
      * Remove a category in the database.
      *
-     * @param  integer $categoryId  The category id in the database.
+     * @param integer $categoryId The category id in the database.
+     * 
      * @return mixed
      */
     public function destroy($categoryId)
