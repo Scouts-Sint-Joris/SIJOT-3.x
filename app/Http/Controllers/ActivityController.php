@@ -78,7 +78,7 @@ class ActivityController extends Controller
         if ($activity = $this->activity->create($input->except(['_token']))) { // Check if the activity can be stored.
             // Activity has been stored.
             session()->flash('class', 'alert alert-success');
-            session()->flash('message', "De activiteit ({$activity->title}) is opgeslagen.");
+            session()->flash('message', lang('activity.flash-store-success', ['title' => $activity->title]));
         }
 
         return back(302); // HTTP STATUS: REDIRECT.
@@ -118,13 +118,13 @@ class ActivityController extends Controller
                 session()->flash('class', 'alert alert-success');
 
                 if ((int) $statusId === 0) {
-                    session()->flash('message', "De activiteit {$activity->title} is omgezet naar een klad versie.");
+                    session()->flash('message', trans('activity.flash-status-draft', ['title' => $activity->title]));
                 } elseif ((int) $statusId === 1) {
-                    session()->flash('message', "De activiteit {$activity->title} is omgezet naar een publicatie.");
+                    session()->flash('message', trans('activity.flash-status-publish', ['title' => $activity->title]));
                 }
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the activity.
             return app()->abort(404);
         }
@@ -164,10 +164,10 @@ class ActivityController extends Controller
             if ($activity->delete()) { // Try to delete the activity.
                 // Activity has been deleted
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', "De activititeit ({$activity->title}) is verwijderd");
+                session()->flash('message', trans('activity.flash-delete-success', ['title' => $activity->title]));
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the activity
             return app()->abort(404);
         }
