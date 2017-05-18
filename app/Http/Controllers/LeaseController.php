@@ -33,8 +33,9 @@ class LeaseController extends Controller
     /**
      * LeaseController constructor
      *
-     * @param  Lease $leaseDB
-     * @param  User $userDB
+     * @param Lease $leaseDB The lease database model.
+     * @param User  $userDB  The user database model.
+     * 
      * @return void
      */
     public function __construct(Lease $leaseDB, User $userDB)
@@ -75,7 +76,7 @@ class LeaseController extends Controller
     /**
      * Get the front-end view for a domain lease request. 
      *
-     * @return  \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function leaseRequest()
     {
@@ -86,8 +87,9 @@ class LeaseController extends Controller
     /**
      * Store the lease request in the db.
      *
-     * @param   LeaseValidator $input The user input validator.
-     * @return  \Illuminate\Http\RedirectResponse
+     * @param LeaseValidator $input The user input validator.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LeaseValidator $input)
     {
@@ -134,8 +136,9 @@ class LeaseController extends Controller
     /**
      * Change the lease status in the database.
      *
-     * @param  string   $status     The new lease status.
-     * @param  integer  $leaseId    The database id for the lease
+     * @param string  $status  The new lease status.
+     * @param integer $leaseId The database id for the lease
+     * 
      * @return \Illuminate\Http\RedirectResponse|void
      */
     public function status($status, $leaseId)
@@ -144,9 +147,11 @@ class LeaseController extends Controller
             $lease = $this->leaseDB->findOrFail($leaseId);
 
             switch ($status) { // Check which status we need to determine.
-                case 'nieuwe':      $status = 1; break; // Status = 'Nieuwe aanvraag'
-                case 'optie':       $status = 2; break; // Status = 'Optie'
-                case 'bevestigd':   $status = 3; break; // Status = 'Bevestigd'
+                case 'nieuwe': // Status = 'Nieuwe aanvraag'
+                    $status = 1; 
+                    break;
+                case 'optie':     $status = 2; break; // Status = 'Optie'
+                case 'bevestigd': $status = 3; break; // Status = 'Bevestigd'
             }
 
             if ($lease->update(['status_id' => $status])) {
