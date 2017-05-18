@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Implementatie systeem translatie bestanden. (NL, ENG)
 - Fix: Verdwaalde karakter `)` in de verhurings export verwijderd.
 - Implementatie abbrivetaties bij de tak afkortingen.
+- Implementatie code of conduct. 
 
 # Version 0.1.0
 
