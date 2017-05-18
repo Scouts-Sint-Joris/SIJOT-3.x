@@ -12,7 +12,7 @@ class BlockNotification extends Notification
     use Queueable;
 
     /**
-     * @var
+     * @var The given user data.
      */
     private $user;
 

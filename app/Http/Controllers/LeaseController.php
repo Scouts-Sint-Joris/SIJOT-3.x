@@ -55,7 +55,7 @@ class LeaseController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Verhuur';
+        $data['title'] = trans('lease.title-front-index');
         return view('lease.index', $data);
     }
 
@@ -66,7 +66,7 @@ class LeaseController extends Controller
      */
     public function calendar()
     {
-        $data['title']  = 'Verhuur kalender.';
+        $data['title']  = trans('lease.title-front-calendar');
         $data['leases'] = $this->leaseDB->where('status_id', 3)->orderBy('start_datum', 'ASC')->paginate(15);
 
         return view('lease.calendar', $data);
@@ -79,7 +79,7 @@ class LeaseController extends Controller
      */
     public function leaseRequest()
     {
-        $data['title'] = 'Verhuur aanvragen';
+        $data['title'] = trans('lease.title-front-lease-request');
         return view('lease.request', $data);
     }
 
@@ -92,9 +92,10 @@ class LeaseController extends Controller
     public function store(LeaseValidator $input)
     {
         if ($this->leaseDB->create($input->except('_token'))) { // The rental has been inserted.
+            session()->flash('class', 'alert alert-success');
+
             if (auth()->check()) { // Requester is logged in
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuring is toegevoegd.');
+                session()->flash('message', trans('lease.flash-lease-insert-auth'));
             } else { // Requester is not logged in.
                 $when = Carbon::now()->addMinutes(15); // Needed to look your queued email.
                 Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
@@ -112,12 +113,11 @@ class LeaseController extends Controller
                 }
 
                 // Set flash session output.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuring is toegevoegd. We nemen spoedig contact met je op.');
+                session()->flash('message', trans('lease.flash-lease-insert-no-auth'));
             }
         }
 
-        return back();
+        return back(302);
     }
 
     /**
@@ -127,7 +127,7 @@ class LeaseController extends Controller
      */
     public function domainAccess()
     {
-        $data['title'] = 'Bereikbaarheid domein';
+        $data['title'] = trans('lease.title-front-domain-access');
         return view('lease.access', $data);
     }
 
@@ -143,18 +143,18 @@ class LeaseController extends Controller
         try { // Check if the record exists.
             $lease = $this->leaseDB->findOrFail($leaseId);
 
-            switch ($status) {
-                case 'nieuwe':      $status = 1; break;
-                case 'optie':       $status = 2; break;
-                case 'bevestigd':   $status = 3; break;
+            switch ($status) { // Check which status we need to determine.
+                case 'nieuwe':      $status = 1; break; // Status = 'Nieuwe aanvraag'
+                case 'optie':       $status = 2; break; // Status = 'Optie'
+                case 'bevestigd':   $status = 3; break; // Status = 'Bevestigd'
             }
 
             if ($lease->update(['status_id' => $status])) {
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuur is aangepast.');
+                session()->flash('message', trans('flash-lease-status-change'));
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $exception) { // The record doesn't exists
              return app()->abort(404);
         }
@@ -166,12 +166,12 @@ class LeaseController extends Controller
      * @param  integer   $leaseId    The databaseid for the lease.
      * @return mixed
      */
-    public function delete($leaseId)
+    public function delete($leaseId) // TODO: Check for model softDeletes.
     {
         try { // Check if the record exists
             if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De verhuring is verwijderd.');
+                session()->flash('message', trans('lease.flash-lease-delete'));
             }
 
             return back();

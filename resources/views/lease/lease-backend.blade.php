@@ -1,13 +1,13 @@
 @extends('layouts.backend')
 
 @section('title')
-    <h1> Verhuringen <small>beheers paneel</small></h1>
+    <h1> @lang('lease.page-backend-title-index') <small>beheers paneel</small></h1>
 @endsection
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="{{ route('backend') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Verhuringen</li>
+        <li class="active">@lang('lease.page-backend-title-index')</li>
     </ol>
 @endsection
 
@@ -17,7 +17,10 @@
             <h3 class="box-title">Verhuringen</h3>
 
             <div class="pull-right">
-                @if ((int) count($leases) > 0)<a class="label label-danger" href="{{ route('lease.export') }}">Exporteren</a> @endif
+                @if ((int) count($leases) > 0)
+                    <a class="label label-danger" href="{{ route('lease.export') }}">Exporteren</a> 
+                @endif
+                
                 <a class="label label-danger" href="#" data-toggle="modal" data-target="#create-lease">Verhuring toevoegen</a>
             </div>
         </div>
@@ -37,12 +40,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Status:</th>
-                                <th>Start datum:</th>
-                                <th>Eind datum:</th>
-                                <th>Groep:</th>
-                                <th>Tel. nummer:</th>
-                                <th colspan="2">Aangevraagd op:</th> {{-- Colspan 2 needed for the functions --}}
+                                <th>@lang('lease.table-status')</th>
+                                <th>@lang('lease.table-start-date')</th>
+                                <th>@lang('lease.table-end-date')</th>
+                                <th>@lang('lease.table-group')</th>
+                                <th>@lang('lease.table-phone-number')</th>
+                                <th colspan="2">@lang('lease.table-request-date')</th> {{-- Colspan 2 needed for the functions --}}
                             </tr>
                         </thead>
                         <tbody>
