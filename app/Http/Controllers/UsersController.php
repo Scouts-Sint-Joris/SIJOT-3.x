@@ -152,8 +152,6 @@ class UsersController extends Controller
      */
     public function store(UsersValidator $input)
     {
-        // TODO: Register route.
-
         if ($user = $this->userDB->create($input->except(['except']))) { // Try to create the user.
             session()->flash('class', 'alert alert-success');
             session()->flash('message', 'De login is aangemaakt.');

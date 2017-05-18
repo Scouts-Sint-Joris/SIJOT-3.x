@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Implementatie code of conduct. 
 - Implementatie om gebruikers via de GUI te verwijderen.
 - Bugfix in de `getById()` methode van de gebruikers controller.
+- Implementatie deblokkerings methode voor gebruikers.
 
 # Version 0.1.0
 
