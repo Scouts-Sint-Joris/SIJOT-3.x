@@ -38,6 +38,7 @@ Route::get('/gebruikers', 'UsersController@index')->name('users.index');
 Route::post('/gebruikers', 'UsersController@store')->name('users.store');
 Route::get('/gebruikers/info/{id}', 'UsersController@getById')->name('users.getId');
 Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block');
+Route::get('/gebruikers/verwijder/{id}', 'UsersController@delete')->name('users.delete');
 
 // Account routes.
 Route::get('/account', 'AccountController@index')->name('account');

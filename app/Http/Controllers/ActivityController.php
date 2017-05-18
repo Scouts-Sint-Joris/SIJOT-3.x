@@ -11,9 +11,11 @@ use Illuminate\Http\Request;
 /**
  * Class ActivityController
  *
- * @author   Tim Joosten
  * @category Sijot-Website
  * @package  Sijot\Http\Controllers
+ * @author   Tim Joosten <topairy@gmail.com>
+ * @license  MIT License
+ * @link     http://www.st-joris-turnhout.be
  */
 class ActivityController extends Controller
 {
@@ -25,6 +27,8 @@ class ActivityController extends Controller
     private $activity;
 
     /**
+     * The groups model variable. 
+     * 
      * @var Groups
      */
     private $groups;

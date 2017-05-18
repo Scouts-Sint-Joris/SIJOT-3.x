@@ -86,7 +86,7 @@
                                         @endif
 
                                         <a class="label label-danger" href="">Wijzig rechten</a>
-                                        <a class="label label-danger" href="">Verwijder</a>
+                                        <a class="label label-danger" href="{{ route('users.delete', $user) }}">Verwijder</a>
                                     </td> {{-- /Options --}}
                                 </tr>
                             @endforeach

@@ -20,16 +20,22 @@ use Spatie\Permission\Models\Role;
 class UsersController extends Controller
 {
     /**
+     * Variable for the user model. 
+     * 
      * @var User
      */
     private $userDB;
 
     /**
+     * Variable for the permissions model. 
+     * 
      * @var Permission
      */
     private $permissions;
 
     /**
+     * The variable for the roles model. 
+     * 
      * @var Role
      */
     private $roles;
@@ -37,10 +43,11 @@ class UsersController extends Controller
     /**
      * UsersController constructor.
      *
-     * @param   User        $userDB
-     * @param   Role        $roles
-     * @param   Permission  $permissions
-     * @return  void
+     * @param User       $userDB      The user model for the database.
+     * @param Role       $roles       The Roles database model.
+     * @param Permission $permissions The Permissions database model.
+     * 
+     * @return void
      */
     public function __construct(Role $roles, Permission $permissions, User $userDB)
     {
@@ -85,7 +92,8 @@ class UsersController extends Controller
     /**
      * Ban a user in the system.
      *
-     * @param  BanValidator $input The user input validator.
+     * @param BanValidator $input The user input validator.
+     * 
      * @return mixed
      */
     public function block(BanValidator $input)
@@ -109,7 +117,8 @@ class UsersController extends Controller
     /**
      * Create a new login in the database.
      *
-     * @param  Usersvalidator   $input  The user input validation.
+     * @param Usersvalidator $input The user input validation.
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UsersValidator $input)
@@ -122,5 +131,28 @@ class UsersController extends Controller
         }
 
         return back(302);
+    }
+
+    /**
+     * Delete a user in the database.
+     *
+     * @param integer $userId The id in the database for the user. 
+     * 
+     * @return mixed
+     */
+    public function delete($userId) 
+    {
+        try { // To find the user in the database. 
+            $user = $this->userDB->findOrfail($userId); 
+
+            if ($user->delete()) { // try to delete the user. 
+                session()->flash('class', 'alert alert-success');
+                session()->flash('message', "{$user->name} Is verwijderd uit het systeem.");
+            }
+
+            return back(302);
+        } catch(ModelNotFoundException $modelNotFoundException) {
+            return app()->abort(404); // The given user is not found.
+        }  
     }
 }
