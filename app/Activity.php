@@ -5,9 +5,12 @@ namespace Sijot;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Activity
- *
- * @package App
+ * Activity Database model 
+ * 
+ * @property integer  $id           The identifier (PRIMARY KEY)
+ * @property integer  $group_id     The id for the group in the database. 
+ * @property string   $title        The title for the group. 
+ * 
  */
 class Activity extends Model
 {

@@ -13,6 +13,7 @@ return [
 
     // Page titles. 
     'page-backend-title-index'     => 'Verhuringen',
+    'page-backend-sub-title-index' => 'beheers paneel',
 
     // Display tazble (export, backend, calendar)
     'table-status'                 => 'Status:',
@@ -22,11 +23,24 @@ return [
     'table-phone-number'           => 'Tel. nummer:',
     'table-request-date'           => 'Aangevraagd op:',
 
+    // Box title (backend)
+    'title-box'                    => 'Verhuringen',
+
+    // Buttons 
+    'btn-backend-add'              => 'Verhuring toevoegen',
+    'btn-backend-delete'           => 'Verwijder',
+    'btn-backend-export'           => 'Exporteer',
+
     // Title's
     'title-front-index'            => 'Verhuur',
     'title-front-calendar'         => 'Verhuur Kalender.',
     'title-front-lease-request'    => 'Verhuur aanvragen',
     'title-front-domain-access'    => 'Bereikbaarheid domein.',
+
+    // Status labels.
+    'status-lease-option'          => 'Optie',
+    'status-lease-confirmed'       => 'Bevestigd',
+    'status-lease-new'             => 'Nieuwe aanvraag',
 
     // Flash messages 
     'flash-lease-insert-auth'      => 'De verhuring is toegevoegd.',
