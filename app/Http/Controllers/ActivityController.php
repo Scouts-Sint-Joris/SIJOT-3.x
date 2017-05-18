@@ -11,11 +11,15 @@ use Illuminate\Http\Request;
 /**
  * Class ActivityController
  *
- * @package Sijot\Http\Controllers
+ * @author   Tim Joosten
+ * @category Sijot-Website
+ * @package  Sijot\Http\Controllers
  */
 class ActivityController extends Controller
 {
     /**
+     * The activity database model. 
+     * 
      * @var Activity
      */
     private $activity;
@@ -28,9 +32,10 @@ class ActivityController extends Controller
     /**
      * ActivityController constructor.
      *
-     * @param   Activity $activity
-     * @param   Groups $groups
-     * @return  void
+     * @param Activity $activity The activity database model.
+     * @param Groups   $groups   The groups database model.
+     * 
+     * @return void
      */
     public function __construct(Activity $activity, Groups $groups)
     {
@@ -60,7 +65,8 @@ class ActivityController extends Controller
     /**
      * Insert a new activity in the database.
      *
-     * @param  ActivityValidator $input The given user input validator.
+     * @param ActivityValidator $input The given user input validator.
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ActivityValidator $input)
@@ -77,23 +83,24 @@ class ActivityController extends Controller
     /**
      * Get a specific activity in the database. And return a json array from it.
      *
-     * @param  integer $activityId  The activity id in the database.
+     * @param integer $activityId The activity id in the database.
+     * 
      * @return mixed
      */
     public function getByid($activityId)
     {
         try { // Try to find and output the record.
             return(json_encode($this->activity->findOrFail($activityId)));
-        } catch (ModelNotFoundException $notFoundException) { // The activity is not found.
-            return app()->abort(404);
+        } catch (ModelNotFoundException $notFoundException) {
+            return app()->abort(404); // The activity is not found.
         }
     }
 
     /**
      * Update an activity status in the database.
      *
-     * @param integer $statusId    The status id for the activity. 0 = klad, 1 = public
-     * @param integer $activityId  The database id for the activity.
+     * @param integer $statusId   The status id for the activity. 0 = klad, 1 = public
+     * @param integer $activityId The database id for the activity.
      * 
      * @return mixed
      */
@@ -119,6 +126,13 @@ class ActivityController extends Controller
         }
     }
 
+    /**
+     * Show an specific activity from the database. 
+     *
+     * @param integer $activityId The activity id in the database.
+     * 
+     * @return mixed
+     */
     public function show($activityId)
     {
         try {
@@ -134,7 +148,8 @@ class ActivityController extends Controller
     /**
      * Delete an activity out off the database.
      *
-     * @param  integer $activityId The activity id in the database.
+     * @param integer $activityId The activity id in the database.
+     * 
      * @return mixed
      */
     public function destroy($activityId)
