@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Implementatie deblokkerings methode voor gebruikers.
 - Class docblock toegevoegd op de Users model.
 - Class docblock toegevoegd op de NewsController
+- Fixed: Translatie bug in de verhurings module.
+- Fixed password bug in de gebruikers creatie.
 
 # Version 0.1.0
 

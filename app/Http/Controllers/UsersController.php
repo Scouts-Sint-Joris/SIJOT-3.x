@@ -152,7 +152,11 @@ class UsersController extends Controller
      */
     public function store(UsersValidator $input)
     {
-        if ($user = $this->userDB->create($input->except(['except']))) { // Try to create the user.
+        $data['name']     = $input->name; 
+        $data['email']    = $input->email;
+        $data['password'] = bcrypt($input->password);
+
+        if ($user = $this->userDB->create($data)) { // Try to create the user.
             session()->flash('class', 'alert alert-success');
             session()->flash('message', 'De login is aangemaakt.');
         }
