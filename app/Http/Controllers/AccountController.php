@@ -31,7 +31,9 @@ class AccountController extends Controller
     /**
      * AccountController constructor.
      *
-     * @param  User $userDb
+     * @param Themes $themes The themes database model.
+     * @param User   $userDb The user database model.
+     * 
      * @return void
      */
     public function __construct(Themes $themes, User $userDb)
@@ -60,7 +62,8 @@ class AccountController extends Controller
     /**
      * Update the account information in the system. 
      * 
-     * @param  AccountInfoValidator $input
+     * @param AccountInfoValidator $input The user validation
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateInfo(AccountInfoValidator $input)
@@ -103,7 +106,8 @@ class AccountController extends Controller
     /**
      * Update the user password in the system.
      * 
-     * @param  AccountSecurityValidator $input
+     * @param AccountSecurityValidator $input The user input validation
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateSecurity(AccountSecurityValidator $input) 

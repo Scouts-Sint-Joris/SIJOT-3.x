@@ -77,7 +77,7 @@ class UsersController extends Controller
     /**
      * Get the user id and name and return it in json.
      *
-     * @param integer $userId The id for the user in the database.
+     * @param int $userId The id for the user in the database.
      * 
      * @return string|void
      */
