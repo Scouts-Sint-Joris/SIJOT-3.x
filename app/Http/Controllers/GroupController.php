@@ -18,11 +18,15 @@ use Illuminate\Support\Facades\DB;
 class GroupController extends Controller
 {
     /**
+     * The variable for the activity model.
+     * 
      * @var Activity
      */
     private $activity;
 
     /**
+     * The variable for the groups model. 
+     * 
      * @var Groups
      */
     private $groups;
@@ -30,9 +34,10 @@ class GroupController extends Controller
     /**
      * GroupController constructor.
      *
-     * @param   Activity $activity
-     * @param   Groups $groups
-     * @return  void
+     * @param Activity $activity The activity model for the database.
+     * @param Groups   $groups   The groups model for the database.
+     * 
+     * @return void
      */
     public function __construct(Activity $activity, Groups $groups)
     {
@@ -103,12 +108,12 @@ class GroupController extends Controller
     /**
      * Show a specific group.
      *
-     * @param  string $selector The group selector in the database.
+     * @param string $selector The group selector in the database.
+     * 
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function show($selector)
     {
-        // dd((int) Carbon::today()->timestamp, '1494633600');
         try { // To find the record.
             $data['group']      = $this->groups->where('selector', $selector)->firstOrFail();
             $data['title']      = $data['group']->title;

@@ -11,36 +11,45 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 /**
  * Class NewsController
  *
- * @package Sijot\Http\Controllers
+ * @category SIJOT-Website
+ * @package  Sijot\Http\Controllers
+ * @author   Tim Joosten <topairy@gmail.com>
+ * @license  MIT License
+ * @link     http://www.st-joris-turnhout.be
  */
 class NewsController extends Controller
 {
     /**
+     * The news database model.
+     * 
      * @var News
      */
-    private $newsDb;
+    private $_newsDb;
 
     /**
+     * The categories database model.
+     * 
      * @var mixed categoriesDb;
      */
-    private $categoriesDb;
+    private $_categoriesDb;
 
     /**
      * NewsController constructor
      *
-     * @param   News        $newsDb
-     * @param   Categories  $categoriesDb
-     * @return  void
+     * @param Categories $_categoriesDb The categories database model.
+     * @param News       $_newsDb       The news database model.
+     * 
+     * @return void
      */
-    public function __construct(Categories $categoriesDb, News $newsDb)
+    public function __construct(Categories $_categoriesDb, News $_newsDb)
     {
         $routes = ['store', 'update', 'delete', 'create', 'index', 'status', 'getById'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
-        $this->categoriesDb = $categoriesDb;
-        $this->newsDb       = $newsDb;
+        $this->categoriesDb = $_categoriesDb;
+        $this->newsDb       = $_newsDb;
     }
 
     /**
@@ -73,7 +82,8 @@ class NewsController extends Controller
     /**
      * Try to find a news message en encode it with json.
      *
-     * @param  integer $newsId The news id in the database.
+     * @param integer $newsId The news id in the database.
+     * 
      * @return mixed
      */
     public function getById($newsId)
@@ -88,13 +98,16 @@ class NewsController extends Controller
     /**
      * Store a new news item in the database.
      *
-     * @param  NewsValidator $input The user input validator
+     * @param NewsValidator $input The user input validator
+     * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(NewsValidator $input)
     {
-        if ($item = $this->newsDb->create($input->except(['_token', 'categories']))) { // The news message has been stored.
-            if (! is_null($input->categories)) {
+        $filter = ['_token', 'categories'];
+
+        if ($item = $this->newsDb->create($input->except($filter))) { // The news message has been stored.
+            if (! is_null($input->categories)) { // There are categories find in the user input.
                 $this->newsDb->find($item->id)->categories()->attach($input->categories);
             }
 
@@ -108,7 +121,8 @@ class NewsController extends Controller
     /**
      * Show a specific news item in the application.
      *
-     * @param  integer $newsId The news id in the database.
+     * @param integer $newsId The news id in the database.
+     * 
      * @return mixed
      */
     public function show($newsId)
@@ -127,8 +141,9 @@ class NewsController extends Controller
     /**
      * Update a news item in the database.
      *
-     * @param  NewsValidator $input The user input validator
-     * @param  integer $newsId The news id in the database.
+     * @param NewsValidator $input  The user input validator
+     * @param integer       $newsId The news id in the database.
+     * 
      * @return mixed
      */
     public function update(NewsValidator $input, $newsId)
@@ -152,9 +167,10 @@ class NewsController extends Controller
     /**
      * Change the status for a news message.
      *
-     * @param   string  $status     The status identifier for the news message.
-     * @param   integer $newsId     The news message id in the database.
-     * @return  mixed
+     * @param string  $status The status identifier for the news message.
+     * @param integer $newsId The news message id in the database.
+     * 
+     * @return mixed
      */
     public function status($status, $newsId)
     {
@@ -181,7 +197,8 @@ class NewsController extends Controller
     /**
      * Delete a news item in the database.
      *
-     * @param  integer $newsId The news id in the database.
+     * @param integer $newsId The news id in the database.
+     * 
      * @return mixed
      */
     public function delete($newsId)

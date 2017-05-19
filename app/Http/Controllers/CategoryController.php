@@ -119,7 +119,7 @@ class CategoryController extends Controller
                 session()->flash('message', 'De category is verwijderd');
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the category in the database.
             return app()->abort(404);
         }

@@ -47,6 +47,12 @@ class LeaseTest extends TestCase
         $this->get(route('lease.access'))->assertStatus(200);
     }
 
+    /**
+     * The the front-end lease calendar.
+     * 
+     * @test
+     * @group all
+     */
     public function testLeaseCalendarFrontEnd()
     {
         $this->get(route('lease.calendar'))->assertStatus(200);

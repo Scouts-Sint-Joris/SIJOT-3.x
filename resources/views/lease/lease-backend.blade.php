@@ -61,7 +61,7 @@
                                         @elseif ((int) $lease->status_id  === 2)
                                             <span class="label label-warning">@lang('lease.status-lease-option')</span>
                                         @elseif ((int) $lease->status_id  === 3)
-                                            <span class="label label-success">@lang('lease.status-lease-conformed')</span>
+                                            <span class="label label-success">@lang('lease.status-lease-confirmed')</span>
                                         @endif
                                     </td> {{-- /Status indication --}}
 
@@ -81,7 +81,7 @@
                                             <a href="{{ route('lease.status', ['status' => 'optie', 'id' => $lease->id]) }}" class="label label-warning">@lang('lease.status-lease-option')</a>
                                         @endif
 
-                                        <a href="{{ route('lease.delete', ['id' => $lease->id]) }}" class="label label-danger">@trans('lease.backend-delete')</a>
+                                        <a href="{{ route('lease.delete', ['id' => $lease->id]) }}" class="label label-danger">@lang('lease.btn-backend-delete')</a>
                                     </td> {{-- /Options --}}
                                 </tr>
                             @endforeach

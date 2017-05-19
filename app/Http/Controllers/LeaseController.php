@@ -147,9 +147,7 @@ class LeaseController extends Controller
             $lease = $this->leaseDB->findOrFail($leaseId);
 
             switch ($status) { // Check which status we need to determine.
-                case 'nieuwe': // Status = 'Nieuwe aanvraag'
-                    $status = 1; 
-                    break;
+                case 'nieuwe':    $status = 1; break; // Status = 'Nieuwe verhuur'
                 case 'optie':     $status = 2; break; // Status = 'Optie'
                 case 'bevestigd': $status = 3; break; // Status = 'Bevestigd'
             }
@@ -168,7 +166,8 @@ class LeaseController extends Controller
     /**
      * Remove a lease in the database.
      *
-     * @param  integer   $leaseId    The databaseid for the lease.
+     * @param integer $leaseId The databaseid for the lease.
+     * 
      * @return mixed
      */
     public function delete($leaseId) // TODO: Check for model softDeletes.

@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * Class User
+ * Eloquent User model.
  *
- * @package App
+ * @category SIJOT-website
+ * @package  App
+ * @author   Tim Joosten <Topairy@gmail.com>
+ * @license  MIT License
+ * @link     http://www.st-joris-turnhout.be
  */
 class User extends Authenticatable implements HasBansContract
 {
