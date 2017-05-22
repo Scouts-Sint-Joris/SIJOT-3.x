@@ -2,8 +2,11 @@
 
 namespace Sijot\Http\Controllers;
 
+use Sijot\Activity;
+use Sijot\User;
 use Sijot\Events;
 use Sijot\News;
+use Sijot\Lease;
 use Illuminate\Http\Request;
 
 /**
@@ -59,7 +62,12 @@ class HomeController extends Controller
      */
     public function backend()
     {
-        $data['title'] = 'Backend';
+        $data['title']          = 'Backend';
+        $data['countLease']     = Lease::count();
+        $data['countUsers']     = User::count();
+        $data['countNews']      = News::count();
+        $data['countActivity']  = Activity::count();
+
         return view('backend-home', $data);
     }
 }
