@@ -12,11 +12,23 @@ class LeaseTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
 
+    /**
+     * Test the front-end page for the leases.
+     *
+     * @test
+     * @group all
+     */
     public function testLeaseIndexFrontEnd()
     {
         $this->get(route('lease'))->assertStatus(200);
     }
 
+    /**
+     * Test the backend index page for the leases.
+     *
+     * @test
+     * @group all
+     */
     public function testLeaseBackendIndex()
     {
         $user = factory(User::class)->create();
@@ -27,21 +39,39 @@ class LeaseTest extends TestCase
             ->assertStatus(200);
     }
 
+    /**
+     * T6est the export method for the leases.
+     *
+     * @group all
+     * @test
+     */
     public function testLeaseExportMethod()
     {
         $user = factory(User::class)->create();
 
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->get('lease.export')
-            ->assertStatus(404); // NOTE: Throws a 404 for a strange reason.
+            ->get(route('lease.export'))
+            ->assertStatus(200);
     }
 
+    /**
+     * Test the front-end lease request page.
+     *
+     * @test
+     * @route all
+     */
     public function testLeaseRequestViewNoAuthencation()
     {
         $this->get(route('lease.request'))->assertStatus(200);
     }
 
+    /**
+     * The Domain Access page.
+     *
+     * @test
+     * @group all
+     */
     public function testLeaseDomainAccessFrontEnd()
     {
         $this->get(route('lease.access'))->assertStatus(200);
