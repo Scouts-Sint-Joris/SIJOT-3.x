@@ -52,7 +52,7 @@ class EventsController extends Controller
         if ($this->events->create($input->except(['_token']))) { // try to create the event.
             // The event has been created in the database.
             session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'Het evenement is aangemaakt.');
+            session()->flash('message', trans('events.flash-event-create'));
         }
 
         return back(302);
@@ -108,9 +108,9 @@ class EventsController extends Controller
                 session()->flash('class', 'alert alert-success');
 
                 if ((int) $statusId === 0) { // Klad
-                    session()->flash('message', 'Het evenement is gezet naar een klad versie.');
+                    session()->flash('message', trans('events.flash-event-draft'));
                 } elseif ((int) $statusId === 1) { // Publicate
-                    session()->flash('message', 'Het evenement is gepubliceerd.');
+                    session()->flash('message', trans('events.flash-publish'));
                 }
             }
 
@@ -135,7 +135,7 @@ class EventsController extends Controller
             if ($event->delete()) { // Try to delete the event.
                 // The event has been deleted.
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'Het evenement is verwijderd');
+                session()->flash('message', trans('events.flash-event-delete'));
             }
 
             return back(302);
