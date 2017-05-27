@@ -45,7 +45,7 @@ class EventsTest extends TestCase
             ->assertStatus(200)
             ->assertSessionHasErrors()
             ->assertSessionMissing([
-                'class'   => 'alert alert-success',
+                'class' => 'alert alert-success',
                 'message' => trans('events.flash-event-create'),
             ]);
     }
@@ -61,14 +61,14 @@ class EventsTest extends TestCase
         $user = factory(User::class)->create();
 
         $input = [
-            'author_id'     => $user->id,
-            'title'         => 'Ik ben een titel',
-            'description'   => 'Ik ben een beschrijving',
-            'start_date'    => '10/10/1995',
-            'end_date'      => '11/10/1996',
-            'status'        => 'Y',
-            'end_hour'      => '10:10',
-            'start_hour'    => '12:10',
+            'author_id' => $user->id,
+            'title' => 'Ik ben een titel',
+            'description' => 'Ik ben een beschrijving',
+            'start_date' => '10/10/1995',
+            'end_date' => '11/10/1996',
+            'status' => 'Y',
+            'end_hour' => '10:10',
+            'start_hour' => '12:10',
         ];
 
         $this->actingAs($user)
@@ -76,14 +76,14 @@ class EventsTest extends TestCase
             ->post(route('events.store'), $input)
             ->assertStatus(302)
             ->assertSessionHasAll([
-                'class'   => 'alert alert-success',
+                'class' => 'alert alert-success',
                 'message' => trans('events.flash-event-create'),
             ]);
 
         $this->assertDatabaseHas('events', [
-            'author_id'     => $user->id,
-            'title'         => 'Ik ben een titel',
-            'description'   => 'Ik ben een beschrijving',
+            'author_id' => $user->id,
+            'title' => 'Ik ben een titel',
+            'description' => 'Ik ben een beschrijving',
         ]);
     }
 
@@ -111,5 +111,61 @@ class EventsTest extends TestCase
     {
         $this->get(route('events.show', 1000))
             ->assertStatus(404);
+    }
+
+    public function testEventStatusInvalidId()
+    {
+        $event  = factory(Events::class)->create(['id' => 1]);
+        $user   = factory(User::class)->create();
+        $params = ['status' => 0, 'id' => 1000];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('events.status', $params))
+            ->assertStatus(404);
+    }
+
+    /**
+     * Test if an event can be converted to draft.
+     *
+     * @test
+     * @group all
+     */
+    public function testEventStatusDraft()
+    {
+        $event  = factory(Events::class)->create();
+        $user   = factory(User::class)->create();
+        $params = ['status' => 0, 'id' => $event->id];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('events.status', $params))
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'   => 'alert alert-success',
+                'message' => trans('events.flash-event-draft')
+            ]);
+    }
+
+    /**
+     * Test if an event can be published
+     *
+     * @test
+     * @group all
+     */
+    public function testEventPublish()
+    {
+        $event  = factory(Events::class)->create();
+        $user   = factory(User::class)->create();
+        $params = ['status' => 1, 'id' => $event->id];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('events.status', $params))
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'   => 'alert alert-success',
+                'message' => trans('events.flash-publish')
+            ]);
     }
 }
