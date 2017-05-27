@@ -27,4 +27,34 @@ class EventsTest extends TestCase
             ->get(route('events.index'))
             ->assertStatus(200);
     }
+
+    public function testEventStoreWithValidationErr()
+    {
+
+    }
+
+    public function testEventStoreWithoutValidationErr()
+    {
+        $user = factory(User::class)->create();
+
+        $input = [
+            'author_id'     => $user->id,
+            'title'         => 'Ik ben een titel',
+            'description'   => 'Ik ben een beschrijving',
+            'start_date'    => '10/10/1995',
+            'end_date'      => '11/10/1996',
+            'status'        => 'Y',
+            'end_hour'      => '10:10',
+            'start_hour'    => '12:10',
+        ];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('events.store'), $input)
+            ->assertStatus(302)
+            ->assertSessionHasAll([
+                'class'   => '',
+                'message' => ''
+            ]);
+    }
 }
