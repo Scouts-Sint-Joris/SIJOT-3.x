@@ -29,6 +29,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Class docblock toegevoegd op de NewsController
 - Fixed: Translatie bug in de verhurings module.
 - Fixed password bug in de gebruikers creatie.
+- Account controller variable in hun flash outputs. 
+- Events controller is variable in hun flash outputs.
+- Implementatie unit tests voor de applicatie.
 
 # Version 0.1.0
 
