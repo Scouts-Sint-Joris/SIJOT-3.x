@@ -33,6 +33,12 @@ class EventsTest extends TestCase
 
     }
 
+    /**
+     * Test event creation in the database (without validation errors).
+     *
+     * @test
+     * @group all
+     */
     public function testEventStoreWithoutValidationErr()
     {
         $user = factory(User::class)->create();
@@ -53,8 +59,8 @@ class EventsTest extends TestCase
             ->post(route('events.store'), $input)
             ->assertStatus(302)
             ->assertSessionHasAll([
-                'class'   => '',
-                'message' => ''
+                'class'   => 'alert alert-success',
+                'message' => trans('events.flash-event-create'),
             ]);
     }
 }
