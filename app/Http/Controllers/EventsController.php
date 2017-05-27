@@ -18,6 +18,8 @@ use Sijot\Http\Requests\EventValidator;
  */
 class EventsController extends Controller
 {
+    // TODO: Translate the event titles.
+
     /**
      * The events database model in the application. 
      * 

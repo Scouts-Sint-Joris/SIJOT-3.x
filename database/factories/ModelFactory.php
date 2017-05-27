@@ -56,10 +56,10 @@ $factory->define(Sijot\Events::class, function (Faker\Generator $faker) {
         },
         'title' => $faker->word,
         'description' => $faker->word,
-        'end_date' => $faker->dateTimeBetween(),
-        'end_hour' => $faker->dateTimeBetween(),
-        'start_date' => $faker->dateTimeBetween(),
-        'start_hour' => $faker->dateTimeBetween(),
+        'end_date' => '',
+        'end_hour' => '',
+        'start_date' => '',
+        'start_hour' => '',
     ];
 });
 

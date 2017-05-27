@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Sijot\Events;
 use Sijot\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -28,9 +29,25 @@ class EventsTest extends TestCase
             ->assertStatus(200);
     }
 
+    /**
+     * Test event creation in the database (with validation errors).
+     *
+     * @test
+     * @group all
+     */
     public function testEventStoreWithValidationErr()
     {
+        $user = factory(User::class)->create();
 
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('events.store'), [])
+            ->assertStatus(200)
+            ->assertSessionHasErrors()
+            ->assertSessionMissing([
+                'class'   => 'alert alert-success',
+                'message' => trans('events.flash-event-create'),
+            ]);
     }
 
     /**
@@ -62,5 +79,37 @@ class EventsTest extends TestCase
                 'class'   => 'alert alert-success',
                 'message' => trans('events.flash-event-create'),
             ]);
+
+        $this->assertDatabaseHas('events', [
+            'author_id'     => $user->id,
+            'title'         => 'Ik ben een titel',
+            'description'   => 'Ik ben een beschrijving',
+        ]);
+    }
+
+    /**
+     * Test the response when an event id is valid.
+     *
+     * @test
+     * @group all
+     */
+    public function testShowEventValidId()
+    {
+        $event = factory(Events::class)->create(['id' => 4]);
+
+        $this->get(route('events.show', $event->id))
+            ->assertStatus(200);
+    }
+
+    /**
+     * Test the response when an event id in invalid.
+     *
+     * @test
+     * @group all
+     */
+    public function testShowEventInvalidId()
+    {
+        $this->get(route('events.show', 1000))
+            ->assertStatus(404);
     }
 }
