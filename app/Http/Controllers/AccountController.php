@@ -94,7 +94,7 @@ class AccountController extends Controller
                 }
 
                 session()->flash('class', 'alert alert-success'); 
-                session()->flash('message', 'Uw account wachtwoord is aangepast.');
+                session()->flash('message', trans('account.flash-account-info'));
             }
 
             return back();
@@ -115,7 +115,7 @@ class AccountController extends Controller
         if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical. 
             if ($this->userDb->find($input->user_id)->update($input->except(['_token', 'password_confirmation']))) { // The user has been changed.
                 session()->flash('class', 'alert alert-success'); 
-                session()->flash('message', 'Uw account wachtwoord is aangepast.');
+                session()->flash('message', trans('account.flash-account-password'));
             }
 
             return back();

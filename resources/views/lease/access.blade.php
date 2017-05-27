@@ -31,8 +31,9 @@
 
                                     <p>
                                         - Neem de E34 afslag 24 Turnhout-centrum. <br>
-                                        - Neem vervolgens de N19 richting Steenweg op Zevendonk.v <br>
-                                        - Sla vervolgens Steenweg op Zevendonk in. <br>
+                                        - Neem vervolgens de N19 richting Steenweg op Zevendonk. <br>
+                                        - Sla vervolgens de Everdrongenlaan in. <br>
+                                        - Vervolgens slaagt u in Rozenlaan. <br>
                                         - Sla vervolgens de Sint-Jorislaan in <br>
                                     </p>
                                 </div> {{-- /Content --}}
