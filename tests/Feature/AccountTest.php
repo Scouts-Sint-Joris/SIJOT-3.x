@@ -55,6 +55,12 @@ class AccountTest extends TestCase
             ]);
     }
 
+    /**
+     * Test the user update method for an account. (Without the validation errors)
+     *
+     * @test
+     * @group all
+     */
     public function testAccountSettingsWithoutValidationErr()
     {
         $user = factory(User::class)->create();
@@ -68,7 +74,7 @@ class AccountTest extends TestCase
 
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->post(route('account.info'))
+            ->post(route('account.info'), $input)
             ->assertStatus(302)
             ->assertSessionHas([
                 'class'   => 'alert alert-success',
