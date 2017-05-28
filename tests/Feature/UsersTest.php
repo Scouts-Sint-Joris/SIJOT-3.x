@@ -166,7 +166,7 @@ class UsersTest extends TestCase
         $userActive  = factory(User::class)->create();
         $user2       = factory(User::class)->create();
 
-        $userBlocked = User::find($user2->id)->ban([
+        User::find($user2->id)->ban([
             'comment'    => 'Ik ben een reden',
             'expired_at' => Carbon::parse('26-6-2017')
         ]);
@@ -181,19 +181,70 @@ class UsersTest extends TestCase
             ]);
     }
 
+    /**
+     * Test the output when the user is not found in the database with his id.
+     *
+     * @test
+     * @group all
+     */
     public function testUnblockInvalidId()
     {
+        $user = factory(User::class)->create();
 
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('users.unblock', ['id' => 1000]))
+            ->assertStatus(404);
     }
 
+    /**
+     * Test inserting new user. (with validation errors)
+     *
+     * @test
+     * @group all
+     */
     public function testStoreValidationError()
     {
+        $user = factory(User::class)->create();
 
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('users.store'), [])
+            ->assertStatus(200)
+            ->assertSessionHasErrors()
+            ->assertSessionMissing([
+                'class'   => 'alert alert-success',
+                'message' => 'De login is aangemaakt.'
+            ]);
     }
 
+    /**
+     * Test inserting new user. (with validation errors)
+     *
+     * @test
+     * @group all
+     */
     public function testStoreNoValidationErr()
     {
+        $user = factory(User::class)->create();
 
+        $input = [
+            'name'                  => 'John Doe',
+            'email'                 => 'example@domain.tld',
+            'password'              => 'Ikbeneenwachtwoord!',
+            'password_confirmation' => 'Ikbeneenwachtwoord!'
+        ];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('users.store'), $input)
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'   => 'alert alert-success',
+                'message' => 'De login is aangemaakt.'
+            ]);
+
+        $this->assertDatabaseHas('users', ['name' => $input['name'], 'email' => $input['email']]);
     }
 
     /**
