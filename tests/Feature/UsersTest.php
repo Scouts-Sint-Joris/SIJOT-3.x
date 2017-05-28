@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
@@ -134,9 +135,50 @@ class UsersTest extends TestCase
             ->assertStatus(404);
     }
 
-    public function testUnblockValidId()
+    /**
+     * Test if we can unblock a user when the user in case is already active.
+     *
+     * @test
+     * @group all
+     */
+    public function testUnblockValidIdNotBanned()
     {
+        $user = factory(User::class, 2)->create();
 
+        $this->actingAs($user[0])
+            ->seeIsAuthenticatedAs($user[0])
+            ->get(route('users.unblock', ['id' => $user[1]]))
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'   => 'alert alert-danger',
+                'message' => 'Wij konden de gebruiker niet activeren.'
+            ]);
+    }
+
+    /**
+     * Test if we can unblock a banned user.
+     *
+     * @test
+     * @group all
+     */
+    public function testUnblockActivateUserCorrect()
+    {
+        $userActive  = factory(User::class)->create();
+        $user2       = factory(User::class)->create();
+
+        $userBlocked = User::find($user2->id)->ban([
+            'comment'    => 'Ik ben een reden',
+            'expired_at' => Carbon::parse('26-6-2017')
+        ]);
+
+        $this->actingAs($userActive)
+            ->seeIsAuthenticatedAs($userActive)
+            ->get(route('users.unblock', ['id' => $user2->id]))
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'    => 'alert alert-success',
+                'message' => 'De gebruiker is terug geactiveerd'
+            ]);
     }
 
     public function testUnblockInvalidId()
