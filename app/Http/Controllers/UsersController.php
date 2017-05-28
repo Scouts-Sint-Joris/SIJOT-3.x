@@ -99,11 +99,14 @@ class UsersController extends Controller
      */
     public function block(BanValidator $input)
     {
+        // dd($input->all());
+
         try { // To ban the user.
             $user = $this->userDB->findOrFail($input->id);
             $user->ban(['comment' => $input->reason, 'expired_at' => Carbon::parse($input->eind_datum)]);
 
-            $notifyUsers = $this->userDB->role('Admin')->get();
+            // $notifyUsers = $this->userDB->role('Admin')->get();
+            $notifyUsers = $this->userDB->all();
             Notification::send($notifyUsers, new BlockNotification($notifyUsers));
 
             session()->flash('class', 'alert alert-success');

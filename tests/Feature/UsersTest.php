@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Notification;
+use Sijot\Notifications\BlockNotification;
 use Sijot\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -74,20 +76,62 @@ class UsersTest extends TestCase
      */
     public function testBanUserValidIdNoValidationError()
     {
+        Notification::fake();
 
+        $user = factory(User::class, 2)->create();
+
+        $input = [
+            'id' => $user[1]->id,
+            'eind_datum' => '10-11-2018',
+            'reason' => 'Ik ben een beschrijving'
+        ];
+
+        $this->actingAs($user[0])
+            ->seeIsAuthenticatedAs($user[0])
+            ->post(route('users.block'), $input)
+            ->assertStatus(302)
+            ->assertSessionHas(['class' => 'alert alert-success']);
+
+        Notification::assertSentTo($user, BlockNotification::class);
     }
 
     /**
+     * Test if we can ban a user. With validation errors.
      *
+     * @test
+     * @group all
      */
     public function testBanUserValidIdValidationError()
     {
+        $user        = factory(User::class, 2)->create();
+        $input['id'] = $user[1]->id;
 
+        $this->actingAs($user[0])
+            ->seeIsAuthenticatedAs($user[0])
+            ->post(route('users.block'), $input)
+            ->assertStatus(200)
+            ->assertSessionMissing(['class' => 'alert alert-success'])
+            ->assertSessionHasErrors();
     }
 
+    /**
+     * Test if wa can ban an user with an invalid id.
+     *
+     * @test
+     * @group all
+     */
     public function testBanUserInvalidId()
     {
+        $user        = factory(User::class)->create();
 
+        $input['id']         = 1000;
+        $input['eind_datum'] = '10-11-2016';
+        $input['reason']     = 'Ik ben een wachtwoord';
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('users.block'), $input)
+            ->assertStatus(404);
     }
 
     public function testUnblockValidId()
@@ -110,13 +154,39 @@ class UsersTest extends TestCase
 
     }
 
+    /**
+     * Test if we can delete a user.
+     *
+     * @test
+     * @group all
+     */
     public function testUserDeleteValidId()
     {
+        $user = factory(User::class, 2)->create();
 
+        $this->actingAs($user[0])
+            ->seeIsAuthenticatedAs($user[0])
+            ->get(route('users.delete', ['id' => $user[1]->id]))
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'   => 'alert alert-success',
+                'message' => "{$user[1]->name} Is verwijderd uit het systeem."
+            ]);
     }
 
+    /**
+     * Test if we get an invalid response on user delete.
+     *
+     * @test
+     * @group all
+     */
     public function testUserDeleteInvalidId()
     {
+        $user = factory(User::class)->create();
 
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('users.delete', ['id' => 1000]))
+            ->assertStatus(404);
     }
 }
