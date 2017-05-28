@@ -29,7 +29,8 @@ class BanValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'eind_datum' => 'required',
+            'reason'     => 'required'
         ];
     }
 }
