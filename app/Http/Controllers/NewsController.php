@@ -211,7 +211,7 @@ class NewsController extends Controller
                 session()->flash('message', 'Het nieuwsbericht is verwijderd.');
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $exception) { // Record not found.
             return app()->abort(404);
         }

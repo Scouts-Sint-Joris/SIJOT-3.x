@@ -54,10 +54,12 @@ Route::get('/takken/{selector}', 'GroupController@show')->name('groups.show');
 
 // News routes.
 Route::get('/nieuws', 'NewsController@index')->name('news.index');
+Route::get('/nieuws/toevoegen', 'NewsController@create')->name('news.create');
 Route::post('/nieuws/toevoegen', 'NewsController@store')->name('news.store');
 Route::get('/nieuws/show/{id}', 'NewsController@show')->name('news.show');
 Route::get('/nieuws/status/{status}/{id}', 'NewsController@status')->name('news.status');
-Route::get('/nieuws/json/{id}', 'NewsController@gyetById')->name('news.json');
+Route::post('/nieuws/wijzig/{id}', 'NewsController@update')->name('news.update');
+Route::get('/nieuws/json/{id}', 'NewsController@getById')->name('news.json');
 Route::get('/nieuws/verwijder/{id}', 'NewsController@delete')->name('news.delete');
 
 // Category routes
