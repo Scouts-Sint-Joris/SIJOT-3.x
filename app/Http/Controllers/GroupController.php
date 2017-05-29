@@ -41,7 +41,7 @@ class GroupController extends Controller
      */
     public function __construct(Activity $activity, Groups $groups)
     {
-        $routes = ['backend', 'updated'];
+        $routes = ['backend', 'update'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Sijot\Categories;
 use Sijot\News;
 use Sijot\User;
 use Tests\TestCase;
@@ -94,15 +95,58 @@ class NewsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $input = [
+            'author_id' => $user->id,
+            'publish'   => 'N',
+            'title'     => 'Ik ben een titel',
+            'message'   => 'Ik ben een nieuwsbericht.',
+        ];
+
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->post(route('news.store'))
-            ->assertSessionHasErrors()
-            ->assertStatus(200)
-            ->assertSessionMissing([
+            ->post(route('news.store'), $input)
+            ->assertStatus(302)
+            ->assertSessionHas([
                 'class'     => 'alert alert-success',
                 'message'   => 'Het nieuwsbericht is opgeslagen.'
             ]);
+
+        $this->assertDatabaseHas('news', $input);
+    }
+
+    /**
+     * Store a new news item. (No validation errors)
+     *
+     * @test
+     * @group all
+     */
+    public function testStoreNoValidationErrorWithCategories()
+    {
+        $user       = factory(User::class)->create();
+        $categories = factory(Categories::class, 3)->create();
+
+        $input = [
+            'author_id'  => $user->id,
+            'publish'    => 'N',
+            'categories' => [$categories[0]->id, $categories[1]->id, $categories[2]->id],
+            'title'      => 'Ik ben een titel',
+            'message'    => 'Ik ben een nieuwsbericht.',
+        ];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('news.store'), $input)
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'     => 'alert alert-success',
+                'message'   => 'Het nieuwsbericht is opgeslagen.'
+            ]);
+
+        // $this->assertDatabaseHas('news', $input);
+
+        $this->assertDatabaseHas('categories_news', ['categories_id' => $categories[0]->id]);
+        $this->assertDatabaseHas('categories_news', ['categories_id' => $categories[1]->id]);
+        $this->assertDatabaseHas('categories_news', ['categories_id' => $categories[2]->id]);
     }
 
     /**
@@ -114,7 +158,6 @@ class NewsTest extends TestCase
     public function testStoreWithValidationError()
     {
         $user = factory(User::class)->create();
-        $news = factory(News::class)->create();
 
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
@@ -171,9 +214,16 @@ class NewsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $input = [
+            'author_id' => $user->id,
+            'publish'   => 'N',
+            'title'     => 'Ik ben een titel',
+            'message'   => 'Ik ben een nieuwsbericht.',
+        ];
+
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->post('news.update', ['id' => 1000])
+            ->post(route('news.update', ['id' => 1000]), $input)
             ->assertStatus(404);
     }
 
@@ -332,7 +382,7 @@ class NewsTest extends TestCase
 
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->get('news.delete', ['id' => 1000])
+            ->get(route('news.delete', ['id' => 1000]))
             ->assertStatus(404);
     }
 }
