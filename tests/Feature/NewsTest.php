@@ -94,15 +94,23 @@ class NewsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $input = [
+            'author_id' => $user->id,
+            'publish'   => 'N',
+            'title'     => 'Ik ben een titel',
+            'message'   => 'Ik ben een nieuwsbericht.',
+        ];
+
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->post(route('news.store'))
-            ->assertSessionHasErrors()
-            ->assertStatus(200)
-            ->assertSessionMissing([
+            ->post(route('news.store'), $input)
+            ->assertStatus(302)
+            ->assertSessionHas([
                 'class'     => 'alert alert-success',
                 'message'   => 'Het nieuwsbericht is opgeslagen.'
             ]);
+
+        $this->assertDatabaseHas('news', $input);
     }
 
     /**
