@@ -78,7 +78,7 @@ class ActivityController extends Controller
         if ($activity = $this->activity->create($input->except(['_token']))) { // Check if the activity can be stored.
             // Activity has been stored.
             session()->flash('class', 'alert alert-success');
-            session()->flash('message', lang('activity.flash-store-success', ['title' => $activity->title]));
+            session()->flash('message', trans('activity.flash-store-success', ['title' => $activity->title]));
         }
 
         return back(302); // HTTP STATUS: REDIRECT.

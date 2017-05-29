@@ -22,6 +22,7 @@ $factory->define(Sijot\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
 $factory->define(Sijot\Activity::class, function (Faker\Generator $faker) {
     return [
         'group_id' => function () {
