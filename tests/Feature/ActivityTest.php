@@ -219,7 +219,7 @@ class ActivityTest extends TestCase
 
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->get(route('news.delete', ['id' => 100]))
+            ->get(route('activity.delete', ['id' => 100]))
             ->assertStatus(404);
     }
 
