@@ -214,10 +214,17 @@ class NewsTest extends TestCase
     {
         $user = factory(User::class)->create();
 
+        $input = [
+            'author_id' => $user->id,
+            'publish'   => 'N',
+            'title'     => 'Ik ben een titel',
+            'message'   => 'Ik ben een nieuwsbericht.',
+        ];
+
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->post(route('news.update', ['id' => 1000]))
-            ->assertStatus(200);
+            ->post(route('news.update', ['id' => 1000]), $input)
+            ->assertStatus(404);
     }
 
     /**
