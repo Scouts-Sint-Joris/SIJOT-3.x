@@ -117,9 +117,9 @@ class ActivityController extends Controller
                 // The activity has been deleted.
                 session()->flash('class', 'alert alert-success');
 
-                if ((int) $statusId === 0) {
+                if ((int) $statusId === 0) { // Draft
                     session()->flash('message', trans('activity.flash-status-draft', ['title' => $activity->title]));
-                } elseif ((int) $statusId === 1) {
+                } elseif ((int) $statusId === 1) { // Publish
                     session()->flash('message', trans('activity.flash-status-publish', ['title' => $activity->title]));
                 }
             }
