@@ -66,8 +66,6 @@ class CategoryController extends Controller
      */
     public function getById($categoryId)
     {
-        // TODO: register route.
-
         try { // To find the category in the database.
             return(json_encode($this->categories->findOrFail($categoryId)));
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not found the record in the database.
@@ -84,14 +82,12 @@ class CategoryController extends Controller
      */
     public function edit(CategoryValidator $input)
     {
-        // TODO register route
-
         try {
             $category = $this->categories->findOrfail($input->categoryId);
 
             if ($category->update($input->except(['_token']))) { // Try to edit the category.
                 // The record has been updated.
-                session()->flash('class', 'alert alert-succss');
+                session()->flash('class', 'alert alert-success');
                 session()->flash('message', 'De category is aangepast');
             }
 

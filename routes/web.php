@@ -65,6 +65,8 @@ Route::get('/nieuws/verwijder/{id}', 'NewsController@delete')->name('news.delete
 // Category routes
 Route::post('/categorie/toevoegen', 'CategoryController@insert')->name('category.insert');
 Route::get('/categorie/verwijderen/{id}', 'CategoryController@destroy')->name('category.delete');
+Route::get('/categorie/json/{id}', 'CategoryController@getById')->name('category.json');
+Route::post('/categories/wijzig', 'CategoryController@edit')->name('category.edit');
 
 // Events routes
 Route::get('/events', 'EventsController@index')->name('events.index');
