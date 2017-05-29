@@ -124,4 +124,30 @@ class GroupTest extends TestCase
                 'message' => 'De groeps informatie is aangepast'
             ]);
     }
+
+    /**
+     * Show a specific group (no valid id)
+     *
+     * @test
+     * @group all
+     */
+    public function testShowGroupNoValidId()
+    {
+        $this->get(route('groups.show', ['selector' => 'BladeBlad']))
+            ->assertStatus(404);
+    }
+
+    /**
+     * Show a specific group
+     *
+     * @test
+     * @group all
+     */
+    public function testShowGroup()
+    {
+        $group = factory(Groups::class)->create();
+
+        $this->get(route('groups.show', ['selector' => $group->selector]))
+            ->assertStatus(200);
+    }
 }
