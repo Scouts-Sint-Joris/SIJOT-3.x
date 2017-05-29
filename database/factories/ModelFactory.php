@@ -22,6 +22,7 @@ $factory->define(Sijot\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
 $factory->define(Sijot\Activity::class, function (Faker\Generator $faker) {
     return [
         'group_id' => function () {
@@ -30,10 +31,10 @@ $factory->define(Sijot\Activity::class, function (Faker\Generator $faker) {
         'status' => $faker->word,
         'title' => $faker->word,
         'description' => $faker->word,
-        'activiteit_datum' => $faker->dateTimeBetween(),
-        'start_hour' => $faker->dateTimeBetween(),
-        'end_hour' => $faker->dateTimeBetween(),
-        'deleted_at' => $faker->dateTimeBetween(),
+        'activiteit_datum' => '',
+        'start_hour' => '',
+        'end_hour' => '',
+        'deleted_at' => '',
     ];
 });
 

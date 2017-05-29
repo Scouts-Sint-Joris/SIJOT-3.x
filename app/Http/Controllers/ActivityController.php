@@ -78,7 +78,7 @@ class ActivityController extends Controller
         if ($activity = $this->activity->create($input->except(['_token']))) { // Check if the activity can be stored.
             // Activity has been stored.
             session()->flash('class', 'alert alert-success');
-            session()->flash('message', lang('activity.flash-store-success', ['title' => $activity->title]));
+            session()->flash('message', trans('activity.flash-store-success', ['title' => $activity->title]));
         }
 
         return back(302); // HTTP STATUS: REDIRECT.
@@ -117,9 +117,9 @@ class ActivityController extends Controller
                 // The activity has been deleted.
                 session()->flash('class', 'alert alert-success');
 
-                if ((int) $statusId === 0) {
+                if ((int) $statusId === 0) { // Draft
                     session()->flash('message', trans('activity.flash-status-draft', ['title' => $activity->title]));
-                } elseif ((int) $statusId === 1) {
+                } elseif ((int) $statusId === 1) { // Publish
                     session()->flash('message', trans('activity.flash-status-publish', ['title' => $activity->title]));
                 }
             }
