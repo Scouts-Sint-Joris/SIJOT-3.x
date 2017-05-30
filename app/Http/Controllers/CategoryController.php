@@ -51,7 +51,7 @@ class CategoryController extends Controller
         if ($this->categories->create($input->all())) { // Try to insert a new category.
             // The category has been inserted.
             session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'De categorie is toegevoegd.');
+            session()->flash('message', trans('category.flash-insert'));
         }
 
         return back(302);
@@ -88,7 +88,7 @@ class CategoryController extends Controller
             if ($category->update($input->except(['_token']))) { // Try to edit the category.
                 // The record has been updated.
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De category is aangepast');
+                session()->flash('message', trans('category.flash-edit'));
             }
 
             return back(302);
@@ -112,7 +112,7 @@ class CategoryController extends Controller
             if ($category->delete() && $category->news()->sync([])) { // Try to delete the category.
                 // Category has been deleted.
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De category is verwijderd');
+                session()->flash('message', trans('category.flash-delete'));
             }
 
             return back(302);
