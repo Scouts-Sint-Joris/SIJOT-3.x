@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Sijot\Mail\UserCreationMail;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
 use Tests\TestCase;
@@ -226,11 +228,13 @@ class UsersTest extends TestCase
      */
     public function testStoreNoValidationErr()
     {
+        Mail::fake();
+
         $user = factory(User::class)->create();
 
         $input = [
             'name'                  => 'John Doe',
-            'email'                 => 'example@domain.tld',
+            'email'                 => 'topairy@gmail.com',
             'password'              => 'Ikbeneenwachtwoord!',
             'password_confirmation' => 'Ikbeneenwachtwoord!'
         ];
@@ -243,6 +247,16 @@ class UsersTest extends TestCase
                 'class'   => 'alert alert-success',
                 'message' => 'De login is aangemaakt.'
             ]);
+
+        Mail::assertSent(UserCreationMail::class, function ($mail) use ($input) {
+            return $mail->data['name']     === $input['name']  &&
+                $mail->data['email']    === $input['email'] &&
+                $mail->data['password'] === $input['password'];
+        });
+
+        Mail::assertSent(UserCreationMail::class, function ($mail) use ($input) {
+            return $mail->hasTo($input['email']);
+        });
 
         $this->assertDatabaseHas('users', ['name' => $input['name'], 'email' => $input['email']]);
     }
