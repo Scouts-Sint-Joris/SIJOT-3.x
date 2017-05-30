@@ -170,7 +170,7 @@ class LeaseController extends Controller
      * 
      * @return mixed
      */
-    public function delete($leaseId) // TODO: Check for model softDeletes.
+    public function delete($leaseId)
     {
         try { // Check if the record exists
             if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
@@ -178,7 +178,7 @@ class LeaseController extends Controller
                 session()->flash('message', trans('lease.flash-lease-delete'));
             }
 
-            return back();
+            return back(302);
         } catch (ModelNotFoundException $exception) { // The record doesn't exists.
             return app()->abort(404);
         }
