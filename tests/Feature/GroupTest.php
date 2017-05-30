@@ -59,7 +59,7 @@ class GroupTest extends TestCase
             ->assertSessionHasErrors()
             ->assertSessionMissing([
                 'class'   => 'alert alert-success',
-                'message' => 'De groeps informatie is aangepast'
+                'message' => 'De groeps informatie is aangepast.'
             ]);
     }
 
@@ -92,7 +92,7 @@ class GroupTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHas([
                 'class'   => 'alert alert-success',
-                'message' => 'De groeps informatie is aangepast'
+                'message' => 'De groeps informatie is aangepast.'
             ]);
 
         $this->assertDatabaseHas('groups', $input);
@@ -121,7 +121,7 @@ class GroupTest extends TestCase
             ->assertStatus(404)
             ->assertSessionMissing([
                 'class'   => 'alert alert-success',
-                'message' => 'De groeps informatie is aangepast'
+                'message' => 'De groeps informatie is aangepast.'
             ]);
     }
 
