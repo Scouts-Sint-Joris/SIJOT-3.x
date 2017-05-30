@@ -23,6 +23,7 @@ $factory->define(Sijot\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\Activity::class, function (Faker\Generator $faker) {
     return [
         'group_id' => function () {
@@ -38,6 +39,7 @@ $factory->define(Sijot\Activity::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\Categories::class, function (Faker\Generator $faker) {
     return [
         'author_id' => function () {
@@ -49,6 +51,7 @@ $factory->define(Sijot\Categories::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\Events::class, function (Faker\Generator $faker) {
     return [
         'status' => $faker->randomNumber(),
@@ -64,6 +67,7 @@ $factory->define(Sijot\Events::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\Groups::class, function (Faker\Generator $faker) {
     return [
         'selector' => $faker->word,
@@ -73,6 +77,7 @@ $factory->define(Sijot\Groups::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\Lease::class, function (Faker\Generator $faker) {
     return [
         'status_id' => $faker->randomNumber(),
@@ -84,6 +89,7 @@ $factory->define(Sijot\Lease::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\News::class, function (Faker\Generator $faker) {
     return [
         'author_id' => function () {
@@ -95,6 +101,7 @@ $factory->define(Sijot\News::class, function (Faker\Generator $faker) {
     ];
 });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(Sijot\Themes::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
