@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Sijot\Lease;
 use Sijot\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -75,6 +76,43 @@ class LeaseTest extends TestCase
     public function testLeaseDomainAccessFrontEnd()
     {
         $this->get(route('lease.access'))->assertStatus(200);
+    }
+
+    /**
+     * Try to delete an invalid lease.
+     *
+     * @test
+     * @group all
+     */
+    public function testLeaseDeleteInvalidId()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('lease.delete', ['id' => 1000]))
+            ->assertStatus(404);
+    }
+
+    /**
+     * try to delete a valid lease.
+     *
+     * @test
+     * @group all
+     */
+    public function testLeaseDelete()
+    {
+        $user  = factory(User::class)->create();
+        $lease = factory(Lease::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('lease.delete', ['id' => $lease->id]))
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'class'   => 'alert alert-success',
+                'message' => trans('lease.flash-lease-delete')
+            ]);
     }
 
     /**
