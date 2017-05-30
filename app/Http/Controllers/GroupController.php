@@ -96,7 +96,7 @@ class GroupController extends Controller
 
             if ($group->update($input->except(['_token']))) { // The record has been updated.
                 session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De groeps informatie is aangepast');
+                session()->flash('message', trans('group.flash-update'));
             }
 
             return back();
