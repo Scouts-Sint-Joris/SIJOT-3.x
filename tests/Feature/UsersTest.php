@@ -249,6 +249,12 @@ class UsersTest extends TestCase
             ]);
 
         Mail::assertSent(UserCreationMail::class, function ($mail) use ($input) {
+            return $mail->data['name']     === $input['name']  &&
+                $mail->data['email']    === $input['email'] &&
+                $mail->data['password'] === $input['password'];
+        });
+
+        Mail::assertSent(UserCreationMail::class, function ($mail) use ($input) {
             return $mail->hasTo($input['email']);
         });
 
