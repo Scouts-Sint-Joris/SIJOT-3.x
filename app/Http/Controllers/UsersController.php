@@ -2,8 +2,10 @@
 
 namespace Sijot\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Sijot\Http\Requests\BanValidator;
 use Sijot\Http\Requests\Usersvalidator;
+use Sijot\Mail\UserCreationMail;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
 use Carbon\Carbon;
@@ -160,6 +162,13 @@ class UsersController extends Controller
         $data['password'] = bcrypt($input->password);
 
         if ($user = $this->userDB->create($data)) { // Try to create the user.
+            // Send info mail.
+
+            // TODO: Set the mail in test files. Mailable errors phpunit.
+            Mail::to($user->email)->send(new UserCreationMail($input->all()));
+
+
+            // Set flash message.
             session()->flash('class', 'alert alert-success');
             session()->flash('message', 'De login is aangemaakt.');
         }
