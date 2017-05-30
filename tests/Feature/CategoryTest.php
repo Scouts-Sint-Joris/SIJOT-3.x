@@ -36,7 +36,7 @@ class CategoryTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHas([
                 'class'   => 'alert alert-success',
-                'message' => 'De categorie is toegevoegd.'
+                'message' => trans('category.flash-insert')
             ]);
 
         $this->assertDatabaseHas('categories', $input);
@@ -59,7 +59,7 @@ class CategoryTest extends TestCase
             ->assertSessionHasErrors()
             ->assertSessionMissing([
                 'class'   => 'alert alert-success',
-                'message' => 'De categorie is toegevoegd.'
+                'message' => trans('category.flash-insert')
             ]);
     }
 
@@ -141,7 +141,7 @@ class CategoryTest extends TestCase
             ->assertSessionHasErrors()
             ->assertSessionMissing([
                 'class'   => 'alert alert-success',
-                'message' => 'De category is aangepast'
+                'message' => trans('category.flash-edit')
             ]);
     }
 
@@ -164,7 +164,7 @@ class CategoryTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHas([
                 'class'   => 'alert alert-success',
-                'message' => 'De category is aangepast'
+                'message' => trans('category.flash-edit')
             ]);
     }
 
@@ -185,7 +185,7 @@ class CategoryTest extends TestCase
             ->assertStatus(302)
             ->assertSessionHas([
                 'class'   => 'alert alert-success',
-                'message' => 'De category is verwijderd'
+                'message' => trans('category.flash-delete')
             ]);
     }
 
@@ -205,7 +205,7 @@ class CategoryTest extends TestCase
             ->assertStatus(404)
             ->assertSessionMissing([
                 'class'   => 'alert alert-success',
-                'message' => 'De category is verwijderd'
+                'message' => trans('category.flash-delete')
             ]);
     }
 }
