@@ -25,21 +25,21 @@ class EventsController extends Controller
      * 
      * @var Events
      */
-    private $events;
+    private $_events;
 
     /**
      * EventsController constructor.
      *
      * @param Events $events The events database model in the application.
      */
-    public function __construct(Events $events)
+    public function __construct(Events $_events)
     {
         $routes = ['index', 'delete', 'edit'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
-        $this->events = $events;
+        $this->events = $_sevents;
     }
 
     /**
