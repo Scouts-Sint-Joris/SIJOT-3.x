@@ -79,7 +79,7 @@ class AccountController extends Controller
                     $avatar = public_path(auth()->user()->avatar); 
 
                     if (file_exists($avatar)) { // If the previous avatar exists. Delete it.
-                        Storage::delete($avatar);
+                        unlink($avatar);
                     }
 
                     $image      = $input->file('avatar');

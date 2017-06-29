@@ -30,7 +30,7 @@ class EventsController extends Controller
     /**
      * EventsController constructor.
      *
-     * @param Events $events The events database model in the application.
+     * @param Events $_events The events database model in the application.
      */
     public function __construct(Events $_events)
     {
@@ -149,7 +149,8 @@ class EventsController extends Controller
     /**
      * Get a specific event and encode it with json.
      *
-     * @param  integer $eventId The id from the event in the database.
+     * @param integer $eventId The id from the event in the database.
+     *
      * @return mixed
      */
     public function getById($eventId)
