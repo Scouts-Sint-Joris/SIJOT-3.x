@@ -39,7 +39,7 @@ class EventsController extends Controller
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
-        $this->events = $_sevents;
+        $this->events = $_events;
     }
 
     /**
