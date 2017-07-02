@@ -27,7 +27,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         Activiteiten:
-                                        <a href="" style="color: orange; float: right; padding-top: 5px;" class="fa fa-rss" aria-hidden="true"></a>
+                                        <a href="{{ route('activity.feed', $group->id) }}" target="_blank" style="color: orange; float: right; padding-top: 5px;" class="fa fa-rss" aria-hidden="true"></a>
                                     </div>
 
                                     @if ((int) count($activities) > 0) {{-- There are activities in the database.  --}}

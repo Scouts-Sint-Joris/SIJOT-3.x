@@ -82,3 +82,4 @@ Route::get('activiteiten/bekijk/{id}', 'ActivityController@show')->name('activit
 Route::get('activiteiten/verwijder/{id}', 'ActivityController@destroy')->name('activity.delete');
 Route::get('activiteiten/status/{status}/{id}', 'ActivityController@status')->name('activity.status');
 Route::get('activiteiten/json/{id}', 'ActivityController@getByid')->name('activity.json');
+Route::get('activiteiten.json/feed/{id}', 'ActivityController@jsonfeed')->name('activity.feed');
