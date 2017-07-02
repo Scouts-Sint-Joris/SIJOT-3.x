@@ -67,6 +67,13 @@ class ActivityController extends Controller
         return view('activity.backend-index', $data);
     }
 
+    /**
+     * Generate a json feed for the modern news readers.
+     *
+     * @param integer $groepId The idvan de groep in de database.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function jsonFeed($groepId) 
     {
         $data['group']  = $this->groups->find($groepId);
@@ -84,7 +91,7 @@ class ActivityController extends Controller
             'feed_url'      => 'https://www.st-joris-turnhout.be/feed/json',
             'icon'          => 'https://www.st-joris-turn/apple-touch-icon.png',
             'favicon'       => 'https://www.st-joris-turnhout.be/apple-touch-icon.png',
-            'items'         => [],
+            'items'         => [], // Empty array wil be filled up with the foreach below.
         ];
 
         foreach ($activities as $key => $activity) {
