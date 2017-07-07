@@ -178,6 +178,7 @@ return [
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         EricMakesStuff\ServerMonitor\ServerMonitorServiceProvider::class,
         Spatie\Tail\TailServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...
