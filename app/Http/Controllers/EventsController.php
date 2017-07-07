@@ -52,9 +52,7 @@ class EventsController extends Controller
     public function store(EventValidator $input)
     {
         if ($this->events->create($input->except(['_token']))) { // try to create the event.
-            // The event has been created in the database.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', trans('events.flash-event-create'));
+            flash(trans('events.flash-event-create'))->success();
         }
 
         return back(302);
@@ -106,13 +104,11 @@ class EventsController extends Controller
             $event = $this->events->findOrFail($eventId);
 
             if ($event->update(['status' => $statusId])) { // Try to change the status.
-                // The status has been updated.
-                session()->flash('class', 'alert alert-success');
 
                 if ((int) $statusId === 0) { // Klad
-                    session()->flash('message', trans('events.flash-event-draft'));
+                    flash('message', trans('events.flash-event-draft'))->success();
                 } elseif ((int) $statusId === 1) { // Publicate
-                    session()->flash('message', trans('events.flash-publish'));
+                    flash('message', trans('events.flash-publish'))->success();
                 }
             }
 
@@ -135,9 +131,7 @@ class EventsController extends Controller
             $event = $this->events->findOrFail($eventId);
 
             if ($event->delete()) { // Try to delete the event.
-                // The event has been deleted.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('events.flash-event-delete'));
+                flash(trans('events.flash-event-delete'))->success();
             }
 
             return back(302);

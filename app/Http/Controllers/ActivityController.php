@@ -76,9 +76,7 @@ class ActivityController extends Controller
     public function store(ActivityValidator $input)
     {
         if ($activity = $this->activity->create($input->except(['_token']))) { // Check if the activity can be stored.
-            // Activity has been stored.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', trans('activity.flash-store-success', ['title' => $activity->title]));
+            flash(trans('activity.flash-store-success', ['title' => $activity->title]))->success();
         }
 
         return back(302); // HTTP STATUS: REDIRECT.
@@ -114,13 +112,10 @@ class ActivityController extends Controller
             $activity = $this->activity->findOrFail($activityId);
 
             if ($activity->update(['status' => $statusId])) { // Try to update the activity.
-                // The activity has been deleted.
-                session()->flash('class', 'alert alert-success');
-
                 if ((int) $statusId === 0) { // Draft
-                    session()->flash('message', trans('activity.flash-status-draft', ['title' => $activity->title]));
+                    flash(trans('activity.flash-status-draft-draft', ['title' => $activity->title]))->success();
                 } elseif ((int) $statusId === 1) { // Publish
-                    session()->flash('message', trans('activity.flash-status-publish', ['title' => $activity->title]));
+                    flash(trans('activity.flash-status-draft-publish', ['title' => $activity->title]))->success();
                 }
             }
 
@@ -162,9 +157,7 @@ class ActivityController extends Controller
             $activity = $this->activity->findOrFail($activityId);
 
             if ($activity->delete()) { // Try to delete the activity.
-                // Activity has been deleted
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('activity.flash-delete-success', ['title' => $activity->title]));
+                flash(trans('activity.flash-delete-success', ['title' => $activity->title]))->success();
             }
 
             return back(302);

@@ -42,11 +42,7 @@ class ActivityTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('activity.store'), [])
             ->assertStatus(200)
-            ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-store-success', ['title' => ''])
-            ]);
+            ->assertSessionHasErrors();
     }
 
     /**
@@ -73,11 +69,7 @@ class ActivityTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('activity.store'), $input)
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-store-success', ['title' => $input['title']])
-            ]);
+            ->assertStatus(302);
 
         // $this->assertDatabaseHas('activities', $input);
     }
@@ -146,11 +138,7 @@ class ActivityTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('activity.status', ['status' => 0, 'id' => $activity->id]))
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-status-draft', ['title' => $activity->title])
-            ]);
+            ->assertStatus(302);
     }
 
     /**
@@ -167,11 +155,7 @@ class ActivityTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('activity.status', ['status' => 1, 'id' => $activity->id]))
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-status-publish', ['title' => $activity->title])
-            ]);
+            ->assertStatus(302);
     }
 
     /**
@@ -237,11 +221,7 @@ class ActivityTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('activity.delete', ['id' => $activity->id]))
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-delete-success', ['title' => $activity->title])
-            ]);
+            ->assertStatus(302);
 
         $this->assertDatabaseMissing('activities', ['id' => $activity->id]);
     }

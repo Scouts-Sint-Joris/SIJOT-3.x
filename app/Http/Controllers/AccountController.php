@@ -93,11 +93,10 @@ class AccountController extends Controller
                     $user->save();
                 }
 
-                session()->flash('class', 'alert alert-success'); 
-                session()->flash('message', trans('account.flash-account-info'));
+                flash(trans('account.flash-account-info'))->success();
             }
 
-            return back();
+            return back(302);
         }
 
         return app()->abort(404);
@@ -114,8 +113,7 @@ class AccountController extends Controller
     {
         if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical. 
             if ($this->userDb->find($input->user_id)->update($input->except(['_token', 'password_confirmation']))) { // The user has been changed.
-                session()->flash('class', 'alert alert-success'); 
-                session()->flash('message', trans('account.flash-account-password'));
+                flash(trans('account.flash-account-password'))->success();
             }
 
             return back();
