@@ -5,6 +5,7 @@ namespace Sijot\Http\Controllers;
 use Sijot\Activity;
 use Sijot\Groups;
 use Sijot\Http\Requests\ActivityValidator;
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -65,6 +66,43 @@ class ActivityController extends Controller
 
         return view('activity.backend-index', $data);
     }
+
+    public function jsonFeed($groepId) 
+    {
+        $data['group']  = $this->groups->find($groepId);
+        $activities     = $this->activity->where('group_id', $data['group']->id)
+            ->where('activiteit_datum', '>=', date('d-m-Y'))
+            ->where('status', '=', 1)
+            ->orderBy('activiteit_datum', 'asc')
+            ->take(7)
+            ->get();
+
+        $feed = [
+            'version'       => 'https://jsonfeed.org/version/1',
+            'title'         => 'Scouts en Gidsen Sint-Joris Turnhout - Activiteiten feed.',
+            'home_page_url' => 'https://laravel-news.com/',
+            'feed_url'      => 'https://www.st-joris-turnhout.be/feed/json',
+            'icon'          => 'https://www.st-joris-turn/apple-touch-icon.png',
+            'favicon'       => 'https://www.st-joris-turnhout.be/apple-touch-icon.png',
+            'items'         => [],
+        ];
+
+        foreach ($activities as $key => $activity) {
+            $feed['items'][$key] = [
+                'id'            => $activity->id,
+                'title'         => $activity->title,
+                'url'           => route('activity.show', $activity->id),
+                'content_html'  => Markdown::convertToHtml($activity->description),
+                'date_created'  => $activity->created_at->tz('UTC')->toRfc3339String(),
+                'date_modified' => $activity->updated_at->tz('UTC')->toRfc3339String(),
+                'author' => [
+                    'name' => ''
+                ],
+            ];
+        }
+
+        return $feed;
+    } 
 
     /**
      * Insert a new activity in the database.
