@@ -15,7 +15,8 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
+            $table->integer('author_id')->unsigned()->index();
+            $table->foreign('author_id')->references('id')->on('users');
             $table->string('title');
             $table->string('publish')->nullable();
             $table->text('message');
@@ -24,8 +25,13 @@ class CreateNewsTable extends Migration
 
         Schema::create('categories_news', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('news_id');
-            $table->string('categories_id');
+            
+            $table->integer('news_id')->unsigned()->index();
+            $table->foreign('news_id')->references('id')->on('news');
+
+            $table->integer('categories_id')->unsigned()->index();
+            $table->foreign('categories_id')->references('id')->on('categories');
+
             $table->timestamps();
         });
     }

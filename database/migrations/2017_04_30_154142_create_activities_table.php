@@ -15,7 +15,10 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('group_id');
+
+            $table->integer('group_id')->unsigned()->index();
+            $table->foreign('group_id')->references('id')->on('groups');
+
             $table->string('status');
             $table->string('title');
             $table->string('description');
