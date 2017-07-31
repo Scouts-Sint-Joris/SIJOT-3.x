@@ -111,8 +111,7 @@ class UsersController extends Controller
             $notifyUsers = $this->userDB->all();
             Notification::send($notifyUsers, new BlockNotification($notifyUsers));
 
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);
+            flash($user->name . 'Is geblokkeerd tot' . $input->eind_datum)->success();
 
             return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
@@ -135,11 +134,9 @@ class UsersController extends Controller
             if ($user->isBanned()) { // The user is banned.
                 $user->unban(); // Unban the user in the system
 
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De gebruiker is terug geactiveerd');
+                flash('De gebruiker is terug geactiveerd')->success();
             } else { // The user is not banned
-                session()->flash('class', 'alert alert-danger');
-                session()->flash('message', 'Wij konden de gebruiker niet activeren.');
+                flash('Wij konden de gebruiker niet activeren.')->error();
             }
 
             return back(302);
@@ -169,8 +166,7 @@ class UsersController extends Controller
 
 
             // Set flash message.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'De login is aangemaakt.');
+            session()->flash('De login is aangemaakt.')->success();
         }
 
         return back(302);
@@ -188,9 +184,8 @@ class UsersController extends Controller
         try { // To find the user in the database. 
             $user = $this->userDB->findOrfail($userId); 
 
-            if ($user->delete()) { // try to delete the user. 
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', "{$user->name} Is verwijderd uit het systeem.");
+            if ($user->delete()) { // try to delete the user.
+                flash("{$user->name} Is verwijderd uit het systeem.")->success();
             }
 
             return back(302);

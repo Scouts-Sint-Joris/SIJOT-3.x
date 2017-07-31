@@ -33,11 +33,7 @@ class CategoryTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('category.insert'), $input)
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('category.flash-insert')
-            ]);
+            ->assertStatus(302);
 
         $this->assertDatabaseHas('categories', $input);
     }
@@ -56,11 +52,7 @@ class CategoryTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('category.insert'), [])
             ->assertStatus(200)
-            ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('category.flash-insert')
-            ]);
+            ->assertSessionHasErrors();
     }
 
     /**
@@ -138,11 +130,7 @@ class CategoryTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('category.edit'), $input)
             ->assertStatus(200)
-            ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('category.flash-edit')
-            ]);
+            ->assertSessionHasErrors();
     }
 
     public function testEditNoErrors()
@@ -161,11 +149,7 @@ class CategoryTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('category.edit'), $input)
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('category.flash-edit')
-            ]);
+            ->assertStatus(302);
     }
 
     /**
@@ -182,11 +166,7 @@ class CategoryTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('category.delete', ['id' => $category->id]))
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('category.flash-delete')
-            ]);
+            ->assertStatus(302);
     }
 
     /**
@@ -202,10 +182,6 @@ class CategoryTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('category.delete', ['id' => 1000]))
-            ->assertStatus(404)
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('category.flash-delete')
-            ]);
+            ->assertStatus(404);
     }
 }

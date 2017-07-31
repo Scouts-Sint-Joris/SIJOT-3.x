@@ -25,21 +25,21 @@ class EventsController extends Controller
      * 
      * @var Events
      */
-    private $events;
+    private $_events;
 
     /**
      * EventsController constructor.
      *
-     * @param Events $events The events database model in the application.
+     * @param Events $_events The events database model in the application.
      */
-    public function __construct(Events $events)
+    public function __construct(Events $_events)
     {
         $routes = ['index', 'delete', 'edit'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
-        $this->events = $events;
+        $this->events = $_events;
     }
 
     /**
@@ -52,9 +52,7 @@ class EventsController extends Controller
     public function store(EventValidator $input)
     {
         if ($this->events->create($input->except(['_token']))) { // try to create the event.
-            // The event has been created in the database.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', trans('events.flash-event-create'));
+            flash(trans('events.flash-event-create'))->success();
         }
 
         return back(302);
@@ -106,13 +104,11 @@ class EventsController extends Controller
             $event = $this->events->findOrFail($eventId);
 
             if ($event->update(['status' => $statusId])) { // Try to change the status.
-                // The status has been updated.
-                session()->flash('class', 'alert alert-success');
 
                 if ((int) $statusId === 0) { // Klad
-                    session()->flash('message', trans('events.flash-event-draft'));
+                    flash('message', trans('events.flash-event-draft'))->success();
                 } elseif ((int) $statusId === 1) { // Publicate
-                    session()->flash('message', trans('events.flash-publish'));
+                    flash('message', trans('events.flash-publish'))->success();
                 }
             }
 
@@ -135,9 +131,7 @@ class EventsController extends Controller
             $event = $this->events->findOrFail($eventId);
 
             if ($event->delete()) { // Try to delete the event.
-                // The event has been deleted.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('events.flash-event-delete'));
+                flash(trans('events.flash-event-delete'))->success();
             }
 
             return back(302);
@@ -149,7 +143,8 @@ class EventsController extends Controller
     /**
      * Get a specific event and encode it with json.
      *
-     * @param  integer $eventId The id from the event in the database.
+     * @param integer $eventId The id from the event in the database.
+     *
      * @return mixed
      */
     public function getById($eventId)

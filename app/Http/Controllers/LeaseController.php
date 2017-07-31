@@ -40,13 +40,13 @@ class LeaseController extends Controller
      */
     public function __construct(Lease $leaseDB, User $userDB)
     {
-        $routes = ['backend', 'status'];
+        $routes = ['backend', 'status', 'show'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
         $this->leaseDB = $leaseDB;
-        $this->userDB = $userDB;
+        $this->userDB  = $userDB;
     }
 
     /**
@@ -120,6 +120,29 @@ class LeaseController extends Controller
         }
 
         return back(302);
+    }
+
+    /**
+     * Information for a specific lease. 
+     *
+     * @param integer $leaseId The lease information id in the database.
+     *
+     * @return mixed
+     */
+    public function show($leaseId)
+    {
+        // TODO: Register route. 
+        // TODO: Implement test when information is found. 
+        // TODO: Implement test when information is not found.
+        
+        try { // To find the lease in the database.
+            $data['lease'] = $this->leaseDB->findOrFail($leaseId); 
+            $data['title'] = 'Verhuurs informatie';
+
+            return view('lease.show', $data);
+        } catch (ModelNotFoundException $modelNotFoundException) { // Lease not found in the database.
+
+        }
     }
 
     /**

@@ -48,11 +48,7 @@ class AccountTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('account.info'), $input)
             ->assertStatus(200)
-            ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-info')
-            ]);
+            ->assertSessionHasErrors();
     }
 
     /**
@@ -75,11 +71,7 @@ class AccountTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('account.info'), $input)
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-info')
-            ]);
+            ->assertStatus(302);
     }
 
     /**
@@ -101,11 +93,7 @@ class AccountTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('account.security'), $input)
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-password')
-            ]);
+            ->assertStatus(302);
     }
 
     /**
@@ -123,10 +111,6 @@ class AccountTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('account.security'), $input)
             ->assertStatus(200)
-            ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-password')
-            ]);
+            ->assertSessionHasErrors();
     }
 }

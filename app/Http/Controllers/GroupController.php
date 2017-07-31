@@ -95,8 +95,7 @@ class GroupController extends Controller
             $group = $this->groups->findOrFail($groupId);
 
             if ($group->update($input->except(['_token']))) { // The record has been updated.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('group.flash-update'));
+                flash(trans('group.flash-update'))->success();
             }
 
             return back();
@@ -110,7 +109,7 @@ class GroupController extends Controller
      *
      * @param string $selector The group selector in the database.
      * 
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return mixed
      */
     public function show($selector)
     {
