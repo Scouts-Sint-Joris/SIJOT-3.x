@@ -4,9 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cce57bfb311b69406f2e6d7e4c1705d5",
-    "content-hash": "91335c8463672a0edb4c3933e28be013",
+    "hash": "525d4472665d26647a4084182bd730dd",
+    "content-hash": "9fb06a1893a3761f45b4a414e50c179b",
     "packages": [
+        {
+            "name": "activismebe/database-layering",
+            "version": "0.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CPSB/ActivismeBE-database-layering.git",
+                "reference": "85b9624848b64d36442a2f94af38bccc8136aee1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CPSB/ActivismeBE-database-layering/zipball/85b9624848b64d36442a2f94af38bccc8136aee1",
+                "reference": "85b9624848b64d36442a2f94af38bccc8136aee1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.4",
+                "illuminate/database": "^5.4",
+                "illuminate/filesystem": "^5.4",
+                "illuminate/support": "^5.4",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master@dev",
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~6.0",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ActivismeBE\\DatabaseLayering\\": "src/ActivismeBE/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Repositories",
+            "homepage": "https://www.activisme.be",
+            "keywords": [
+                "database",
+                "eloquent",
+                "laravel",
+                "repositories",
+                "repository"
+            ],
+            "time": "2017-07-31 04:24:28"
+        },
         {
             "name": "barryvdh/laravel-debugbar",
             "version": "v2.3.2",
