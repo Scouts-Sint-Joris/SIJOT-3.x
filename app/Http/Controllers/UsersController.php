@@ -5,6 +5,7 @@ namespace Sijot\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use Sijot\Http\Requests\BanValidator;
 use Sijot\Http\Requests\Usersvalidator;
+use Sijot\Mail\BlockEmailNotification;
 use Sijot\Mail\UserCreationMail;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
@@ -109,7 +110,10 @@ class UsersController extends Controller
 
             // $notifyUsers = $this->userDB->role('Admin')->get();
             $notifyUsers = $this->userDB->all();
+
+            // Notifications.
             Notification::send($notifyUsers, new BlockNotification($notifyUsers));
+            Mail::to($user)->send(new BlockEmailNotification($user));
 
             session()->flash('class', 'alert alert-success');
             session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);
