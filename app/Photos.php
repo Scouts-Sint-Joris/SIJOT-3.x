@@ -7,18 +7,35 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Photos
  *
+ * @todo: Complete class documentation block. 
  * @package Sijot
  */
 class Photos extends Model
 {
-    // TODO: Write group relation.
-    // TODO: Write migration.
-    // TODO: Fill in the mass-assign fields.
-
     /**
      * Mass-assign fields for thue database table.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['author_id', 'title', 'image', 'url', 'description'];
+
+    /**
+     * Get the group form the photo album through a relation. 
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function group()
+    {
+        return $this->belongsToMany(Groups::class)->withTimestamps(); 
+    }
+
+    /**
+     * Author data relation. 
+
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');    
+    }
 }

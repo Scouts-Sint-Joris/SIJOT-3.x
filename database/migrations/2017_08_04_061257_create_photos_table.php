@@ -15,7 +15,19 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('author_id'); 
+            $table->string('title'); 
+            $table->string('image');
+            $table->string('url'); 
+            $table->text('description'); 
             $table->timestamps();
+        });
+
+        Schema::create('groups_photos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('groups_id'); 
+            $table->integer('photos_id'); 
+            $table->timestamps(); 
         });
     }
 
@@ -27,5 +39,6 @@ class CreatePhotosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('photos');
+        Schema::dropIfExists('groups_photos');
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PhotoValidator extends FormRequest
 {
+    // TODO Create class docblock. 
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +15,7 @@ class PhotoValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,11 @@ class PhotoValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'         => 'required', 
+            'group'         => 'required', 
+            'image'         => 'required', 
+            'url'           => 'required', 
+            'description'   => 'required',
         ];
     }
 }

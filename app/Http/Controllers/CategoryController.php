@@ -27,7 +27,6 @@ class CategoryController extends Controller
 
     /**
      * CategoryController constructor.
-     *
      * @param Categories $categories The categories model.
      */
     public function __construct(Categories $categories)

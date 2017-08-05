@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Sijot\Http\Requests\PhotoValidator;
 use Sijot\Photos;
+use Sijot\Groups;
 
 /**
  * Class PhotoController
@@ -19,19 +20,23 @@ class PhotoController extends Controller
     // TODO: Write tests.
 
     private $photos; /** @var mixed Photos The photos database instance. */
+    private $groups; /** @var mixed Groups The groups database instance. */
 
     /**
      * PhotoController constructor.
      *
-     * @param  Photos $photos
+     * @param Photos $photos
+     * @param Groups $groups 
+     *  
      * @return void.
      */
-    public function __construct(Photos $photos)
+    public function __construct(Photos $photos, Groups $groups)
     {
         $this->middleware('auth');
-        $this->middleware('lang');
+        // $this->middleware('lang'); // Throws bug when using. TODO: Trace this ons out
 
         $this->photos = $photos;
+        $this->groups = $groups;
     }
 
     /**
@@ -52,7 +57,10 @@ class PhotoController extends Controller
      */
     public function indexBackend()
     {
-        $data['title'] = trans('photos.title-backend.');
+        $data['title']  = trans('photos.title-backend.');
+        $data['photos'] = $this->photos->paginate(25);
+        $data['groups'] = $this->groups->select(['id', 'title'])->get();
+
         return view('photos.index-back', $data);
     }
 
@@ -64,9 +72,13 @@ class PhotoController extends Controller
      */
     public function store(PhotoValidator $input)
     {
-        // TODO: Fill in the validator instance.
+        // TODO: Create intervention logic to store the image. And merge them to the input.
 
-        if ($this->photos->create($input->except(['_token', 'group']))) { // The photo has been inserted.
+        $input->merge(['author_id' => auth()->user()->id, 'image' => '']);
+
+        if ($photo = $this->photos->create($input->except(['_token', 'group']))) { // The photo has been inserted.
+            $this->photos->findOrFail($photo->id)->group()->attach($input->group);
+
             session()->flash('class',  'alert alert-success');
             session()->flash('message', trans('photos.create-success-flash'));
         }
@@ -94,7 +106,7 @@ class PhotoController extends Controller
             }
 
             return redirect()->route('photos.index.backend');
-        } catch (ModelNotFoundException $exception) { // Tuhe error whuen the photo is not found.
+        } catch (ModelNotFoundException $exception) { // The error when the photo is not found.
             session()->flash('class',   'alert alert-success');
             session()->flash('message', trans('photos.delete-error-flash'));
 

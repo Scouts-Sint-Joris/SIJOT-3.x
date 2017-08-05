@@ -6,7 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class BanValidator
- *
+ * 
+ * //TODO: Complete teh class docblock.
+ * 
  * @package Sijot\Http\Requests
  */
 class BanValidator extends FormRequest
