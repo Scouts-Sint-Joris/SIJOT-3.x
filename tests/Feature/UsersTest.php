@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Sijot\Mail\BlockEmailNotification;
 use Sijot\Mail\UserCreationMail;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
@@ -80,6 +81,7 @@ class UsersTest extends TestCase
     public function testBanUserValidIdNoValidationError()
     {
         Notification::fake();
+        Mail::fake();
 
         $user = factory(User::class, 2)->create();
 
@@ -94,6 +96,10 @@ class UsersTest extends TestCase
             ->post(route('users.block'), $input)
             ->assertStatus(302)
             ->assertSessionHas(['class' => 'alert alert-success']);
+
+        Mail::assertSent(BlockEmailNotification::class, function ($mail) use ($user) {
+            return $mail->hasTo($user[1]->email);
+        });
 
         Notification::assertSentTo($user, BlockNotification::class);
     }
@@ -249,7 +255,7 @@ class UsersTest extends TestCase
             ]);
 
         Mail::assertSent(UserCreationMail::class, function ($mail) use ($input) {
-            return $mail->data['name']     === $input['name']  &&
+            return $mail->data['name']  === $input['name']  &&
                 $mail->data['email']    === $input['email'] &&
                 $mail->data['password'] === $input['password'];
         });
