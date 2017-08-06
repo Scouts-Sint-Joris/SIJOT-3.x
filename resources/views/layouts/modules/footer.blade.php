@@ -6,7 +6,7 @@
         <p>
           Wij zijn een scoutsgroep gelegen te Sint-Jorislaan 11, Turnhout.
           Voor de rest hebben we elke zondag van de maand vergadering vanaf September tot Juni. Deze vergadering gaan door tussen,
-          2u en 5u. Buiten de laatste zondag van de maand. Dan gaan de vergaderingen door vanaf 10u tot 5u.
+          14u en 17u. Buiten de laatste zondag van de maand. Dan gaan de vergaderingen door vanaf 10u tot 17u.
         </p>
         <p><i class="fa fa-map-pin"></i> Sint-Jorislaan 11, 2300 Turnhout - Belgie</p>
         <p><i class="fa fa-envelope"></i> E-mail : <a href="mailto:contact@sint-joris-turnhout.com">contact@sint-joris-turnhout.com</a></p>
