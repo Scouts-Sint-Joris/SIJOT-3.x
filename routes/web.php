@@ -85,6 +85,7 @@ Route::get('activiteiten/json/{id}', 'ActivityController@getByid')->name('activi
 Route::get('activiteiten.json/feed/{id}', 'ActivityController@jsonfeed')->name('activity.feed');
 
 // Photo routes.
+Route::get('fotos/groep/{selector}', 'PhotoController@getByGroup')->name('photos.groups');
 Route::get('fotos', 'PhotoController@indexFront')->name('photos.index.frontend');
 Route::get('fotos/backend', 'PhotoController@indexBackend')->name('photos.index.backend');
 Route::post('/fotos/toevoegen', 'PhotoController@store')->name('photos.store');

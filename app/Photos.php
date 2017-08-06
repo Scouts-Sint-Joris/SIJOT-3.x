@@ -17,7 +17,7 @@ class Photos extends Model
      *
      * @var array
      */
-    protected $fillable = ['author_id', 'title', 'image', 'url', 'description'];
+    protected $fillable = ['author_id', 'title', 'image_path', 'url', 'description'];
 
     /**
      * Get the group form the photo album through a relation. 

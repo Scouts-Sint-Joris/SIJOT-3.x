@@ -38,8 +38,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Aangemaakt door:</th>
                                 <th>Naam:</th>
-                                <th>Versie:</th>
                                 <th>Korte beschrijving:</th>
                                 <th colspan="2">Toegevoegd op:</th> {{-- Colspan="2" nodig voor de opties. --}}
                             </tr>
@@ -48,14 +48,14 @@
                             @foreach ($photos as $photo)
                                 <tr>
                                     <td><strong><code>#P{{ $photo->id }}</code></strong></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $photo->author->name }}</td>
+                                    <td>{{ $photo->title }} </td>
+                                    <td>{{ $photo->description }}</td>
                                     <td>{{ $photo->created_at }}</td>
 
                                     <td> {{-- Options --}}
                                         <a href="" class="label label-warning">Wijzig</a>
-                                        <a href="" class="label label-danger">Verwijder</a>
+                                        <a href="{{ route('photos.delete', $photo) }}" class="label label-danger">Verwijder</a>
                                     </td> {{-- END options --}}
                                 </tr>
                             @endforeach
