@@ -32,10 +32,10 @@ class CategoryRepository extends DatabaseMethods
     public function storeDb(array $data)
     {
         if ($this->create($data)) {
-            return true; // The data bas been stored in the database.
+            return true; //* The data bas been stored in the database.
         }
 
-        return false; // Data hasn't stored in to the database.
+        return false; //! Data hasn't stored in to the database.
     }
 
     /**
@@ -46,9 +46,7 @@ class CategoryRepository extends DatabaseMethods
      */
     public function findRecord($categoryId)
     {
-        // NOTE: A database is used because there is not DatabaseMethod for find or fail.
-        // SEE:  https://github.com/CPSB/ActivismeBE-database-layering/issues/29
-        return Categories::findOrFail($categoryId);
+        return $this->findOrFail($categoryId); // Return the database record.
     }
 
     /**
@@ -63,9 +61,9 @@ class CategoryRepository extends DatabaseMethods
 
         if ($this->delete($categoryId)) {
             $category->news()->sync([]); // Detach category form the news items.
-            return true; // DELETE = OK
+            return true; //* DELETE = OK
         }
 
-        return false; // DELETE = NOK
+        return false; //! DELETE = NOK
     }
 }
