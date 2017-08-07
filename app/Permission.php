@@ -2,7 +2,17 @@
 
 namespace Sijot;
 
+/**
+ * Class Permission
+ *
+ * @package Sijot
+ */
 class Permission extends \Spatie\Permission\Models\Permission
 {
-    //? Model is extended for future use when we need custom logic.
+    /**
+     * Mass-assign fields for the database table.
+     *
+     * @var array
+     */
+    protected $fillable = ['author_id', 'system_permission', 'name', 'description'];
 }
