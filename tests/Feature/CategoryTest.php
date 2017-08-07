@@ -176,6 +176,8 @@ class CategoryTest extends TestCase
      */
     public function testDeleteCategory()
     {
+        // TODO: Test out relation ship.
+
         $user     = factory(User::class)->create();
         $category = factory(Categories::class)->create();
 

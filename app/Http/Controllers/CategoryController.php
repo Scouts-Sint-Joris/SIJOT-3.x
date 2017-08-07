@@ -2,9 +2,10 @@
 
 namespace Sijot\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Sijot\Categories;
 use Sijot\Http\Requests\CategoryValidator;
+use Sijot\Repositories\CategoryRepository;
+
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 /**
@@ -30,7 +31,7 @@ class CategoryController extends Controller
      *
      * @param Categories $categories The categories model.
      */
-    public function __construct(Categories $categories)
+    public function __construct(CategoryRepository $categories)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');
@@ -48,7 +49,7 @@ class CategoryController extends Controller
      */
     public function insert(CategoryValidator $input)
     {
-        if ($this->categories->create($input->all())) { // Try to insert a new category.
+        if ($this->categories->storeDb($input->all())) { // Try to insert a new category.
             // The category has been inserted.
             session()->flash('class', 'alert alert-success');
             session()->flash('message', trans('category.flash-insert'));
@@ -67,7 +68,7 @@ class CategoryController extends Controller
     public function getById($categoryId)
     {
         try { // To find the category in the database.
-            return(json_encode($this->categories->findOrFail($categoryId)));
+            return json_encode($this->categories->findRecord($categoryId));
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not found the record in the database.
             return app()->abort(404);
         }
@@ -83,7 +84,7 @@ class CategoryController extends Controller
     public function edit(CategoryValidator $input)
     {
         try {
-            $category = $this->categories->findOrfail($input->categoryId);
+            $category = $this->categories->findRecord($input->categoryId);
 
             if ($category->update($input->except(['_token']))) { // Try to edit the category.
                 // The record has been updated.
@@ -107,10 +108,10 @@ class CategoryController extends Controller
     public function destroy($categoryId)
     {
         try { // To find the category in the database
-            $category = $this->categories->findOrFail($categoryId);
+            $category = $this->categories->findRecord($categoryId);
 
-            if ($category->delete() && $category->news()->sync([])) { // Try to delete the category.
-                // Category has been deleted.
+            if ($this->categories->deleteRecord($category->id)) { // Try to delete the category.
+                // Category and relation has been deleted.
                 session()->flash('class', 'alert alert-success');
                 session()->flash('message', trans('category.flash-delete'));
             }
