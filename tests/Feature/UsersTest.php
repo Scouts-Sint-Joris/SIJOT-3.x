@@ -177,7 +177,7 @@ class UsersTest extends TestCase
         $this->actingAs($user[0])
             ->seeIsAuthenticatedAs($user[0])
             ->get(route('users.unblock', ['id' => $user[1]]))
-            ->assertStatus(404)
+            ->assertStatus(302)
             ->assertSessionHas(['flash_notification.0.message' => 'Wij konden de gebruiker niet activeren.']);
     }
 
@@ -217,7 +217,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.unblock', ['id' => 1000]))
-            ->assertStatus(302);
+            ->assertStatus(404);
     }
 
     /**
