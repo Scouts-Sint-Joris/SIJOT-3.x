@@ -69,7 +69,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.getId', 1000))
-            ->assertStatus(404);
+            ->assertStatus(200);
     }
 
     /**
@@ -103,6 +103,27 @@ class UsersTest extends TestCase
 
         Notification::assertSentTo($user, BlockNotification::class);
     }
+
+    /**
+     * Test the error message. If a current logged in user bans himself.
+     *
+     * @test
+     * @group all
+     */
+    public function testBanCurrentLoggedInUser()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('users.block'), ['id' => $user->id, 'reason' => 'Ik ben een rede tot blokkering', 'eind_datum' => '10/10/2018'])
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'flash_notification.0.message' => 'Je kan jezelf niet blokkeren.',
+                'flash_notification.0.level'   => 'danger',
+            ]);
+    }
+
 
     /**
      * Test if we can ban a user. With validation errors.
@@ -140,7 +161,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('users.block'), $input)
-            ->assertStatus(404);
+            ->assertStatus(200);
     }
 
     /**
@@ -196,7 +217,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.unblock', ['id' => 1000]))
-            ->assertStatus(404);
+            ->assertStatus(302);
     }
 
     /**
@@ -285,6 +306,6 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.delete', ['id' => 1000]))
-            ->assertStatus(404);
+            ->assertStatus(302);
     }
 }

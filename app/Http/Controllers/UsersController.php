@@ -102,7 +102,10 @@ class UsersController extends Controller
      */
     public function block(BanValidator $input)
     {
-        // dd($input->all());
+        if ((int) $input->id === auth()->user()->id) {
+            flash('Je kan jezelf niet blokkeren.')->error();
+            return back(302);
+        }
 
         try { // To ban the user.
             $user = $this->userDB->findOrFail($input->id);
