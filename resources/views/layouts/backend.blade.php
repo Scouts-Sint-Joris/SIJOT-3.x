@@ -149,12 +149,7 @@
                 </section>
 
                 <section class="content"> {{-- Main content --}}
-                    @if (session()->get('class') && session()->get('message')) {{-- Flash session --}}
-                        <div class=" alert {{ session()->get('class') }} alert-dismissable fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif {{-- /Flash session --}}
+                    @include('flash::message')
 
                     @yield('content')
                 </section> {{-- /.content --}}

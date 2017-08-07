@@ -109,7 +109,7 @@ class CategoryController extends Controller
 
             if ($category->delete() && $category->news()->sync([])) { // Try to delete the category.
                 // Category has been deleted.
-                flash(trans('category.flash-delete'));
+                flash(trans('category.flash-delete'))->success();
             }
 
             return back(302);

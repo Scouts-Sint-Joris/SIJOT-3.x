@@ -160,9 +160,9 @@ class ActivityController extends Controller
             if ($activity->update(['status' => $statusId])) { // Try to update the activity.
                 // The activity has been deleted.
                 if ((int) $statusId === 0) { // Draft
-                    flash(trans('activity.flash-status-draft', ['title' => $activity->title]));
+                    flash(trans('activity.flash-status-draft', ['title' => $activity->title]))->success();
                 } elseif ((int) $statusId === 1) { // Publish
-                    flash(trans('activity.flash-status-publish', ['title' => $activity->title]));
+                    flash(trans('activity.flash-status-publish', ['title' => $activity->title]))->success();
                 }
             }
 

@@ -115,7 +115,7 @@ class UsersController extends Controller
             Notification::send($notifyUsers, new BlockNotification($notifyUsers));
             Mail::to($user)->send(new BlockEmailNotification($user));
 
-            flash($user->name . 'Is geblokkeerd tot' . $input->eind_datum);
+            flash($user->name . 'Is geblokkeerd tot ' . $input->eind_datum)->success();
 
             return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
@@ -137,9 +137,9 @@ class UsersController extends Controller
 
             if ($user->isBanned()) { // The user is banned.
                 $user->unban(); // Unban the user in the system
-                flash('message', 'De gebruiker is terug geactiveerd');
+                flash('De gebruiker is terug geactiveerd');
             } else { // The user is not banned
-                flash('message', 'Wij konden de gebruiker niet activeren.')->error();
+                flash('Wij konden de gebruiker niet activeren.')->error();
             }
 
             return back(302);

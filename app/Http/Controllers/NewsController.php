@@ -111,8 +111,7 @@ class NewsController extends Controller
                 $this->newsDb->find($item->id)->categories()->attach($input->categories);
             }
 
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'Het nieuwsbericht is opgeslagen.');
+            flash('Het nieuwsbericht is opgeslagen.');
         }
 
         return back();
