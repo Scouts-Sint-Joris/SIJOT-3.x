@@ -44,7 +44,6 @@ class ActivityTest extends TestCase
             ->assertStatus(200)
             ->assertSessionHasErrors()
             ->assertSessionMissing([
-                'class'   => 'alert alert-success',
                 'message' => trans('activity.flash-store-success', ['title' => ''])
             ]);
     }
@@ -75,8 +74,7 @@ class ActivityTest extends TestCase
             ->post(route('activity.store'), $input)
             ->assertStatus(302)
             ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-store-success', ['title' => $input['title']])
+                'flash_notification.0.message' => trans('activity.flash-store-success', ['title' => $input['title']])
             ]);
 
         // $this->assertDatabaseHas('activities', $input);
@@ -148,8 +146,8 @@ class ActivityTest extends TestCase
             ->get(route('activity.status', ['status' => 0, 'id' => $activity->id]))
             ->assertStatus(302)
             ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-status-draft', ['title' => $activity->title])
+                'flash_notification.0.level'   => 'success',
+                'flash_notification.0.message' => trans('activity.flash-status-draft', ['title' => $activity->title])
             ]);
     }
 
@@ -169,8 +167,7 @@ class ActivityTest extends TestCase
             ->get(route('activity.status', ['status' => 1, 'id' => $activity->id]))
             ->assertStatus(302)
             ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-status-publish', ['title' => $activity->title])
+                'flash_notification.0.message' => trans('activity.flash-status-publish', ['title' => $activity->title])
             ]);
     }
 
@@ -239,8 +236,7 @@ class ActivityTest extends TestCase
             ->get(route('activity.delete', ['id' => $activity->id]))
             ->assertStatus(302)
             ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('activity.flash-delete-success', ['title' => $activity->title])
+                'flash_notification.0.message' => trans('activity.flash-delete-success', ['title' => $activity->title])
             ]);
 
         $this->assertDatabaseMissing('activities', ['id' => $activity->id]);
