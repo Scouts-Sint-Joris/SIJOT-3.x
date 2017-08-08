@@ -94,8 +94,9 @@
                     </table>
                 </div>
             </div>
+
             <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_2">
+            <div class="tab-pane" id="tab_2"> {{-- Roles --}}
                 @if ((int) count($roles) === 0)
                     <div class="alert alert-info">
                         <h4><i class="icon fa fa-info-circle"></i> Info!</h4>
@@ -104,19 +105,42 @@
                 @else
                     <div class="table-responsive">
                         <table class="table-hover table-responsive table-striped table">
-                            
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Naam:</th>
+                                    <th>Beschrijving:</th>
+                                    <th colspan="2">Aangemaakt op:</th> {{-- Colspan="2" needed for the functions. --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
                         </table>
                     </div>
                 @endif
             </div>
             <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_3">
+
+            <div class="tab-pane" id="tab_3"> {{-- Permissions --}}
                 @if ((int) count($permissions) === 0)
                     <div class="alert alert-info">
                         <h4><i class="icon fa fa-info-circle"></i> Info!</h4>
                         Er zijn geen permissions gevonden in het systeem.
                     </div>
                 @else
+                    <div class="table-responsive">
+                        <table class="table-hover table-responsive table-striped table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Naam:</th>
+                                    <th>Beschrijving:</th>
+                                    <th colspan="2">Aangemaakt op:</th> {{-- Colspan="2" needed for the functions. --}}
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 @endif
             </div>
             <!-- /.tab-pane -->
