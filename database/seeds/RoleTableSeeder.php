@@ -21,10 +21,10 @@ class RoleTableSeeder extends Seeder
             // Syntaxis: ['name' => '<role name>'],
 
             // Global role scopes
-            ['name' => 'admin'],
-            ['name' => 'verhuur'],
-            ['name' => 'leiding'],
-            ['name' => 'hoofdleiding']
+            ['name' => 'admin', 'description' => 'De administrator gebruikersgroep.'],
+            ['name' => 'verhuur', 'description' => 'De gebruikersgroep verantworodelijk voor de verhuur.'],
+            ['name' => 'leiding', 'description' => 'De gebruikersgroep van de leiding.'],
+            ['name' => 'hoofdleiding', 'description' => 'de gebruikers groep voor de hooofleiding v/d groep.']
         ];
 
         // If there is data in the role table. Delete it.

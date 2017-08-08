@@ -114,7 +114,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($roles as $role) {{-- Loop through the roles --}}
+                                    <tr>
+                                        <td><strong><code>#{{ $role->id  }}</code></strong></td>
+                                        <td>{{ ucfirst($role->name) }}</td>
+                                        <td>@if (is_null($role->description)) Geen beschrijving gegeven. @else {{ ucfirst($role->description) }} @endif</td>
+                                        <td>@if (is_null($role->created_at)) N/A @else {{ ucfirst($role->created_at) }} @endif</td>
 
+                                        <td class="text-center"> {{-- Options --}}
+                                            <a href="{{ route('roles.delete', $role) }}" class="label label-danger">
+                                                {{-- <span class="fa fa-trash" aria-hidden="true"></span> --}} Verwijder
+                                            </a>
+                                        </td> {{-- /Options --}}
+                                    </tr>
+                                @endforeach {{-- /END loop --}}
                             </tbody>
                         </table>
                     </div>
@@ -139,6 +152,22 @@
                                     <th colspan="2">Aangemaakt op:</th> {{-- Colspan="2" needed for the functions. --}}
                                 </tr>
                             </thead>
+                            <tbody>
+                                @foreach ($permissions as $permission) {{-- Loop trough the permissions --}}
+                                    <tr>
+                                        <td><code><strong>#{{ $permission->id }}</strong></code></td>
+                                        <td>{{ ucfirst($permission->name) }}</td>
+                                        <td>@if (is_null($permission->description)) Geen beschrijving gegeven. @else {{ ucfirst($permission->description) }} @endif</td>
+                                        <td>@if (is_null($permission->created_at)) N/A @else {{ $permission->created_at }} @endif</td>
+
+                                        <td class="text-center"> {{-- Options --}}
+                                            <a href="{{ route('permissions.delete', $permission) }}" class="label label-danger">
+                                                {{-- <span class="fa fa-trash" aria-hidden="true"></span> --}} Verwijder
+                                            </a>
+                                        </td> {{-- /Options --}}
+                                    </tr>
+                                @endforeach {{-- End permissions loop. --}}
+                            </tbody>
                         </table>
                     </div>
                 @endif

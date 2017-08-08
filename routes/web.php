@@ -41,6 +41,12 @@ Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block'
 Route::get('/gebruikers/activeer/{id}', 'UsersController@unblock')->name('users.unblock');
 Route::get('/gebruikers/verwijder/{id}', 'UsersController@delete')->name('users.delete');
 
+// ACL permission routes.
+Route::get('permissies/verwijder/{id}', 'AclHandlingsController@deletePermission')->name('permissions.delete');
+
+// ACL role route.
+Route::get('/rechten/verwijder/{id}', 'AclHandlingsController@deleteRole')->name('roles.delete');
+
 // Account routes.
 Route::get('/account', 'AccountController@index')->name('account');
 Route::post('/account/info', 'AccountController@updateInfo')->name('account.info');
