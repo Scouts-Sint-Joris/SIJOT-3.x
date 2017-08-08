@@ -8,6 +8,9 @@
 </p>
 
 ## About
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7c573e14c38048e1b341ae7b3986f21a)](https://www.codacy.com/app/Scouts-Sint-Joris/SIJOT-3.x?utm_source=github.com&utm_medium=referral&utm_content=Scouts-Sint-Joris/SIJOT-3.x&utm_campaign=badger)
+
 This website belongs to a local scouting group at Turnhout,Belguim. The website provides information such as :-
 * Branches
 * Photos
