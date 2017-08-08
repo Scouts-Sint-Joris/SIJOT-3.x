@@ -117,4 +117,26 @@ class AccountTest extends TestCase
             ->assertSessionHasErrors()
             ->assertSessionMissing(['flash_notification.0.message' => trans('account.flash-account-password')]);
     }
+
+    /**
+     * Test if we can update an invalid user his password.
+     *
+     * @test
+     * @group all
+     */
+    public function testAccountPasswordInvalidUser()
+    {
+        $user  = factory(User::class)->create(['id' => 123456]);
+        $input = [
+            'user_id'               => 1,
+            'password'              => 'IkBenEenWachtwoord',
+            'password_confirmation' => 'IkBenEenWachtwoord'
+        ];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post('account.security', $input)
+            ->assertStatus(404)
+            ->assertSessionMissing(['flash_notification.0.message' => trans('account.flash-account-password')]);
+    }
 }
