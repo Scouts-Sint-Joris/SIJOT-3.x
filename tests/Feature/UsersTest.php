@@ -105,6 +105,27 @@ class UsersTest extends TestCase
     }
 
     /**
+     * Test the error message. If a current logged in user bans himself.
+     *
+     * @test
+     * @group all
+     */
+    public function testBanCurrentLoggedInUser()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('users.block'), ['id' => $user->id, 'reason' => 'Ik ben een rede tot blokkering', 'eind_datum' => '10/10/2018'])
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'flash_notification.0.message' => 'Je kan jezelf niet blokkeren.',
+                'flash_notification.0.level'   => 'danger',
+            ]);
+    }
+
+
+    /**
      * Test if we can ban a user. With validation errors.
      *
      * @test
