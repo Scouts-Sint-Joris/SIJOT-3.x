@@ -13,8 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Sijot\Role;
+use Sijot\Permission;
 
 /**
  * Class UsersController
