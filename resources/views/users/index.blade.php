@@ -63,12 +63,8 @@
                                 <tr>
                                     <td><code><strong>#{{ $user->id }}</strong></code></td>
                                     <td> {{-- User status --}}
-                                        @if ($user->isBanned())
-                                            <span class="label label-warning">Geblokkeerd</span>
-                                        @endif
-
-                                        @if ($user->isOnline())
-                                            <span class="label label-success">Online</span>
+                                        @if ($user->isBanned()) <span class="label label-warning">Geblokkeerd</span> @endif
+                                        @if ($user->isOnline()) <span class="label label-success">Online</span>
                                         @else
                                             <span class="label label-danger">Offline</span>
                                         @endif
@@ -122,9 +118,8 @@
                                         <td>@if (is_null($role->created_at)) N/A @else {{ ucfirst($role->created_at) }} @endif</td>
 
                                         <td class="text-center"> {{-- Options --}}
-                                            <a href="{{ route('roles.delete', $role) }}" class="label label-danger">
-                                                {{-- <span class="fa fa-trash" aria-hidden="true"></span> --}} Verwijder
-                                            </a>
+                                            <a href="" class="label label-warning">Wijzig</a>
+                                            <a href="{{ route('roles.delete', $role) }}" class="label label-danger"> Verwijder </a>
                                         </td> {{-- /Options --}}
                                     </tr>
                                 @endforeach {{-- /END loop --}}
@@ -161,9 +156,8 @@
                                         <td>@if (is_null($permission->created_at)) N/A @else {{ $permission->created_at }} @endif</td>
 
                                         <td class="text-center"> {{-- Options --}}
-                                            <a href="{{ route('permissions.delete', $permission) }}" class="label label-danger">
-                                                {{-- <span class="fa fa-trash" aria-hidden="true"></span> --}} Verwijder
-                                            </a>
+                                            <a href="" class="label label-warning">Wijzig</a>
+                                            <a href="{{ route('permissions.delete', $permission) }}" class="label label-danger">Verwijder</a>
                                         </td> {{-- /Options --}}
                                     </tr>
                                 @endforeach {{-- End permissions loop. --}}

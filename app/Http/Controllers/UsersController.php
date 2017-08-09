@@ -87,7 +87,7 @@ class UsersController extends Controller
     public function getById($userId)
     {
         try { // Try to find and output the record.
-            return json_encode($this->userDB->select(['id', 'name'])->findOrFail($userId));
+            return json_encode($this->userDB->select(['id', 'name', 'email'])->findOrFail($userId));
         } catch (ModelNotFoundException $notFoundException) { // The user is not found.
             return app()->abort(404);
         }
