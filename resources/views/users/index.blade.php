@@ -118,7 +118,7 @@
                                         <td>@if (is_null($role->created_at)) N/A @else {{ ucfirst($role->created_at) }} @endif</td>
 
                                         <td class="text-center"> {{-- Options --}}
-                                            <a href="" class="label label-warning">Wijzig</a>
+                                            <a href="{{ route('acl.wijzig', ['type' => 'role', 'id' => $role->id]) }}" class="label label-warning">Wijzig</a>
                                             <a href="{{ route('roles.delete', $role) }}" class="label label-danger"> Verwijder </a>
                                         </td> {{-- /Options --}}
                                     </tr>
@@ -156,7 +156,7 @@
                                         <td>@if (is_null($permission->created_at)) N/A @else {{ $permission->created_at }} @endif</td>
 
                                         <td class="text-center"> {{-- Options --}}
-                                            <a href="" class="label label-warning">Wijzig</a>
+                                            <a href="{{ route('acl.wijzig', ['type' => 'permissions', 'id' => $permission->type]) }}" class="label label-warning">Wijzig</a>
                                             <a href="{{ route('permissions.delete', $permission) }}" class="label label-danger">Verwijder</a>
                                         </td> {{-- /Options --}}
                                     </tr>

@@ -41,9 +41,11 @@ Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block'
 Route::get('/gebruikers/activeer/{id}', 'UsersController@unblock')->name('users.unblock');
 Route::get('/gebruikers/verwijder/{id}', 'UsersController@delete')->name('users.delete');
 
-// ACL routes
+// ACL routes (Admin)
+
 Route::post('rechten/opslaan', 'AclHandlingsController@storeRole')->name('roles.store');
 Route::post('permissies/opslaan', 'AclHandlingsController@storePermission')->name('permissions.store');
+Route::get('acl/wijzig/{type}/{id}', 'AclHandlingsController@edit')->name('acl.wijzig');
 Route::get('permissies/verwijder/{id}', 'AclHandlingsController@deletePermission')->name('permissions.delete');
 Route::get('/rechten/verwijder/{id}', 'AclHandlingsController@deleteRole')->name('roles.delete');
 

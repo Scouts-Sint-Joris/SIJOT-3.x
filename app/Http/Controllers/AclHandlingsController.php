@@ -101,15 +101,17 @@ class AclHandlingsController extends Controller
     public function edit($type, $id)
     {
         if ((string) $type === 'role') {
-            $data['acl'] = $this->roles->findOrFail($id);
+            $data['acl']   = $this->roles->findOrFail($id);
+            $data['group'] = $this->permissions->all();
         } elseif((string) $type === 'permissions') {
-            $data['acl'] = $this->permissions->findOrFail($id);
+            $data['acl']   = $this->permissions->findOrFail($id);
+            $data['group'] = $this->roles->all();
         } else {
             flash(trans('acl.flash-error-edit-acl'));
             return redirect()->route('users.index');
         }
 
-        return view('acl.edit', $data);
+        return view('acl.edit-view', $data);
     }
 
     /**
