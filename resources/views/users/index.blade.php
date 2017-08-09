@@ -81,7 +81,7 @@
                                             <a href="#" onclick="getUser('{{ route('users.getId', $user->id) }}', '#block-user')" class="label label-danger">Blokkeer gebruiker</a>
                                         @endif
 
-                                        <a class="label label-danger" href="">Wijzig rechten</a>
+                                        <a class="label label-danger" href="{{ route('acl.user.change', $user) }}">Wijzig rechten</a>
                                         <a class="label label-danger" href="{{ route('users.delete', $user) }}">Verwijder</a>
                                     </td> {{-- /Options --}}
                                 </tr>

@@ -20,7 +20,8 @@
         "filp/whoops": "*",
         "ericmakesstuff/laravel-server-monitor": "^1.2",
         "spatie/laravel-tail": "^1.4",
-        "laracasts/flash": "^3.0"
+        "laracasts/flash": "^3.0",
+        "laravelcollective/html": "^5.4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
