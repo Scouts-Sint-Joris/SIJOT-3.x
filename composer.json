@@ -20,11 +20,8 @@
         "filp/whoops": "*",
         "ericmakesstuff/laravel-server-monitor": "^1.2",
         "spatie/laravel-tail": "^1.4",
-<<<<<<< HEAD
-        "activismebe/database-layering": "^0.20.0"
-=======
+        "activismebe/database-layering": "^0.20.0",
         "laracasts/flash": "^3.0"
->>>>>>> 9e20299f97ae4988971392503641a15f942d6cf6
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
