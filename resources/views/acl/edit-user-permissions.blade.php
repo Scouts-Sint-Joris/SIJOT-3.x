@@ -42,7 +42,28 @@
 
                     <div class="col-md-3">
                         {!! Form::select('roles[]', $roles, $user->roles, ['class' => 'form-control', 'multiple']) !!}
-                        <small class="help-block"> * Hou de CTRL toets ingedrukt om meerdere te selecteren. </small>
+                        <small class="help-block">* Hou de CTRL toets ingedrukt om meerdere te selecteren. </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-1">Permissies:</label>
+
+                    <div class="col-md-3">
+                        {!! Form::select('permissions[]', $permissions, $user->permissions, ['class' => 'form-control', 'multiple']) !!}
+                        <small class="help-block">* Hou CTRL ingedrukt om meerdere te selecteren. </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-11">
+                        <button type="submit" class="btn btn-sm btn-success btn-flat">
+                            <span class="fa fa-check" aria-hidden="true"></span> Aanpassen
+                        </button>
+
+                        <button type="reset" class="btn btn-sm btn-danger btn-flat">
+                            <span class="fa fa-undo" aria-hidden="true"></span> Annuleren
+                        </button>
                     </div>
                 </div>
             </form>

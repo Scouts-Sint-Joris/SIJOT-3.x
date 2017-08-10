@@ -159,10 +159,9 @@ class UsersController extends Controller
     public function editPermission($userId)
     {
         try { // To ifind the user in the system.
-            $data['user']      = $this->userDB->findOrFail($userId);
-
-            //? Results in the view: <option value='<id>'> <name> </option>
-            $data['roles'] = $this->roles->pluck('name', 'id');
+            $data['user']        = $this->userDB->findOrFail($userId);
+            $data['permissions'] = $this->permissions->pluck('name', 'id'); //? Results in the view: <option value='<id>'> <name> </option>
+            $data['roles']       = $this->roles->pluck('name', 'id');       //? Results in the view: <option value='<id>'> <name> </option>
 
             return view('acl.edit-user-permissions', $data);
         } catch (ModelNotFoundException $exception) { // The user isn't found in the system.
