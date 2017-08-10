@@ -5,6 +5,7 @@ namespace Sijot\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use Sijot\Http\Requests\BanValidator;
 use Sijot\Http\Requests\Usersvalidator;
+use Sijot\Mail\BlockEmailNotification;
 use Sijot\Mail\UserCreationMail;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
@@ -12,8 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Sijot\Role;
+use Sijot\Permission;
 
 /**
  * Class UsersController
@@ -101,7 +102,10 @@ class UsersController extends Controller
      */
     public function block(BanValidator $input)
     {
-        // dd($input->all());
+        if ((int) $input->id === auth()->user()->id) {
+            flash('Je kan jezelf niet blokkeren.')->error();
+            return back(302);
+        }
 
         try { // To ban the user.
             $user = $this->userDB->findOrFail($input->id);
@@ -109,10 +113,12 @@ class UsersController extends Controller
 
             // $notifyUsers = $this->userDB->role('Admin')->get();
             $notifyUsers = $this->userDB->all();
-            Notification::send($notifyUsers, new BlockNotification($notifyUsers));
 
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', $user->name . 'Is geblokkeerd tot' . $input->eind_datum);
+            // Notifications.
+            Notification::send($notifyUsers, new BlockNotification($notifyUsers));
+            Mail::to($user)->send(new BlockEmailNotification($user));
+
+            flash($user->name . 'Is geblokkeerd tot ' . $input->eind_datum)->success();
 
             return back(302);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
@@ -134,12 +140,9 @@ class UsersController extends Controller
 
             if ($user->isBanned()) { // The user is banned.
                 $user->unban(); // Unban the user in the system
-
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'De gebruiker is terug geactiveerd');
+                flash('De gebruiker is terug geactiveerd');
             } else { // The user is not banned
-                session()->flash('class', 'alert alert-danger');
-                session()->flash('message', 'Wij konden de gebruiker niet activeren.');
+                flash('Wij konden de gebruiker niet activeren.')->error();
             }
 
             return back(302);
@@ -169,8 +172,7 @@ class UsersController extends Controller
 
 
             // Set flash message.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'De login is aangemaakt.');
+            flash('De login is aangemaakt.');
         }
 
         return back(302);
@@ -188,9 +190,8 @@ class UsersController extends Controller
         try { // To find the user in the database. 
             $user = $this->userDB->findOrfail($userId); 
 
-            if ($user->delete()) { // try to delete the user. 
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', "{$user->name} Is verwijderd uit het systeem.");
+            if ($user->delete()) { // try to delete the user.
+                flash( "{$user->name} Is verwijderd uit het systeem.");
             }
 
             return back(302);

@@ -111,8 +111,7 @@ class NewsController extends Controller
                 $this->newsDb->find($item->id)->categories()->attach($input->categories);
             }
 
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', 'Het nieuwsbericht is opgeslagen.');
+            flash('Het nieuwsbericht is opgeslagen.');
         }
 
         return back();
@@ -153,9 +152,7 @@ class NewsController extends Controller
 
             if ($newsItem->update($input->except(['_token', 'categories']))) { // Record has been updated.
                 $newsItem->categories()->sync($input->get('categories'));
-
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'Het nieuwsbericht is aangepast.');
+                flash('Het nieuwsbericht is aangepast.');
             }
 
             return back();
@@ -179,12 +176,10 @@ class NewsController extends Controller
 
             if ($newsItem->update(['publish' => $status])) { // Try to update the record.
                 // The record has been updated.
-                session()->flash('class', 'alert alert-success');
-
                 if ((string) $status === 'Y') { // The status has been set to 'publish'
-                    session()->flash('message', 'Het nieuwsbericht is gepubliceerd.');
+                    flash('Het nieuwsbericht is gepubliceerd.');
                 } elseif ((string) $status === 'N') { // The status has been set to 'Klad'
-                    session()->flash('message', 'Het nieuws bericht is naar een klad versie gezet.');
+                    flash('Het nieuws bericht is naar een klad versie gezet.');
                 }
             }
 
@@ -207,8 +202,7 @@ class NewsController extends Controller
             $news = $this->newsDb->findOrFail($newsId);
 
             if ($news->delete()) { // Record has been deleted.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', 'Het nieuwsbericht is verwijderd.');
+                flash('Het nieuwsbericht is verwijderd.');
             }
 
             return back(302);

@@ -44,10 +44,7 @@ class EventsTest extends TestCase
             ->post(route('events.store'), [])
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class' => 'alert alert-success',
-                'message' => trans('events.flash-event-create'),
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => trans('events.flash-event-create')]);
     }
 
     /**
@@ -75,10 +72,7 @@ class EventsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('events.store'), $input)
             ->assertStatus(302)
-            ->assertSessionHasAll([
-                'class' => 'alert alert-success',
-                'message' => trans('events.flash-event-create'),
-            ]);
+            ->assertSessionHasAll(['flash_notification.0.message' => trans('events.flash-event-create')]);
 
         $this->assertDatabaseHas('events', [
             'author_id' => $user->id,
@@ -141,10 +135,7 @@ class EventsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->get(route('events.status', $params))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('events.flash-event-draft')
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => trans('events.flash-event-draft')]);
     }
 
     /**
@@ -163,9 +154,6 @@ class EventsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->get(route('events.status', $params))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('events.flash-publish')
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => trans('events.flash-publish')]);
     }
 }

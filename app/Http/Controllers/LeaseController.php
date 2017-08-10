@@ -94,10 +94,8 @@ class LeaseController extends Controller
     public function store(LeaseValidator $input)
     {
         if ($this->leaseDB->create($input->except('_token'))) { // The rental has been inserted.
-            session()->flash('class', 'alert alert-success');
-
             if (auth()->check()) { // Requester is logged in
-                session()->flash('message', trans('lease.flash-lease-insert-auth'));
+                flash(trans('lease.flash-lease-insert-auth'));
             } else { // Requester is not logged in.
                 $when = Carbon::now()->addMinutes(15); // Needed to look your queued email.
                 Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
@@ -115,7 +113,7 @@ class LeaseController extends Controller
                 }
 
                 // Set flash session output.
-                session()->flash('message', trans('lease.flash-lease-insert-no-auth'));
+                flash(trans('lease.flash-lease-insert-no-auth'));
             }
         }
 
@@ -153,8 +151,7 @@ class LeaseController extends Controller
             }
 
             if ($lease->update(['status_id' => $status])) {
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('flash-lease-status-change'));
+                flash(trans('lease.flash-lease-status-change'));
             }
 
             return back(302);
@@ -173,11 +170,16 @@ class LeaseController extends Controller
     public function delete($leaseId)
     {
         try { // Check if the record exists
+<<<<<<< HEAD
             if ($lease = $this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
                 $lease->notitions()->sync([]);
 
                 session()->flash('class', 'alert alert-success');
                 session()->flash('message', trans('lease.flash-lease-delete'));
+=======
+            if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
+                flash(trans('lease.flash-lease-delete'));
+>>>>>>> 9e20299f97ae4988971392503641a15f942d6cf6
             }
 
             return back(302);

@@ -2,14 +2,14 @@
 
 @section('title')
     <h1> @lang('lease.page-backend-title-index')
-        <small> @lang('lease.backend-sub-title-index') </small>
+        <small> @lang('lease.page-backend-sub-title-index') </small>
     </h1>
 @endsection
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="{{ route('backend') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">@lang('lease.page-backend-title-index')</li>
+        <li class="active">@lang('lease.page-backend-sub-title-index')</li>
     </ol>
 @endsection
 

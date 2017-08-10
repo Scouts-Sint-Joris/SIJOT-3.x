@@ -51,8 +51,7 @@ class CategoryController extends Controller
     {
         if ($this->categories->storeDb($input->all())) { // Try to insert a new category.
             // The category has been inserted.
-            session()->flash('class', 'alert alert-success');
-            session()->flash('message', trans('category.flash-insert'));
+            flash(trans('category.flash-insert'));
         }
 
         return back(302);
@@ -88,8 +87,7 @@ class CategoryController extends Controller
 
             if ($category->update($input->except(['_token']))) { // Try to edit the category.
                 // The record has been updated.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('category.flash-edit'));
+                flash(trans('category.flash-edit'));
             }
 
             return back(302);
@@ -110,10 +108,9 @@ class CategoryController extends Controller
         try { // To find the category in the database
             $category = $this->categories->findRecord($categoryId);
 
-            if ($this->categories->deleteRecord($category->id)) { // Try to delete the category.
-                // Category and relation has been deleted.
-                session()->flash('class', 'alert alert-success');
-                session()->flash('message', trans('category.flash-delete'));
+            if ($category->delete() && $category->news()->sync([])) { // Try to delete the category.
+                // Category has been deleted.
+                flash(trans('category.flash-delete'))->success();
             }
 
             return back(302);
