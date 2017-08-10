@@ -106,10 +106,7 @@ class NewsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('news.store'), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'     => 'alert alert-success',
-                'message'   => 'Het nieuwsbericht is opgeslagen.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message'   => 'Het nieuwsbericht is opgeslagen.']);
 
         $this->assertDatabaseHas('news', $input);
     }
@@ -137,10 +134,7 @@ class NewsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('news.store'), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'     => 'alert alert-success',
-                'message'   => 'Het nieuwsbericht is opgeslagen.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message'   => 'Het nieuwsbericht is opgeslagen.']);
 
         // $this->assertDatabaseHas('news', $input);
 
@@ -161,13 +155,10 @@ class NewsTest extends TestCase
 
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
-            ->post(route('news.store'))
+            ->post(route('news.store'), [])
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => 'Het nieuwsbericht is opgeslagen.',
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => 'Het nieuwsbericht is opgeslagen.']);
     }
 
     /**
@@ -243,10 +234,7 @@ class NewsTest extends TestCase
             ->post(route('news.update', ['id' => $news->id]))
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'     => 'alert alert-success',
-                'message'   => 'Het nieuwsbericht is aangepast.'
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message'   => 'Het nieuwsbericht is aangepast.']);
     }
 
     /**
@@ -278,10 +266,7 @@ class NewsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('news.update', ['id' => $news->id]), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'     => 'alert alert-success',
-                'message'   => 'Het nieuwsbericht is aangepast.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message'   => 'Het nieuwsbericht is aangepast.']);
 
         $this->assertDatabaseMissing('news', $old);
         $this->assertDatabaseHas('news', $input);
@@ -318,10 +303,7 @@ class NewsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->get(route('news.status', ['status' => 'Y', 'id' => $news->id]))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => 'Het nieuwsbericht is gepubliceerd.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'Het nieuwsbericht is gepubliceerd.']);
 
         $this->assertDatabaseHas('news', ['publish' => 'Y']);
     }
@@ -341,10 +323,7 @@ class NewsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->get(route('news.status', ['status' => 'N', 'id' => $news->id]))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => 'Het nieuws bericht is naar een klad versie gezet.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'Het nieuws bericht is naar een klad versie gezet.']);
 
         $this->assertDatabaseHas('news', ['publish' => 'N']);
     }
@@ -364,10 +343,7 @@ class NewsTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->get(route('news.delete', ['id' => $news->id]))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => 'Het nieuwsbericht is verwijderd.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'Het nieuwsbericht is verwijderd.']);
     }
 
     /**

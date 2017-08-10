@@ -49,10 +49,7 @@ class AccountTest extends TestCase
             ->post(route('account.info'), $input)
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-info')
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => trans('account.flash-account-info')]);
     }
 
     /**
@@ -76,10 +73,7 @@ class AccountTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('account.info'), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-info')
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => trans('account.flash-account-info')]);
     }
 
     /**
@@ -102,10 +96,7 @@ class AccountTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('account.security'), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-password')
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => trans('account.flash-account-password')]);
     }
 
     /**
@@ -124,9 +115,28 @@ class AccountTest extends TestCase
             ->post(route('account.security'), $input)
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => trans('account.flash-account-password')
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => trans('account.flash-account-password')]);
+    }
+
+    /**
+     * Test if we can update an invalid user his password.
+     *
+     * @test
+     * @group all
+     */
+    public function testAccountPasswordInvalidUser()
+    {
+        $user  = factory(User::class)->create(['id' => 123456]);
+        $input = [
+            'user_id'               => 1,
+            'password'              => 'IkBenEenWachtwoord',
+            'password_confirmation' => 'IkBenEenWachtwoord'
+        ];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post('account.security', $input)
+            ->assertStatus(404)
+            ->assertSessionMissing(['flash_notification.0.message' => trans('account.flash-account-password')]);
     }
 }

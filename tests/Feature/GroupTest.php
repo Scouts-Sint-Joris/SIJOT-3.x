@@ -57,10 +57,7 @@ class GroupTest extends TestCase
             ->post(route('groups.update', ['id' => $group->id]))
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => 'De groeps informatie is aangepast.'
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => 'De groeps informatie is aangepast.']);
     }
 
     /**
@@ -90,10 +87,7 @@ class GroupTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('groups.update', ['id' => $group->id]), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => 'De groeps informatie is aangepast.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'De groeps informatie is aangepast.']);
 
         $this->assertDatabaseHas('groups', $input);
         $this->assertDatabaseMissing('groups', $old);
@@ -119,10 +113,7 @@ class GroupTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('groups.update', ['id' => 1000]), $input)
             ->assertStatus(404)
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => 'De groeps informatie is aangepast.'
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => 'De groeps informatie is aangepast.']);
     }
 
     /**

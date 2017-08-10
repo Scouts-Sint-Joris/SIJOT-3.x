@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Sijot\Mail\BlockEmailNotification;
 use Sijot\Mail\UserCreationMail;
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
@@ -80,6 +81,7 @@ class UsersTest extends TestCase
     public function testBanUserValidIdNoValidationError()
     {
         Notification::fake();
+        Mail::fake();
 
         $user = factory(User::class, 2)->create();
 
@@ -93,10 +95,35 @@ class UsersTest extends TestCase
             ->seeIsAuthenticatedAs($user[0])
             ->post(route('users.block'), $input)
             ->assertStatus(302)
-            ->assertSessionHas(['class' => 'alert alert-success']);
+            ->assertSessionHas(['flash_notification.0.level' => 'success']);
+
+        Mail::assertSent(BlockEmailNotification::class, function ($mail) use ($user) {
+            return $mail->hasTo($user[1]->email);
+        });
 
         Notification::assertSentTo($user, BlockNotification::class);
     }
+
+    /**
+     * Test the error message. If a current logged in user bans himself.
+     *
+     * @test
+     * @group all
+     */
+    public function testBanCurrentLoggedInUser()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('users.block'), ['id' => $user->id, 'reason' => 'Ik ben een rede tot blokkering', 'eind_datum' => '10/10/2018'])
+            ->assertStatus(302)
+            ->assertSessionHas([
+                'flash_notification.0.message' => 'Je kan jezelf niet blokkeren.',
+                'flash_notification.0.level'   => 'danger',
+            ]);
+    }
+
 
     /**
      * Test if we can ban a user. With validation errors.
@@ -151,10 +178,7 @@ class UsersTest extends TestCase
             ->seeIsAuthenticatedAs($user[0])
             ->get(route('users.unblock', ['id' => $user[1]]))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-danger',
-                'message' => 'Wij konden de gebruiker niet activeren.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'Wij konden de gebruiker niet activeren.']);
     }
 
     /**
@@ -177,10 +201,7 @@ class UsersTest extends TestCase
             ->seeIsAuthenticatedAs($userActive)
             ->get(route('users.unblock', ['id' => $user2->id]))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'    => 'alert alert-success',
-                'message' => 'De gebruiker is terug geactiveerd'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'De gebruiker is terug geactiveerd']);
     }
 
     /**
@@ -214,10 +235,7 @@ class UsersTest extends TestCase
             ->post(route('users.store'), [])
             ->assertStatus(200)
             ->assertSessionHasErrors()
-            ->assertSessionMissing([
-                'class'   => 'alert alert-success',
-                'message' => 'De login is aangemaakt.'
-            ]);
+            ->assertSessionMissing(['flash_notification.0.message' => 'De login is aangemaakt.']);
     }
 
     /**
@@ -243,13 +261,10 @@ class UsersTest extends TestCase
             ->seeIsAuthenticatedAs($user)
             ->post(route('users.store'), $input)
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => 'De login is aangemaakt.'
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => 'De login is aangemaakt.']);
 
         Mail::assertSent(UserCreationMail::class, function ($mail) use ($input) {
-            return $mail->data['name']     === $input['name']  &&
+            return $mail->data['name']  === $input['name']  &&
                 $mail->data['email']    === $input['email'] &&
                 $mail->data['password'] === $input['password'];
         });
@@ -275,10 +290,7 @@ class UsersTest extends TestCase
             ->seeIsAuthenticatedAs($user[0])
             ->get(route('users.delete', ['id' => $user[1]->id]))
             ->assertStatus(302)
-            ->assertSessionHas([
-                'class'   => 'alert alert-success',
-                'message' => "{$user[1]->name} Is verwijderd uit het systeem."
-            ]);
+            ->assertSessionHas(['flash_notification.0.message' => "{$user[1]->name} Is verwijderd uit het systeem."]);
     }
 
     /**
