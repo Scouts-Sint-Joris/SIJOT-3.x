@@ -55,4 +55,14 @@ class Lease extends Model
         // Carbon::createFromFormat('H:i', $date)->format('H:i');
         return $this->attributes['eind_datum'] = strtotime(str_replace('/', '-', $date));
     }
+
+    /**
+     * Get the notitions for the given domain lease.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function notitions()
+    {
+        return $this->belongsToMany(Notitions::class);
+    }
 }

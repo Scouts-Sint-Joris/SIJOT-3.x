@@ -30,6 +30,9 @@ Route::get('/verhuur/verwijder/{id}', 'LeaseController@delete')->name('lease.del
 Route::get('/verhuur/exporteer', 'LeaseController@export')->name('lease.export');
 Route::get('/verhuur/kalender', 'LeaseController@calendar')->name('lease.calendar');
 
+// Lease info routes.
+Route::get('/verhuur/info/{id}', 'LeaseInfoController@show')->name('lease.info.show');
+
 // Members routes
 Route::get('/lid-worden', 'MemberController@index')->name('members.new');
 

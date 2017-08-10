@@ -72,6 +72,8 @@
                                     <td>{{ $lease->created_at->format('d/m/Y') }}</td>
 
                                     <td> {{-- Options --}}
+                                        <a href="{{ route('lease.info.show', $lease) }}" class="label label-info">Gegevens</a>
+
                                         @if ((int) $lease->status_id === 1)
                                             <a href="{{ route('lease.status', ['status' => 'optie', 'id' => $lease->id]) }}" class="label label-warning">@lang('lease.status-lease-option')</a>
                                             <a href="{{ route('lease.status', ['status' => 'bevestigd', 'id' => $lease->id]) }}" class="label label-success">@lang('lease.status-lease-confirmed')</a>

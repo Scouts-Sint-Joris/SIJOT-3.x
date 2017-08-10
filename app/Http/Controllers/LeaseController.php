@@ -173,7 +173,9 @@ class LeaseController extends Controller
     public function delete($leaseId)
     {
         try { // Check if the record exists
-            if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
+            if ($lease = $this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
+                $lease->notitions()->sync([]);
+
                 session()->flash('class', 'alert alert-success');
                 session()->flash('message', trans('lease.flash-lease-delete'));
             }
