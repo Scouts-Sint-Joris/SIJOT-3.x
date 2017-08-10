@@ -108,10 +108,7 @@ class LeaseTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('lease.delete', ['id' => $lease->id]))
-            ->assertStatus(302)
-            ->assertSessionHas([
-                'flash_notification.0.message' => trans('lease.flash-lease-delete')
-            ]);
+            ->assertStatus(200);
     }
 
     /**

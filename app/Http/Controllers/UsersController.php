@@ -86,9 +86,10 @@ class UsersController extends Controller
      */
     public function getById($userId)
     {
-        try { // Try to find and output the record.
+        try { //* Try to find and output the record.
+            //? Shouldn't this be not provide in some API form?  
             return json_encode($this->userDB->select(['id', 'name'])->findOrFail($userId));
-        } catch (ModelNotFoundException $notFoundException) { // The user is not found.
+        } catch (ModelNotFoundException $notFoundException) { //* The user is not found.
             return app()->abort(404);
         }
     }
@@ -107,7 +108,7 @@ class UsersController extends Controller
             return back(302);
         }
 
-        try { // To ban the user.
+        try { //* To ban the user.
             $user = $this->userDB->findOrFail($input->id);
             $user->ban(['comment' => $input->reason, 'expired_at' => Carbon::parse($input->eind_datum)]);
 
@@ -121,7 +122,7 @@ class UsersController extends Controller
             flash($user->name . 'Is geblokkeerd tot ' . $input->eind_datum)->success();
 
             return back(302);
-        } catch (ModelNotFoundException $modelNotFoundException) { // Could not ban the user.
+        } catch (ModelNotFoundException $modelNotFoundException) { //* Could not ban the user.
             return app()->abort(404);
         }
     }
@@ -146,7 +147,7 @@ class UsersController extends Controller
             }
 
             return back(302);
-        } catch (ModelNotFoundException $modelNotFoundException) {
+        } catch (ModelNotFoundException $modelNotFoundException) { //* The user is not found in the system.
             return app()->abort(404); // Could not find the user in the database. 
         }
     }
@@ -160,6 +161,8 @@ class UsersController extends Controller
      */
     public function store(UsersValidator $input)
     {
+        // TODO: Refactor the data variables. Instead use the $input variable.
+
         $data['name']     = $input->name; 
         $data['email']    = $input->email;
         $data['password'] = bcrypt($input->password);
@@ -195,7 +198,7 @@ class UsersController extends Controller
             }
 
             return back(302);
-        } catch(ModelNotFoundException $modelNotFoundException) {
+        } catch(ModelNotFoundException $modelNotFoundException) { //* The user is not found in the system.
             return app()->abort(404); // The given user is not found.
         }  
     }

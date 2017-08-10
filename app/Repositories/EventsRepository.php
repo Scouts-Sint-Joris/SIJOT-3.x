@@ -17,7 +17,7 @@ class EventsRepository extends Repository
     /**
      * Set the eloquent model class for the repository.
      *
-     * @return string
+     * @return Events|string
      */
     public function model()
     {
@@ -54,5 +54,14 @@ class EventsRepository extends Repository
     public function getBackendEvents($relations, $perPage)
     {
         return $this->with($relations)->paginate($perPage);
+    }
+
+    public function addRecord($data)
+    {
+        if ($this->create($data)) {
+            return true;
+        }
+
+        return false;
     }
 }

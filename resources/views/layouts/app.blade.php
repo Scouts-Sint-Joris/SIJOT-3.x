@@ -20,6 +20,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        @stack('styles') {{-- For additional styling specific on that page. --}}
 
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};</script>
@@ -91,7 +92,13 @@
                                     <span class="fa fa-home" aria-hidden="true"></span> Verhuur
                                 </a>
                             </li>
-                            <li><a href="#"><span class="fa fa-picture-o" aria-hidden="true"></span> Foto's</a></li>
+
+                            <li @if (Request::is('fotos*')) class="active" @endif>
+                                <a href="{{ route('photos.index.frontend') }}">
+                                    <span class="fa fa-picture-o" aria-hidden="true"></span> Foto's
+                                </a>
+                            </li>
+
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" href="#">
                                     <span class="fa fa-info-circle" aria-hidden="true"></span> Info
@@ -169,12 +176,10 @@
         </div>
 
         @yield('footer')
-
-        @if (Auth::guest())
-            @include('layouts.modules.reset-password')
-        @endif
+        @if (Auth::guest())@include('layouts.modules.reset-password')@endif
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        @stack('scripts') {{-- Additional Jquery specific for the given page. --}}
     </body>
 </html>

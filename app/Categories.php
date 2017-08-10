@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Categories extends Model
 {
+    // TODO Complete class docblock. 
+    
     /**
-     * Mass-aàssign fielpds for the database.
+     * Mass-assign fielpds for the database.
      *
      * @return array
      */
@@ -30,6 +32,7 @@ class Categories extends Model
 
     public function news()
     {
+        // TODO implementation docblock 
         return $this->belongsToMany(News::class)->withTimestamps();
     }
 }

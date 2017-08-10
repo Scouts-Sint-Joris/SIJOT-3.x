@@ -136,6 +136,12 @@
                                 <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Nieuws</span>
                             </a>
                         </li>
+
+                        <li @if(Request::is('fotos*')) class="active" @endif>
+                            <a href="{{ route('photos.index.backend') }}">
+                                <i class="fa fa-camera-retro" aria-hidden="true"></i> <span>Foto's</span> 
+                            </a>
+                        </li>
                     </ul>
                 </section> {{-- /.sidebar --}}
             </aside>
