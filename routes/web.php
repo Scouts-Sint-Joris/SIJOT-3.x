@@ -32,6 +32,8 @@ Route::get('/verhuur/kalender', 'LeaseController@calendar')->name('lease.calenda
 
 // Lease info routes.
 Route::get('/verhuur/info/{id}', 'LeaseInfoController@show')->name('lease.info.show');
+Route::get('/verhuur/notitie/verwijder/{notitionId}/{leaseId}', 'LeaseInfoController@deleteNotition')->name('lease.notitie.delete');
+Route::post('/verhuur/notitie/toevoegen', 'LeaseInfoController@addNotition')->name('lease.notitie.add');
 
 // Members routes
 Route::get('/lid-worden', 'MemberController@index')->name('members.new');

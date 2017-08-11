@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Notitions
- * ss
+ *
  * @package Sijot
  */
 class Notitions extends Model
@@ -26,5 +26,15 @@ class Notitions extends Model
     public function author()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the lease for the notition. Through the relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function lease()
+    {
+        return $this->belongsToMany(Lease::class)->withTimestamps();
     }
 }

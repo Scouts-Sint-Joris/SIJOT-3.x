@@ -63,6 +63,26 @@ class Lease extends Model
      */
     public function notitions()
     {
-        return $this->belongsToMany(Notitions::class);
+        return $this->belongsToMany(Notitions::class)->withTimestamps();
+    }
+
+    /**
+     * Get the 'opener' for the lease.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function opener() 
+    {
+        return $this->belongsTo(User::class, 'opener_id');
+    }
+
+    /**
+     * Get the 'afsluiter' for the lease.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function afsluiter() 
+    {
+        return $this->belongsTo(User::class, 'afsluiter_id'); 
     }
 }

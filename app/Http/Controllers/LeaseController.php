@@ -105,8 +105,8 @@ class LeaseController extends Controller
                 Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
 
                 // Start mailing to Admins and persons responsible for leases. 
-                $adminUsers = $this->userDB->role('Admin')->get();
-                $leaseUsers = $this->userDB->role('Verhuur')->get();
+                $adminUsers = $this->userDB->role('admin')->get();
+                $leaseUsers = $this->userDB->role('verhuur')->get();
 
                 foreach ($adminUsers as $admin) { // Send email notification to all the admins. 
                     Mail::to($admin->email)->send(new LeaseInfoAdmin($input->all()));

@@ -19,6 +19,13 @@ class CreateNotitionsTable extends Migration
             $table->text('text');
             $table->timestamps();
         });
+
+        Schema::create('lease_notitions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('lease_id');
+            $table->integer('notitions_id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -29,5 +36,6 @@ class CreateNotitionsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('notitions');
+        Schema::dropIfExists('lease_notitions');
     }
 }
