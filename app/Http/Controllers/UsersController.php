@@ -153,6 +153,36 @@ class UsersController extends Controller
     }
 
     /**
+     * Edit view for the user permissions.
+     *
+     * @return mixed
+     */
+    public function editPermission($userId)
+    {
+        try { // To ifind the user in the system.
+            $data['user']        = $this->userDB->findOrFail($userId);
+            $data['permissions'] = $this->permissions->pluck('name', 'id'); //? Results in the view: <option value='<id>'> <name> </option>
+            $data['roles']       = $this->roles->pluck('name', 'id');       //? Results in the view: <option value='<id>'> <name> </option>
+
+            return view('acl.edit-user-permissions', $data);
+        } catch (ModelNotFoundException $exception) { // The user isn't found in the system.
+            flash("Wij konden de gebruiker niet vinden in het systeem");
+        }
+
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Store the new permissions for the given user.
+     *
+     * @return mixed
+     */
+    public function storePermission()
+    {
+
+    }
+
+    /**
      * Create a new login in the database.
      *
      * @param Usersvalidator $input The user input validation.

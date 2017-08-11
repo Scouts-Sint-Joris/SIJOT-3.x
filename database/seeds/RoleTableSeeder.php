@@ -17,10 +17,19 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         // Start database truncate
-        $table =  DB::table('roles');
-        $table->delete();
+        $data = [
+            // Syntaxis: ['name' => '<role name>'],
 
-        Role::create(['name' => 'Admin']);
-        Role::create(['name' => 'Verhuur']);
+            // Global role scopes
+            ['name' => 'admin', 'description' => 'De administrator gebruikersgroep.'],
+            ['name' => 'verhuur', 'description' => 'De gebruikersgroep verantworodelijk voor de verhuur.'],
+            ['name' => 'leiding', 'description' => 'De gebruikersgroep van de leiding.'],
+            ['name' => 'hoofdleiding', 'description' => 'de gebruikers groep voor de hooofleiding v/d groep.']
+        ];
+
+        // If there is data in the role table. Delete it.
+        $table = DB::table('roles');
+        $table->delete();
+        $table->insert($data);
     }
 }

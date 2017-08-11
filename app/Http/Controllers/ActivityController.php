@@ -60,9 +60,9 @@ class ActivityController extends Controller
      */
     public function backend()
     {
-        $data['title'] = 'Activiteiten';
+        $data['title']      = 'Activiteiten';
         $data['activities'] = $this->activity->with(['group'])->orderBy('activiteit_datum', 'asc')->paginate(20);
-        $data['groups'] = $this->groups->where('title', '!=', 'De Leiding')->get();
+        $data['groups']     = $this->groups->where('title', '!=', 'De Leiding')->get();
 
         return view('activity.backend-index', $data);
     }

@@ -63,12 +63,8 @@
                                 <tr>
                                     <td><code><strong>#{{ $user->id }}</strong></code></td>
                                     <td> {{-- User status --}}
-                                        @if ($user->isBanned())
-                                            <span class="label label-warning">Geblokkeerd</span>
-                                        @endif
-
-                                        @if ($user->isOnline())
-                                            <span class="label label-success">Online</span>
+                                        @if ($user->isBanned()) <span class="label label-warning">Geblokkeerd</span> @endif
+                                        @if ($user->isOnline()) <span class="label label-success">Online</span>
                                         @else
                                             <span class="label label-danger">Offline</span>
                                         @endif
@@ -85,7 +81,7 @@
                                             <a href="#" onclick="getUser('{{ route('users.getId', $user->id) }}', '#block-user')" class="label label-danger">Blokkeer gebruiker</a>
                                         @endif
 
-                                        <a class="label label-danger" href="">Wijzig rechten</a>
+                                        <a class="label label-danger" href="{{ route('acl.user.change', $user) }}">Wijzig rechten</a>
                                         <a class="label label-danger" href="{{ route('users.delete', $user) }}">Verwijder</a>
                                     </td> {{-- /Options --}}
                                 </tr>
@@ -94,8 +90,9 @@
                     </table>
                 </div>
             </div>
+
             <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_2">
+            <div class="tab-pane" id="tab_2"> {{-- Roles --}}
                 @if ((int) count($roles) === 0)
                     <div class="alert alert-info">
                         <h4><i class="icon fa fa-info-circle"></i> Info!</h4>
@@ -104,19 +101,69 @@
                 @else
                     <div class="table-responsive">
                         <table class="table-hover table-responsive table-striped table">
-                            
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Naam:</th>
+                                    <th>Beschrijving:</th>
+                                    <th colspan="2">Aangemaakt op:</th> {{-- Colspan="2" needed for the functions. --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($roles as $role) {{-- Loop through the roles --}}
+                                    <tr>
+                                        <td><strong><code>#{{ $role->id  }}</code></strong></td>
+                                        <td>{{ ucfirst($role->name) }}</td>
+                                        <td>@if (is_null($role->description)) Geen beschrijving gegeven. @else {{ ucfirst($role->description) }} @endif</td>
+                                        <td>@if (is_null($role->created_at)) N/A @else {{ ucfirst($role->created_at) }} @endif</td>
+
+                                        <td class="text-center"> {{-- Options --}}
+                                            <a href="{{ route('acl.wijzig', ['type' => 'role', 'id' => $role->id]) }}" class="label label-warning">Wijzig</a>
+                                            <a href="{{ route('roles.delete', $role) }}" class="label label-danger"> Verwijder </a>
+                                        </td> {{-- /Options --}}
+                                    </tr>
+                                @endforeach {{-- /END loop --}}
+                            </tbody>
                         </table>
                     </div>
                 @endif
             </div>
             <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_3">
+
+            <div class="tab-pane" id="tab_3"> {{-- Permissions --}}
                 @if ((int) count($permissions) === 0)
                     <div class="alert alert-info">
                         <h4><i class="icon fa fa-info-circle"></i> Info!</h4>
                         Er zijn geen permissions gevonden in het systeem.
                     </div>
                 @else
+                    <div class="table-responsive">
+                        <table class="table-hover table-responsive table-striped table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Naam:</th>
+                                    <th>Beschrijving:</th>
+                                    <th colspan="2">Aangemaakt op:</th> {{-- Colspan="2" needed for the functions. --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($permissions as $permission) {{-- Loop trough the permissions --}}
+                                    <tr>
+                                        <td><code><strong>#{{ $permission->id }}</strong></code></td>
+                                        <td>{{ ucfirst($permission->name) }}</td>
+                                        <td>@if (is_null($permission->description)) Geen beschrijving gegeven. @else {{ ucfirst($permission->description) }} @endif</td>
+                                        <td>@if (is_null($permission->created_at)) N/A @else {{ $permission->created_at }} @endif</td>
+
+                                        <td class="text-center"> {{-- Options --}}
+                                            <a href="{{ route('acl.wijzig', ['type' => 'permissions', 'id' => $permission->type]) }}" class="label label-warning">Wijzig</a>
+                                            <a href="{{ route('permissions.delete', $permission) }}" class="label label-danger">Verwijder</a>
+                                        </td> {{-- /Options --}}
+                                    </tr>
+                                @endforeach {{-- End permissions loop. --}}
+                            </tbody>
+                        </table>
+                    </div>
                 @endif
             </div>
             <!-- /.tab-pane -->

@@ -17,6 +17,10 @@ class AbilityTableSeeder extends Seeder
         // Reset cached roles and permissions
         app()['cache']->forget('spatie.permission.cache');
 
+        //! If there is data in the table. We need to delete it.
+        $table = DB::table('permissions');
+        $table->delete();
+
         // SYNTAXIS: Permission::create(['name' => '<permission name>']);
         // -----
         Permission::create(['name' => 'access-kapoenen']);
@@ -34,9 +38,5 @@ class AbilityTableSeeder extends Seeder
         $role->givePermissionTo('access-givers');
         $role->givePermissionTo('access-jins');
         $role->givePermissionTo('access-leiding');
-
-        //! If there is data in the table. We need to delete it.
-        $table = DB::table('permissions');
-        $table->delete();
     }
 }

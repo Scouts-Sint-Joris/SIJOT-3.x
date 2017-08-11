@@ -15,4 +15,14 @@ class Permission extends \Spatie\Permission\Models\Permission
      * @var array
      */
     protected $fillable = ['author_id', 'system_permission', 'name', 'description'];
+
+    /**
+     * Author data relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author() 
+    {
+        return $this->belongsTo(User::class);
+    }
 }
