@@ -30,7 +30,7 @@ class Activity extends Model
 
     /**
      * Format the timestamp format.
-     *
+     * !ccrap
      * @param  string $date The start time from the form
      * @return string
      */

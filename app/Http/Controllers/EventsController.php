@@ -2,10 +2,10 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\Events;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Sijot\Http\Requests\EventValidator;
+use Sijot\Repositories\EventsRepository;
 
 /**
  * Class EventsController
@@ -32,7 +32,7 @@ class EventsController extends Controller
      *
      * @param Events $events The events database model in the application.
      */
-    public function __construct(Events $events)
+    public function __construct(EventsRepository $events)
     {
         $routes = ['index', 'delete', 'edit'];
 
@@ -51,7 +51,7 @@ class EventsController extends Controller
      */
     public function store(EventValidator $input)
     {
-        if ($this->events->create($input->except(['_token']))) { // try to create the event.
+        if ($this->events->createEvent($input->except(['_token']))) { // try to create the event.
             // The event has been created in the database.
             flash(trans('events.flash-event-create'));
         }
@@ -67,7 +67,7 @@ class EventsController extends Controller
     public function index()
     {
         $data['title'] = 'Evenementen';
-        $data['events'] = $this->events->with(['author'])->paginate(15);
+        $data['events'] = $this->events->getBackendEvents(['author'], 15);
 
         return view('events.index', $data);
     }
@@ -82,7 +82,7 @@ class EventsController extends Controller
     public function show($eventId)
     {
         try { // Try to find the event in the database.
-            $data['event'] = $this->events->findOrFail($eventId);
+            $data['event'] = $this->events->findEvent($eventId);
             $data['title'] = $data['event']->title;
 
             return view('events.show', $data);
@@ -102,7 +102,7 @@ class EventsController extends Controller
     public function status($statusId, $eventId)
     {
         try { // To find the event in the database.
-            $event = $this->events->findOrFail($eventId);
+            $event = $this->events->findEvent($eventId);
 
             if ($event->update(['status' => $statusId])) { // Try to change the status.
                 // The status has been updated.
@@ -129,7 +129,7 @@ class EventsController extends Controller
     public function delete($eventId)
     {
         try {
-            $event = $this->events->findOrFail($eventId);
+            $event = $this->events->findEvent($eventId);
 
             if ($event->delete()) { // Try to delete the event.
                 // The event has been deleted.
@@ -153,7 +153,7 @@ class EventsController extends Controller
         // TODO: Register route.
 
         try { // TODO: Documentation.
-            return json_encode($this->events->findOrFail($eventId));
+            return json_encode($this->events->findEvent($eventId));
         } catch (ModelNotFoundException $modelNotFoundException) { // TODO: Documentation.
             return app()->abort(404);
         }
@@ -172,7 +172,7 @@ class EventsController extends Controller
         // TODO: register route.
 
         try {
-            $event = $this->events->findOrFail($eventId);
+            $event = $this->events->findEvent($eventId);
 
             if ($event->update($input->except(['_token']))) { // Try to update an event.
                 // Event has been updated

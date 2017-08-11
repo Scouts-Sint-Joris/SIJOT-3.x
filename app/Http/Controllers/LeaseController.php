@@ -20,6 +20,8 @@ use Maatwebsite\Excel\Facades\Excel;
  */
 class LeaseController extends Controller
 {
+    // TODO: Complete the class docblock. 
+    
     /**
      * @var Lease
      */
@@ -67,6 +69,8 @@ class LeaseController extends Controller
      */
     public function calendar()
     {
+        //! Optimize the database query. And select only the used database tables. Reduces loading time. 
+
         $data['title']  = trans('lease.title-front-calendar');
         $data['leases'] = $this->leaseDB->where('status_id', 3)->orderBy('start_datum', 'ASC')->paginate(15);
 
@@ -101,8 +105,8 @@ class LeaseController extends Controller
                 Mail::to($input->contact_email)->send(new LeaseInfoRequester($input->all()));
 
                 // Start mailing to Admins and persons responsible for leases. 
-                $adminUsers = $this->userDB->role('Admin')->get();
-                $leaseUsers = $this->userDB->role('Verhuur')->get();
+                $adminUsers = $this->userDB->role('admin')->get();
+                $leaseUsers = $this->userDB->role('verhuur')->get();
 
                 foreach ($adminUsers as $admin) { // Send email notification to all the admins. 
                     Mail::to($admin->email)->send(new LeaseInfoAdmin($input->all()));
@@ -170,7 +174,8 @@ class LeaseController extends Controller
     public function delete($leaseId)
     {
         try { // Check if the record exists
-            if ($this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
+            if ($lease = $this->leaseDB->findOrFail($leaseId)->delete()) { // The lease has been deleted.
+                $lease->notitions()->sync([]);
                 flash(trans('lease.flash-lease-delete'));
             }
 
@@ -200,11 +205,15 @@ class LeaseController extends Controller
      */
     public function export()
     {
+        //? The output needs to be styled. 
+        // TODO: Row color based on status. 
+        // TODO: Cell color if the date is for the own group.
+
         Excel::create('Verhuringen', function ($excel) {
-           $excel->sheet('Verhuringen', function ($sheet) {
-               $all = $this->leaseDB->orderBy('start_datum', 'ASC')->get();
-               $sheet->loadView('lease.export', compact('all'));
-           });
+            $excel->sheet('Verhuringen', function ($sheet) {
+                $all = $this->leaseDB->orderBy('start_datum', 'ASC')->get();
+                $sheet->loadView('lease.export', compact('all'));
+            });
         })->export('xls');
     }
 }

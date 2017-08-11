@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
  */
 class DisclaimerController extends Controller
 {
+    // TODO Complete the class docblock. 
+    
     /**
      * Get the disclaimer page.
      *
