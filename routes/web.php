@@ -30,6 +30,11 @@ Route::get('/verhuur/verwijder/{id}', 'LeaseController@delete')->name('lease.del
 Route::get('/verhuur/exporteer', 'LeaseController@export')->name('lease.export');
 Route::get('/verhuur/kalender', 'LeaseController@calendar')->name('lease.calendar');
 
+// Lease info routes.
+Route::get('/verhuur/info/{id}', 'LeaseInfoController@show')->name('lease.info.show');
+Route::get('/verhuur/notitie/verwijder/{notitionId}/{leaseId}', 'LeaseInfoController@deleteNotition')->name('lease.notitie.delete');
+Route::post('/verhuur/notitie/toevoegen', 'LeaseInfoController@addNotition')->name('lease.notitie.add');
+
 // Members routes
 Route::get('/lid-worden', 'MemberController@index')->name('members.new');
 
@@ -83,3 +88,10 @@ Route::get('activiteiten/verwijder/{id}', 'ActivityController@destroy')->name('a
 Route::get('activiteiten/status/{status}/{id}', 'ActivityController@status')->name('activity.status');
 Route::get('activiteiten/json/{id}', 'ActivityController@getByid')->name('activity.json');
 Route::get('activiteiten.json/feed/{id}', 'ActivityController@jsonfeed')->name('activity.feed');
+
+// Photo routes.
+Route::get('fotos/groep/{selector}', 'PhotoController@getByGroup')->name('photos.groups');
+Route::get('fotos', 'PhotoController@indexFront')->name('photos.index.frontend');
+Route::get('fotos/backend', 'PhotoController@indexBackend')->name('photos.index.backend');
+Route::post('/fotos/toevoegen', 'PhotoController@store')->name('photos.store');
+Route::get('/fotos/verwijder/{id}', 'PhotoController@destroy')->name('photos.delete');

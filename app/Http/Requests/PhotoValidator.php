@@ -4,15 +4,10 @@ namespace Sijot\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * Class BanValidator
- * 
- * //TODO: Complete teh class docblock.
- * 
- * @package Sijot\Http\Requests
- */
-class BanValidator extends FormRequest
+class PhotoValidator extends FormRequest
 {
+    // TODO Create class docblock. 
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -31,8 +26,11 @@ class BanValidator extends FormRequest
     public function rules()
     {
         return [
-            'eind_datum' => 'required',
-            'reason'     => 'required'
+            'title'         => 'required', 
+            'group'         => 'required', 
+            'image'         => 'required', 
+            'url'           => 'required', 
+            'description'   => 'required',
         ];
     }
 }
