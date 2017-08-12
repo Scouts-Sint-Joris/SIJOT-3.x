@@ -19,7 +19,12 @@ class Lease extends Model
      *
      * @var array
      */
-    protected $fillable = ['eind_datum', 'start_datum', 'status_id', 'contact_email', 'groeps_naam', 'tel_nummer'];
+    protected $fillable = [
+        'status_id', 'opener_id', 'afsluiter_id', 'kapoenen_lokaal', 
+        'welpen_lokaal', 'jongGivers_lokaal', 'givers_lokaal', 
+        'jins_lokaal', 'grote_zaal', 'toiletten', 'groeps_naam', 
+        'contact_email', 'tel_nummer', 'eind_datum', 'start_datum'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
