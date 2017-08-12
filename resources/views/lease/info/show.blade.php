@@ -31,7 +31,8 @@
                 <div class="row">
                     <div class="col-md-8">
                         <form action="{{ route('lease.info.update', $lease) }}" method="POST" class="form-horizontal">
-                            {{ csrf_field() }}
+                            {{ csrf_field() }} {{-- Needed for the form CSRF protection. --}}
+                            <input type="hidden" name="status_id" value="{{ $lease->status_id }}">
 
                             <fieldset>
                                 <legend>Gegevens verhuurder (van de aanvraag):</legend>
@@ -56,7 +57,7 @@
                                     <label class="control-label col-md-4">Email adres: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="contaéct_email" value="{{ $lease->contact_email }}">
+                                        <input type="text" class="form-control" name="contact_email" value="{{ $lease->contact_email }}">
                                     </div>
                                 </div>
 
@@ -113,8 +114,8 @@
 
                                     <div class="col-md-8">
                                         <select name="kapoenen_lokaal" class="form-control">
-                                            <option value="">Niet nodig tijdens verhuring</option>
-                                            <option value="">Zit bij in de verhuring</option>
+                                            <option value="N">Niet nodig tijdens verhuring</option>
+                                            <option value="Y">Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -124,8 +125,8 @@
 
                                     <div class="col-md-8">
                                         <select name="welpen_lokaal" class="form-control">
-                                            <option value="">Niet nodig tijdens verhuring</option>
-                                            <option value="">Zit bij in de verhuring</option>
+                                            <option value="N">Niet nodig tijdens verhuring</option>
+                                            <option value="Y">Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -135,8 +136,8 @@
 
                                     <div class="col-md-8">
                                         <select name="jongGivers_lokaal" class="form-control">
-                                            <option value="">Niet nodig tijdens verhuring</option>
-                                            <option value="">Zit bij in de verhuring</option>
+                                            <option value="N">Niet nodig tijdens verhuring</option>
+                                            <option value="Y">Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -146,8 +147,8 @@
 
                                     <div class="col-md-8">
                                         <select name="givers_lokaal" class="form-control">
-                                            <option value="">Niet nodig tijdens verhuring</option>
-                                            <option value="">Zit bij in de verhuring</option>
+                                            <option value="N">Niet nodig tijdens verhuring</option>
+                                            <option value="Y">Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -157,8 +158,8 @@
 
                                     <div class="col-md-8">
                                         <select class="form-control">
-                                            <option value="">Niet nodig tijdens verhuriong</option>
-                                            <option value="">Zit bij de verhuring</option>
+                                            <option value="N">Niet nodig tijdens verhuriong</option>
+                                            <option value="Y">Zit bij de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -168,8 +169,8 @@
 
                                     <div class="col-md-8">
                                         <select name="grote_zaal" class="form-control">
-                                            <option value="">Niet nodig tijdens de verhuring</option>
-                                            <option value="">Zit bij de verhuring</option>
+                                            <option value="N">Niet nodig tijdens de verhuring</option>
+                                            <option value="Y">Zit bij de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -179,8 +180,8 @@
 
                                     <div class="col-md-8">
                                         <select name="toiletten" class="form-control">
-                                            <option value="">Niet nodig tijdens de verhuring</option>
-                                            <option value="">Zit bij de verhuring</option>
+                                            <option value="N">Niet nodig tijdens de verhuring</option>
+                                            <option value="Y">Zit bij de verhuring</option>
                                         </select>
                                     </div>
                                 </div>

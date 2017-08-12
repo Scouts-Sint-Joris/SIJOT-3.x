@@ -28,8 +28,8 @@ class CreateLeasesTable extends Migration
             $table->string('groeps_naam');
             $table->string('contact_email');
             $table->string('tel_nummer')->nullable();
-            $table->string('eind_datum');
-            $table->string('start_datum');
+            $table->date('eind_datum');
+            $table->date('start_datum');
             $table->softDeletes();
             $table->timestamps();
         });

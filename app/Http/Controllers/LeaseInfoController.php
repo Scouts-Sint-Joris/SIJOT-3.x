@@ -2,6 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Sijot\Http\Requests\LeaseValidator;
@@ -58,8 +59,8 @@ class LeaseInfoController extends Controller
     }
 
     /**
-     * Update the lease information in the database. 
-     * 
+     * Update the lease information in the database.
+     *
      * @param  LeaseValidator $input The user given input.
      * @param  integer        $id    The primary key from the lease in the database.
      * @return \Illuminate\Http\RedirectResponse
@@ -67,12 +68,16 @@ class LeaseInfoController extends Controller
     public function update(LeaseValidator $input, $id)
     {
         try {
-            $lease = $this->lease->findOrFail($id); 
+            $lease = $this->lease->findOrFail($id);
 
-            if ($lease->update($input->all())) {
+            $data                = $input->all();
+            $data['start_datum'] = (new Carbon($data['start_datum']))->format('Y-m-d H:i:s');
+            $data['eind_datum']  = (new Carbon($data['eind_datum']))->format('Y-m-d H:i:s');
+
+            if ($lease->update($data)) {
                 flash('De informatie omtrent de verhuring is aangepast.')->success();
             }
-
+            
             return redirect()->route('lease.info.show', ['id' => $id]);
         } catch (ModelNotFoundException $exception) {
             flash('Wij konden de informatie omtrent de verhuringen niet vinden.')->error();
