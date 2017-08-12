@@ -4,6 +4,7 @@ namespace Sijot\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Sijot\Http\Requests\LeaseValidator;
 use Sijot\Http\Requests\NotitionValidator;
 use Sijot\Lease;
 use Sijot\Notitions;
@@ -53,6 +54,29 @@ class LeaseInfoController extends Controller
         } catch (ModelNotFoundException $exception) {
             flash("Wij konden de verhuring niet vinden in het systeem.")->warning();
             return redirect()->back(302);
+        }
+    }
+
+    /**
+     * Update the lease information in the database. 
+     * 
+     * @param  LeaseValidator $input The user given input.
+     * @param  integer        $id    The primary key from the lease in the database.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(LeaseValidator $input, $id)
+    {
+        try {
+            $lease = $this->lease->findOrFail($id); 
+
+            if ($lease->update($input->all())) {
+                flash('De informatie omtrent de verhuring is aangepast.')->success();
+            }
+
+            return redirect()->route('lease.info.show', ['id' => $id]);
+        } catch (ModelNotFoundException $exception) {
+            flash('Wij konden de informatie omtrent de verhuringen niet vinden.')->error();
+            return redirect()->route('lease.backend');
         }
     }
 

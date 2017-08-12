@@ -17,7 +17,7 @@ class CreateLeasesTable extends Migration
             $table->increments('id');
             $table->integer('status_id')->nullable();
             $table->integer('opener_id')->nullable(); 
-            $table->integer('afluiter_id')->nullable();
+            $table->integer('afsluiter_id')->nullable();
             $table->string('kapoenen_lokaal')->nullable();
             $table->string('welpen_lokaal')->nullable();
             $table->string('jongGivers_lokaal')->nullable(); 
