@@ -30,7 +30,9 @@
             <div class="tab-pane active" id="tab_1"> {{-- START info tab --}}
                 <div class="row">
                     <div class="col-md-8">
-                        <form action="" class="form-horizontal">
+                        <form action="{{ route('lease.info.update', $lease) }}" method="POST" class="form-horizontal">
+                            {{ csrf_field() }}
+
                             <fieldset>
                                 <legend>Gegevens verhuurder (van de aanvraag):</legend>
 
@@ -38,7 +40,7 @@
                                     <label class="control-label col-md-4">Groep/Persoon: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" value="{{ $lease->groeps_naam }}">
+                                        <input type="text" class="form-control" name="groeps_naam" value="{{ $lease->groeps_naam }}">
                                     </div>
                                 </div>
 
@@ -46,7 +48,7 @@
                                     <label class="control-label col-md-4">Start datum: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" value="{{ $lease->start_datum->format('d/m/Y') }}">
+                                        <input type="text" name="start_datum" class="form-control" value="{{ $lease->start_datum->format('d/m/Y') }}">
                                     </div>
                                 </div>
 
@@ -54,7 +56,7 @@
                                     <label class="control-label col-md-4">Email adres: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" value="{{ $lease->contact_email }}">
+                                        <input type="text" class="form-control" name="contaéct_email" value="{{ $lease->contact_email }}">
                                     </div>
                                 </div>
 
@@ -62,7 +64,7 @@
                                     <label class="control-label col-md-4">Eind datum: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" value="{{ $lease->eind_datum->format('d/m/Y') }}">
+                                        <input type="text" class="form-control" name="eind_datum" value="{{ $lease->eind_datum->format('d/m/Y') }}">
                                     </div>
                                 </div>
 
@@ -70,7 +72,7 @@
                                     <label class="control-label col-md-4">Tel. nummer:</label>
 
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" value="{{ $lease->tel_nummer }}">
+                                        <input type="text" class="form-control" name="tel_nummer" value="{{ $lease->tel_nummer }}">
                                     </div>
                                 </div>
                             </fieldset>
@@ -82,7 +84,7 @@
                                     <label class="control-label col-md-4">Opener:</label>
 
                                     <div class="col-md-8">
-                                        <select name="opener" class="form-control">
+                                        <select name="opener_id" class="form-control">
                                             <option value="">-- Geen persoon geslecteerd --</option>
 
                                             @foreach ($persons as $person2) {{-- Loop through the users --}}
@@ -96,7 +98,7 @@
                                     <label class="control-label col-md-4">Afsluiter:</label>
 
                                     <div class="col-md-8">
-                                        <select name="afsluiter" class="form-control">
+                                        <select name="afsluiter_id" class="form-control">
                                             <option value="">-- Geen persoon geselecteerd --</option>
 
                                             @foreach ($persons as $person1) {{-- Loop through thez persons --}} 
@@ -110,7 +112,7 @@
                                     <label class="control-label col-md-4">Kapoenen lokaal:</label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
+                                        <select name="kapoenen_lokaal" class="form-control">
                                             <option value="">Niet nodig tijdens verhuring</option>
                                             <option value="">Zit bij in de verhuring</option>
                                         </select>
@@ -121,7 +123,7 @@
                                     <label class="control-label col-md-4">Welpen lokaal:</label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
+                                        <select name="welpen_lokaal" class="form-control">
                                             <option value="">Niet nodig tijdens verhuring</option>
                                             <option value="">Zit bij in de verhuring</option>
                                         </select>
@@ -132,7 +134,7 @@
                                     <label class="control-label col-md-4">Jong-givers lokaal:</label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
+                                        <select name="jongGivers_lokaal" class="form-control">
                                             <option value="">Niet nodig tijdens verhuring</option>
                                             <option value="">Zit bij in de verhuring</option>
                                         </select>
@@ -143,7 +145,7 @@
                                     <label class="control-label col-md-4">Givers Lokaal:</label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
+                                        <select name="givers_lokaal" class="form-control">
                                             <option value="">Niet nodig tijdens verhuring</option>
                                             <option value="">Zit bij in de verhuring</option>
                                         </select>
@@ -151,7 +153,7 @@
                                 </div>
 
                                 <div class="col-md-6 form-group">
-                                    <label class="control-label col-md-4">Jins lokaal:</label>
+                                    <label name="jins_lokaal" class="control-label col-md-4">Jins lokaal:</label>
 
                                     <div class="col-md-8">
                                         <select class="form-control">
@@ -165,7 +167,7 @@
                                     <label class="control-label col-md-4">Grote zaal:</label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
+                                        <select name="grote_zaal" class="form-control">
                                             <option value="">Niet nodig tijdens de verhuring</option>
                                             <option value="">Zit bij de verhuring</option>
                                         </select>
@@ -176,7 +178,7 @@
                                     <label class="control-label col-md-4">Toiletten: <small>(kl. bouw)</small></label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
+                                        <select name="toiletten" class="form-control">
                                             <option value="">Niet nodig tijdens de verhuring</option>
                                             <option value="">Zit bij de verhuring</option>
                                         </select>
