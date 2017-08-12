@@ -22,10 +22,11 @@ class UsersTableSeeder extends Seeder
             'name'          => 'Tim Joosten',
             'email'         => 'topairy@gmail.com',
             'password'      => bcrypt('root1995!'),
-            'created_at'    => date('Y-m-d H:i:s',time()),
-            'updated_at'    => date('Y-m-d H:i:s',time()),
+            'created_at'    => date('Y-m-d H:i:s', time()),
+            'updated_at'    => date('Y-m-d H:i:s', time()),
         ]);
 
         $user->assignRole('admin');
+        $user->assignRole('verhuur');
     }
 }
