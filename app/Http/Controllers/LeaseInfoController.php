@@ -71,8 +71,8 @@ class LeaseInfoController extends Controller
             $lease = $this->lease->findOrFail($id);
 
             $data                = $input->all();
-            $data['start_datum'] = (new Carbon($data['start_datum']))->format('Y-m-d H:i:s');
-            $data['eind_datum']  = (new Carbon($data['eind_datum']))->format('Y-m-d H:i:s');
+            $data['start_datum'] = (new Carbon($data['start_datum']))->format('Y-m-d H:i:s');   //! Convertor because MySQL errors on EU format.
+            $data['eind_datum']  = (new Carbon($data['eind_datum']))->format('Y-m-d H:i:s');    //! Convertor because MySQL errors on EU format.
 
             if ($lease->update($data)) {
                 flash('De informatie omtrent de verhuring is aangepast.')->success();
