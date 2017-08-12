@@ -37,35 +37,39 @@
                             <fieldset>
                                 <legend>Gegevens verhuurder (van de aanvraag):</legend>
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group {{ $errors->has('groeps_naam') ? 'has-error' : '' }}">
                                     <label class="control-label col-md-4">Groep/Persoon: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="groeps_naam" value="{{ $lease->groeps_naam }}">
+                                        @if ($errors->has('groeps_naam')) <small class="help-block">{{ $errors->first('groeps_naam') }}</small> @endif
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group {{ $errors->has('start_datum') ? 'has-error' : '' }}">
                                     <label class="control-label col-md-4">Start datum: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
                                         <input type="text" name="start_datum" class="form-control" value="{{ $lease->start_datum->format('d/m/Y') }}">
+                                        @if ($errors->has('start_datum')) <small class="help-block">{{ $errors->first('start_datum') }}</small> @endif
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group {{ $errors->has('contact_email') ? 'has-error' : '' }}">
                                     <label class="control-label col-md-4">Email adres: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="contact_email" value="{{ $lease->contact_email }}">
+                                        @if ($errors->has('contact_email')) <small class="help-block">{{ $errors->first('contact_email')}}</small> @endif
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 form-group">
+                                <div class="col-md-6 form-group {{ $errors->has('eind_datum') ? 'has-error' : '' }}">
                                     <label class="control-label col-md-4">Eind datum: <span class="text-danger">*</span></label>
 
                                     <div class="col-md-8">
                                         <input type="text" class="form-control" name="eind_datum" value="{{ $lease->eind_datum->format('d/m/Y') }}">
+                                        @if ($errors->has('eind_datum')) <small class="help-block">{{ $errors->first('eind_datum') }}</small> @endif
                                     </div>
                                 </div>
 
@@ -114,8 +118,8 @@
 
                                     <div class="col-md-8">
                                         <select name="kapoenen_lokaal" class="form-control">
-                                            <option value="N">Niet nodig tijdens verhuring</option>
-                                            <option value="Y">Zit bij in de verhuring</option>
+                                            <option value="N" @if ($lease->kapoenen_lokaal === 'N') selected @endif>Niet nodig tijdens verhuring</option>
+                                            <option value="Y" @if ($lease->kapoenen_lokaal === 'Y') selected @endif>Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -125,8 +129,8 @@
 
                                     <div class="col-md-8">
                                         <select name="welpen_lokaal" class="form-control">
-                                            <option value="N">Niet nodig tijdens verhuring</option>
-                                            <option value="Y">Zit bij in de verhuring</option>
+                                            <option value="N" @if ($lease->welpen_lokaal === 'N') selected @endif>Niet nodig tijdens verhuring</option>
+                                            <option value="Y" @if ($lease->welpen_lokaal === 'Y') selected @endif>Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -136,8 +140,8 @@
 
                                     <div class="col-md-8">
                                         <select name="jongGivers_lokaal" class="form-control">
-                                            <option value="N">Niet nodig tijdens verhuring</option>
-                                            <option value="Y">Zit bij in de verhuring</option>
+                                            <option value="N" @if ($lease->jongGivers_lokaal === 'N') selected @endif>Niet nodig tijdens verhuring</option>
+                                            <option value="Y" @if ($lease->jongGivers_lokaal === 'Y') selected @endif>Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -147,8 +151,8 @@
 
                                     <div class="col-md-8">
                                         <select name="givers_lokaal" class="form-control">
-                                            <option value="N">Niet nodig tijdens verhuring</option>
-                                            <option value="Y">Zit bij in de verhuring</option>
+                                            <option value="N" @if ($lease->givers_lokaal === 'N') selected @endif>Niet nodig tijdens verhuring</option>
+                                            <option value="Y" @if ($lease->givers_lokaal === 'Y') selected @endif>Zit bij in de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -157,9 +161,9 @@
                                     <label name="jins_lokaal" class="control-label col-md-4">Jins lokaal:</label>
 
                                     <div class="col-md-8">
-                                        <select class="form-control">
-                                            <option value="N">Niet nodig tijdens verhuriong</option>
-                                            <option value="Y">Zit bij de verhuring</option>
+                                        <select name="jins_lokaal" class="form-control">
+                                            <option value="N" @if ($lease->jins_lokaal === 'N') selected @endif>Niet nodig tijdens verhuriong</option>
+                                            <option value="Y" @if ($lease->jins_lokaal === 'Y') selected @endif>Zit bij de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
