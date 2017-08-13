@@ -173,8 +173,8 @@
 
                                     <div class="col-md-8">
                                         <select name="grote_zaal" class="form-control">
-                                            <option value="N">Niet nodig tijdens de verhuring</option>
-                                            <option value="Y">Zit bij de verhuring</option>
+                                            <option value="N" @if ($lease->grote_zaal === 'N') selected @endif>Niet nodig tijdens de verhuring</option>
+                                            <option value="Y" @if ($lease->grote_zaal === 'Y') selected @endif>Zit bij de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
@@ -184,8 +184,8 @@
 
                                     <div class="col-md-8">
                                         <select name="toiletten" class="form-control">
-                                            <option value="N">Niet nodig tijdens de verhuring</option>
-                                            <option value="Y">Zit bij de verhuring</option>
+                                            <option value="N" @if ($lease->toiletten === 'N') selected @endif>Niet nodig tijdens de verhuring</option>
+                                            <option value="Y" @if ($lease->toiletten === 'Y') selected @endif>Zit bij de verhuring</option>
                                         </select>
                                     </div>
                                 </div>
