@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0a7abcfccedcb3235c2cbb5d64109a8d",
-    "content-hash": "f1dd4b8a0278cc4a694353f009e5f1e1",
+    "hash": "e71bf9523c4603ba7e04d1377e31d855",
+    "content-hash": "c0c32e9bec44a34ee6c0c0481cb6bd70",
     "packages": [
         {
             "name": "activismebe/database-layering",
-            "version": "v0.20",
+            "version": "0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CPSB/ActivismeBE-database-layering.git",
-                "reference": "ee645c8056cbf1dedc8160c87a055efc7b632fd3"
+                "reference": "0f15d9354f0e1f16ab9a612db4980670fdfd2c04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CPSB/ActivismeBE-database-layering/zipball/ee645c8056cbf1dedc8160c87a055efc7b632fd3",
-                "reference": "ee645c8056cbf1dedc8160c87a055efc7b632fd3",
+                "url": "https://api.github.com/repos/CPSB/ActivismeBE-database-layering/zipball/0f15d9354f0e1f16ab9a612db4980670fdfd2c04",
+                "reference": "0f15d9354f0e1f16ab9a612db4980670fdfd2c04",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "illuminate/database": "^5.4",
                 "illuminate/filesystem": "^5.4",
                 "illuminate/support": "^5.4",
-                "php": ">=7.0.0"
+                "php": ">=5.6.0"
             },
             "require-dev": {
                 "mockery/mockery": "dev-master@dev",
@@ -58,7 +58,7 @@
                 "repositories",
                 "repository"
             ],
-            "time": "2017-08-06 14:35:42"
+            "time": "2017-08-13 22:48:33"
         },
         {
             "name": "barryvdh/laravel-debugbar",

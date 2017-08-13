@@ -21,7 +21,7 @@
         "ericmakesstuff/laravel-server-monitor": "^1.2",
         "spatie/laravel-tail": "^1.4",
         "laravelcollective/html": "^5.4.0",
-        "activismebe/database-layering": "^0.20.0",
+        "activismebe/database-layering": "0.22",
         "laracasts/flash": "^3.0"
     },
     "require-dev": {
