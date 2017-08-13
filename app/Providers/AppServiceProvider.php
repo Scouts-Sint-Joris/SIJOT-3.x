@@ -17,8 +17,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-        view()->composer('layouts.modules.footer', function ($view) {
+        view()->composer('layouts.modules.footer', function ($view) { // Set the new post for the footer to a variable.
             $view->with('posts', News::orderBy('created_at', 'asc')->take(3)->get());
+        });
+
+        view()->composer('*', function ($view) { // Set the authencated user to a variable.
+            $view->with('user', auth()->user());
         });
     }
 

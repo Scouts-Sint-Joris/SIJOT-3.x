@@ -192,6 +192,7 @@ class UsersController extends Controller
             return redirect()->route('users.index');
         } catch (ModelNotFoundException $exception) { //? user not found.
             flash('Wij konden de rechten en permissions niet aanpassen.')->error();
+            return redirect()->route('users.index');
         } 
     }
 
@@ -237,11 +238,12 @@ class UsersController extends Controller
             $user = $this->userDB->findOrfail($userId); 
 
             if ($user->delete()) { // try to delete the user.
-                flash( "{$user->name} Is verwijderd uit het systeem.");
+                flash("{$user->name} Is verwijderd uit het systeem.")->success();
             }
 
             return back(302);
         } catch(ModelNotFoundException $modelNotFoundException) { //* The user is not found in the system.
+            flash('Wij konden de gebruiker niet verwijderen.')->error();
             return app()->abort(404); // The given user is not found.
         }  
     }
