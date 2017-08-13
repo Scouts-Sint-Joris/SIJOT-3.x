@@ -35,6 +35,8 @@ Route::get('/verhuur/info/{id}', 'LeaseInfoController@show')->name('lease.info.s
 Route::get('/verhuur/notitie/verwijder/{notitionId}/{leaseId}', 'LeaseInfoController@deleteNotition')->name('lease.notitie.delete');
 Route::post('/verhuur/notitie/toevoegen', 'LeaseInfoController@addNotition')->name('lease.notitie.add');
 Route::post('/verhuur/verhuur/aanpassen/{id}', 'LeaseInfoController@update')->name('lease.info.update');
+Route::post('/verhuur/toevoegen/admin', 'LeaseInfoController@addAdminPerson')->name('lease.add.admin');
+Route::get('/verhuur/verwijder/admin/{id}', 'LeaseInfoController@deleteAdminPerson')->name('lease.remove.admin');
 
 // Members routes
 Route::get('/lid-worden', 'MemberController@index')->name('members.new');

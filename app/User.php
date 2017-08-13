@@ -45,4 +45,14 @@ class User extends Authenticatable implements HasBansContract
     {
         return Cache::has('user-is-online-' . $this->id);
     }
+
+    /**
+     * Lease admins database relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function leaseAdmin() 
+    {
+        return $this->belongsTo(LeaseAdmin::class, 'id', 'persons_id');
+    }
 }

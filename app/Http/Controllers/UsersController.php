@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Sijot\Role;
 use Sijot\Permission;
+use Sijot\LeaseAdmin;
 
 /**
  * Class UsersController
@@ -44,6 +45,13 @@ class UsersController extends Controller
     private $roles;
 
     /**
+     * The variable for the lease admin table.
+     *
+     * @var AdminLease
+     */
+    private $leaseAdmin;
+
+    /**
      * UsersController constructor.
      *
      * @param User       $userDB      The user model for the database.
@@ -52,7 +60,7 @@ class UsersController extends Controller
      * 
      * @return void
      */
-    public function __construct(Role $roles, Permission $permissions, User $userDB)
+    public function __construct(Role $roles, Permission $permissions, User $userDB, LeaseAdmin $leaseAdmin)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');
@@ -60,6 +68,7 @@ class UsersController extends Controller
         $this->userDB      = $userDB;
         $this->roles       = $roles;
         $this->permissions = $permissions;
+        $this->leaseAdmin  = $leaseAdmin;
     }
 
     /**
@@ -183,9 +192,26 @@ class UsersController extends Controller
         try { //? To find and update the user.
             $data['user']        = $this->userDB->findOrFail($userId);
             $data['roles']       = $input->get('roles', []); 
-            $data['permissions'] = $input->get('permissions', []); 
+            $data['permissions'] = $input->get('permissions', []);
 
             if ($data['user']->roles()->sync($data['roles']) && $data['user']->permissions()->sync($data['permissions'])) {
+                $leaseAdmins = $this->leaseAdmin->where('persons_id', $userId);
+
+                if (in_array($this->roles->where('name', 'verhuur')->first()->id, $data['roles']) && $leaseAdmins->where('persons_id', $userId)->count() === 0) {
+                    //! The lease role is found in the form data.
+                    //! User hasn't been stored in the lease admin table. So dunk him in the data table.
+                    $this->leaseAdmin->create(['persons_id' => $userId, 'info' => 'Ingevoegd door wijzingen van zijn/haar rechten.']);
+                }
+
+                if (! in_array($this->roles->where('name', 'verhuur')->first()->id, $data['roles']) && $leaseAdmins->count() > 0) {
+                    //! The lease role is not found in the form data.
+                    //! User has been stored in the lease admin table. So delete him in the data table.
+                    
+                    foreach ($leaseAdmins->get() as $admin) { //? Loop through the admin lease records to delete them.
+                        $admin->delete(); //? The lease admin record has been deleted.
+                    }
+                }
+                
                 flash("De rechten en permissions van {$data['user']->name} zijn aangepast.")->success();
             }
 
@@ -234,6 +260,8 @@ class UsersController extends Controller
      */
     public function delete($userId) 
     {
+        // TODO: Unassign the values from all the relations. 
+
         try { // To find the user in the database. 
             $user = $this->userDB->findOrfail($userId); 
 

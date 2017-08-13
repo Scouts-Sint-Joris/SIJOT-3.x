@@ -7,6 +7,7 @@ use Sijot\Lease;
 use Sijot\Mail\LeaseInfoRequester;
 use Sijot\Mail\LeaseInfoAdmin;
 use Sijot\User;
+use Sijot\LeaseAdmin;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -22,15 +23,9 @@ class LeaseController extends Controller
 {
     // TODO: Complete the class docblock. 
     
-    /**
-     * @var Lease
-     */
     private $leaseDB;
-
-    /**
-     * @var User
-     */
     private $userDB;
+    private $adminLease;
 
     /**
      * LeaseController constructor
@@ -40,15 +35,16 @@ class LeaseController extends Controller
      * 
      * @return void
      */
-    public function __construct(Lease $leaseDB, User $userDB)
+    public function __construct(Lease $leaseDB, User $userDB, LeaseAdmin $adminLease)
     {
         $routes = ['backend', 'status'];
 
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
-        $this->leaseDB = $leaseDB;
-        $this->userDB = $userDB;
+        $this->leaseDB    = $leaseDB;
+        $this->userDB     = $userDB;
+        $this->adminLease = $adminLease;
     }
 
     /**
@@ -194,7 +190,8 @@ class LeaseController extends Controller
     {
         $data['title']  = 'Verhuur beheer';
         $data['leases'] = $this->leaseDB->orderBy('start_datum', 'ASC')->paginate(15);
-        $data['users']  = $this->userDB->select('id', 'name')->get();
+        $data['admins'] = $this->adminLease->with('person')->get();
+        $data['users']  = $this->userDB->doesnthave('leaseAdmin')->select('id', 'name')->get();
 
         return view('lease.lease-backend', $data);
     }

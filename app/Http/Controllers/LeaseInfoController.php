@@ -6,10 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Sijot\Http\Requests\LeaseValidator;
+use Sijot\Http\Requests\LeaseAdminValidator;
 use Sijot\Http\Requests\NotitionValidator;
 use Sijot\Lease;
 use Sijot\Notitions;
 use Sijot\User;
+use Sijot\LeaseAdmin;
 
 /**
  * Class LeaseInfoController
@@ -18,9 +20,10 @@ use Sijot\User;
  */
 class LeaseInfoController extends Controller
 {
-    private $lease;         /** Lease       $lease      The model instance for the lease database table.     */
-    private $notitions;     /** Notitions   $notitions  The model instance for the notitions database table. */
-    private $users;         /** User        $users      The model instance for the users database table.     */
+    private $lease;         /** Lease       $lease      The model instance for the lease database table.        */
+    private $notitions;     /** Notitions   $notitions  The model instance for the notitions database table.    */
+    private $users;         /** User        $users      The model instance for the users database table.        */
+    private $leaseAdmin;    /** LeaseAdmin  $leaseAdmin The model instance for the lease admin database table.  */
 
     /**
      * LeaseInfoController constructor.
@@ -29,7 +32,7 @@ class LeaseInfoController extends Controller
      * @param  Notitions    $notitions The lease notition database instance.
      * @return void
      */
-    public function __construct(Lease $lease, Notitions $notitions, User $users)
+    public function __construct(Lease $lease, Notitions $notitions, User $users, LeaseAdmin $leaseAdmin)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');
@@ -37,6 +40,7 @@ class LeaseInfoController extends Controller
         $this->lease        = $lease;
         $this->notitions    = $notitions;
         $this->users        = $users;
+        $this->leaseAdmin   = $leaseAdmin;
     }
 
     /**
@@ -85,9 +89,52 @@ class LeaseInfoController extends Controller
         }
     }
 
-    public function addAdminPerson() 
+    /**
+     * Store a new lease admin in the system. 
+     * 
+     * @param  LeaseAdminValidator $input The user given input. 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addAdminPerson(LeaseAdminValidator $input) 
+    {        
+        if ($this->leaseAdmin->create($input->all())) {
+            $user = $this->users->findOrfail($input->persons_id);
+
+            if (! $user->hasRole('verhuur')) { //! The user don't have the needed role. So attach it.
+                $user->assignRole('verhuur');  //! The role is now attached.
+            }
+
+            flash("{$user->name} Heeft nu de nodige bevoegdheid voor de verhuur.")->success();
+        }
+
+        return redirect()->route('lease.backend');
+    }
+
+    /**
+     * Delete the lease admin in the system.
+     *
+     * @param  integer $userId The primary key for the user in the database. 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteAdminPerson($recordId) 
     {
-        
+        try { //? To find the record in the database. 
+            $data['admin'] = $this->leaseAdmin->findOrFail($recordId);
+            $data['user']  = $this->users->findOrFail($data['admin']->persons_id);
+
+            if ($data['admin']->delete()) {                 //! The administrator record has been deleted. 
+                if ($data['user']->hasRole('verhuur')) {    //! Check if user has the 'verhuur' role
+                    $data['user']->removeRole('verhuur');   //! Remove the 'verhuur' role.
+                }
+
+                flash("{$data['user']->name} is verwijderd als verhurings administrator.");
+            }
+
+            return redirect()->route('lease.backend');
+        } catch (ModelNotFoundException $exception) { //! Can't find the record in the database. 
+            flash('Wij konden de verhuur administrator niet vinden in het systeem.')->error();
+            return redirect()->route('lease.backend');
+        }
     }
 
     /**

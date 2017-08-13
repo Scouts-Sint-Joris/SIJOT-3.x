@@ -82,18 +82,54 @@
             </div> {{-- End verhuring overzicht pane --}}
 
             <div class="tab-pane fade in" id="tab_2"> {{-- Start verantwoordelijke overzicht pane --}}
+                <div class="row">
+                    <div class="col-md-8">
+                    
+                        @if ((int) count($admins) > 0)
+                            <table class="table table-hover table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Naam:</th>
+                                        <th>Email:</th>
+                                        <th colspan="2">Extra info:</th> {{-- Colspan="2" needed for the functions. --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($admins as $admin) {{-- Loop through the  admins --}} 
+                                        <tr>
+                                            <td><strong>#{{ $admin->id }}</strong></td>
+                                            <td>{{ $admin->person->name }}</td>
+                                            <td><a href="mailto:{{ $admin->person->email }}">{{ $admin->person->email }}</a></td>
+                                            <td>@if (is_null($admin->info)) Er is geen extra informatie gegeven. @else {{ $admin->info}} @endif</td>
+                                            
+                                            <td class="text-center"> {{-- Options --}}
+                                                <a href="{{ route('lease.remove.admin', $admin) }}" class="label label-danger">Verwijder</a>
+                                            </td> {{-- END options --}}
+                                        </tr>
+                                    @endforeach {{-- End loop --}}
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="alert alert-info alert-important" role="alert">
+                                <strong><span class="fa fa-info-circle"></span></strong>
+                                Er zijn geen verhuur beheerders in het systeem gevonden.
+                            </div>
+                        @endif
 
+                    </div>
+                </div>
             </div> {{-- END verantwoordelijke overzicht panel --}}
 
             <div class="tab-pane fade in" id="tab_3"> {{-- Start verantwoordelijke toevoegen pane --}}
-                <form action="" class="form-horizontal" method="POST">
+                <form action="{{ route('lease.add.admin') }}" class="form-horizontal" method="POST">
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <label class="control-label col-md-1">Naam persoon: <span class="text-danger">*</span></label>
 
                         <div class="col-md-3">
-                            <select name="person" class="form-control">
+                            <select name="persons_id" class="form-control">
                                 <option value="">-- Selecteer de persoon. --</option>
 
                                 @foreach ($users as $user) {{-- Loop through the users. --}}
