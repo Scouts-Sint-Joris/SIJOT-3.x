@@ -85,6 +85,11 @@ class LeaseInfoController extends Controller
         }
     }
 
+    public function addAdminPerson() 
+    {
+        
+    }
+
     /**
      * Delete a lease notition in the system.
      *

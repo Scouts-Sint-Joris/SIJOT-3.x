@@ -194,6 +194,7 @@ class LeaseController extends Controller
     {
         $data['title']  = 'Verhuur beheer';
         $data['leases'] = $this->leaseDB->orderBy('start_datum', 'ASC')->paginate(15);
+        $data['users']  = $this->userDB->select('id', 'name')->get();
 
         return view('lease.lease-backend', $data);
     }

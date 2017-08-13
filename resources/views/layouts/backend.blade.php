@@ -109,7 +109,7 @@
                         </li>
 
                         @if ($user->hasRole('verhuur') || $user->hasRole('admin')) 
-                            <li @if (Request::route()->getName() === 'lease.backend') class="active" @endif>
+                            <li class="@if (Request::route()->getName() === 'lease.backend') active @endif">
                                 <a href="{{ route('lease.backend') }}">
                                     <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
                                 </a>
