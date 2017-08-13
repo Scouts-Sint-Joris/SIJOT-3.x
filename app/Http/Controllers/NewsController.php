@@ -89,6 +89,7 @@ class NewsController extends Controller
     public function getById($newsId)
     {
         try { // Try to find and output the record.
+            //? Maybe we need convert this in some API form.
             return(json_encode($this->newsDb->findOrFail($newsId)));
         } catch (ModelNotFoundException $notFoundException) { // The user is not found.
             return app()->abort(404);
