@@ -91,6 +91,8 @@ class AclHandlingsController extends Controller
         return redirect()->route('users.index');
     }
 
+
+
     /**
      * Update view for some acl role/permission
      *

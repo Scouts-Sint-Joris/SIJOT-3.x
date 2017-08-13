@@ -175,11 +175,24 @@ class UsersController extends Controller
     /**
      * Store the new permissions for the given user.
      *
+     * @param  Request $input The user given input.
      * @return mixed
      */
-    public function storePermission()
+    public function storePermission(Request $input, $userId)
     {
+        try { //? To find and update the user.
+            $data['user']        = $this->userDB->findOrFail($userId);
+            $data['roles']       = $input->get('roles', []); 
+            $data['permissions'] = $input->get('permissions', []); 
 
+            if ($data['user']->roles()->sync($data['roles']) && $data['user']->permissions()->sync($data['permissions'])) {
+                flash("De rechten en permissions van {$data['user']->name} zijn aangepast.")->success();
+            }
+
+            return redirect()->route('users.index');
+        } catch (ModelNotFoundException $exception) { //? user not found.
+            flash('Wij konden de rechten en permissions niet aanpassen.')->error();
+        } 
     }
 
     /**

@@ -106,11 +106,13 @@
                                 <i class="fa fa-user" aria-hidden="true"></i> <span>Mijn account</span>
                             </a>
                         </li>
-                        <li @if (Request::route()->getName() === 'lease.backend') class="active" @endif>
-                            <a href="{{ route('lease.backend') }}">
-                                <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
-                            </a>
-                        </li>
+                        @if (auth()->user()->hasRole('verhuur') || auth()->user()->hasRole('admin')) 
+                            <li @if (Request::route()->getName() === 'lease.backend') class="active" @endif>
+                                <a href="{{ route('lease.backend') }}">
+                                    <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
+                                </a>
+                            </li>
+                        @endif
                         <li @if (Request::route()->getName() === 'users.index') class="active" @endif>
                             <a href="{{ route('users.index') }}">
                                 <i class="fa fa-users" aria-hidden="true"></i> <span>Gebruikersbeheer</span>
