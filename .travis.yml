@@ -16,7 +16,7 @@ before_script:
     - echo "DB_CONNECTION=sqlite" >> .env
     - touch database/homestead.sqlite
     - travis_retry composer self-update
-    - travis_retry composer install --no-interaction --prefer-source --dev
+    - travis_retry composer install --no-interaction --prefer-source --no-dev
     - php artisan key:generate
     - php artisan migrate --database=testing --force
 script:
