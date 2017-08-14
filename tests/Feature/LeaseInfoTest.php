@@ -89,11 +89,34 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test a valid lease update.
+     *
      * @test
      */
     public function testUpdateLeaseValid()
     {
-        // TODO: write test.
+        $user       = factory(User::class)->create();
+        $leaseRole  = factory(Role::class)->create(['name' => 'verhuur']);
+        $lease      = factory(Lease::class)->create();
+
+        $leaseUser = User::findOrFail($user->id);
+        $leaseUser->assignRole($leaseRole->name);
+
+        $this->assertTrue($leaseUser->hasRole('verhuur'));
+
+        //> Input
+        $input['status_id']     = 1;
+        $input['start_datum']   = '2019-10-10';
+        $input['eind_datum']    = '2019-11-10';
+        $input['contact_email'] = 'name@domain.tld';
+        $input['groeps_naam']   = 'Sint-Joris Turnhout';
+        //> END input
+
+        $this->actingAs($leaseUser)
+            ->seeIsAuthenticatedAs($leaseUser)
+            ->post(route('lease.info.update', $lease), $input)
+            ->assertSessionHas(['flash_notification.0.message' => 'De informatie omtrent de verhuring is aangepast.'])
+            ->assertRedirect(route('lease.info.show', $lease));
     }
 
     /**
