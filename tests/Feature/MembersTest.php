@@ -11,6 +11,9 @@ class MembersTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
 
+    /**
+     * @test
+     */
     public function testNewMemberInformation()
     {
         $this->get(route('members.new'))->assertStatus(200);
