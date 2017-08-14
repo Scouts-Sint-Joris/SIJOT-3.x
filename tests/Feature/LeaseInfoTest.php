@@ -67,7 +67,14 @@ class LeaseInfoTest extends TestCase
     {
         $user      = factory(User::class)->create();
         $leaseRole = factory(Role::class)->create(['name' => 'verhuur']);
-        $lease     = factory(Lease::class)->create(['id' => 1]);
+
+        //> Input
+        $input['status_id']     = 1;
+        $input['start_datum']   = '2019-10-10';
+        $input['eind_datum']    = '2019-11-10';
+        $input['contact_email'] = 'name@domain.tld';
+        $input['groeps_naam']   = 'Sint-Joris Turnhout';
+        //> END input
 
         $leaseUser = User::findOrFail($user->id);
         $leaseUser->assignRole($leaseRole->name);
@@ -76,8 +83,9 @@ class LeaseInfoTest extends TestCase
 
         $this->actingAs($leaseUser)
             ->seeIsAuthenticatedAs($leaseUser)
-            ->post(route('lease.info.update', ['id' => 1000]))
-            ->assertStatus(200);
+            ->post(route('lease.info.update', ['id' => 1000]), $input)
+            ->assertSessionHas(['flash_notification.0.message'   => 'Wij konden de informatie omtrent de verhuringen niet vinden.'])
+            ->assertRedirect(route('lease.backend'));
     }
 
     /**
