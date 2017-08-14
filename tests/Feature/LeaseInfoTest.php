@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use Sijot\Role;
+use Sijot\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,7 +18,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testShowLeaseValidId()
     {
-        // TODO: write test.
+        // TODO: Write test
     }
 
     /**
@@ -24,7 +26,19 @@ class LeaseInfoTest extends TestCase
      */
     public function testShowLeaseInvalidId()
     {
-        // TODO: write test.
+        $user      = factory(User::class)->create();
+        $leaseRole = factory(Role::class)->create(['name' => 'verhuur']);
+
+        $leaseUser = User::findOrfail($user->id);
+        $leaseUser->assignRole($leaseRole->name);
+
+        $this->assertTrue($leaseUser->hasRole('verhuur'));
+
+        $this->actingAs($leaseUser)
+            ->seeIsAuthenticatedAs($leaseUser)
+            ->get(route('lease.info.show', ['id' => 1000]))
+            ->assertSessionHas(['flash_notification.0.message'   => 'Wij konden de verhuring niet vinden in het systeem.'])
+            ->assertStatus(302);
     }
 
     /**
