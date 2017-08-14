@@ -16,7 +16,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testShowLeaseValidId()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -24,7 +24,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testShowLeaseInvalidId()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -32,7 +32,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testUpdateLeaseInvalid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -40,7 +40,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testUpdateLeaseValid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -48,7 +48,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testMakeLeaseAdminValid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -56,7 +56,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testMakeLeaseAdminInvalid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -64,7 +64,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteLeaseAdminInvalid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -72,7 +72,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteAdminLeaseAdminValid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -80,7 +80,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteNotitionInvalid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -88,7 +88,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteNotitionValid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -96,7 +96,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testCreateNotitionValid()
     {
-
+        // TODO: write test.
     }
 
     /**
@@ -104,6 +104,6 @@ class LeaseInfoTest extends TestCase
      */
     public function testCreateNotitionInvalid()
     {
-
+        // TODO: write test.
     }
 }
