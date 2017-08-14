@@ -69,7 +69,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.getId', 1000))
-            ->assertStatus(200);
+            ->assertStatus(404);
     }
 
     /**
@@ -161,7 +161,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('users.block'), $input)
-            ->assertStatus(200);
+            ->assertStatus(404);
     }
 
     /**
@@ -217,7 +217,7 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.unblock', ['id' => 1000]))
-            ->assertStatus(302);
+            ->assertStatus(404);
     }
 
     /**
@@ -306,6 +306,6 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.delete', ['id' => 1000]))
-            ->assertStatus(302);
+            ->assertStatus(404);
     }
 }
