@@ -59,11 +59,25 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Try to update a lease with an invalid id.
+     *
      * @test
      */
-    public function testUpdateLeaseInvalid()
+    public function testUpdateLeaseInvalidId()
     {
-        // TODO: Wrtie test
+        $user      = factory(User::class)->create();
+        $leaseRole = factory(Role::class)->create(['name' => 'verhuur']);
+        $lease     = factory(Lease::class)->create(['id' => 1]);
+
+        $leaseUser = User::findOrFail($user->id);
+        $leaseUser->assignRole($leaseRole->name);
+
+        $this->assertTrue($leaseUser->hasRole('verhuur'));
+
+        $this->actingAs($leaseUser)
+            ->seeIsAuthenticatedAs($leaseUser)
+            ->post(route('lease.info.update', ['id' => 1000]))
+            ->assertStatus(200);
     }
 
     /**
@@ -72,6 +86,14 @@ class LeaseInfoTest extends TestCase
     public function testUpdateLeaseValid()
     {
         // TODO: write test.
+    }
+
+    /**
+     * @test
+     */
+    public function testUpdateLeaseValidIdValidatoionErrors()
+    {
+        // TODO: Write test
     }
 
     /**
