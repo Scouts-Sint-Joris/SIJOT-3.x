@@ -120,11 +120,26 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test the validation errors when we try to update a lease.
+     *
      * @test
      */
-    public function testUpdateLeaseValidIdValidatoionErrors()
+    public function testUpdateLeaseValidIdValidationErrors()
     {
-        // TODO: Write test
+        $user       = factory(User::class)->create();
+        $leaseRole  = factory(Role::class)->create(['name' => 'verhuur']);
+        $lease      = factory(Lease::class)->create();
+
+        $leaseUser = User::findOrFail($user->id);
+        $leaseUser->assignRole($leaseRole->name);
+
+        $this->assertTrue($leaseUser->hasRole('verhuur'));
+
+        $this->actingAs($leaseUser)
+            ->seeIsAuthenticatedAs($leaseUser)
+            ->post(route('lease.info.update', $lease))
+            ->assertStatus(200)
+            ->assertSessionHasErrors();
     }
 
     /**
