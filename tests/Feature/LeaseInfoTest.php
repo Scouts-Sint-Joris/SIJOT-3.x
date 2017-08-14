@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Sijot\Lease;
 use Sijot\Role;
 use Sijot\User;
 use Tests\TestCase;
@@ -14,14 +15,30 @@ class LeaseInfoTest extends TestCase
     use DatabaseMigrations, DatabaseTransactions;
 
     /**
+     * Test the response on a valid lease id.
+     *
      * @test
      */
     public function testShowLeaseValidId()
     {
-        // TODO: Write test
+        $user       = factory(User::class)->create();
+        $leaseRole  = factory(Role::class)->create(['name' => 'verhuur']);
+        $lease      = factory(Lease::class)->create();
+
+        $leaseUser = User::findOrfail($user->id);
+        $leaseUser->assignRole($leaseRole->name);
+
+        $this->assertTrue($leaseUser->hasRole('verhuur'));
+
+        $this->actingAs($leaseUser)
+            ->seeIsAuthenticatedAs($leaseUser)
+            ->get(route('lease.info.show', $lease))
+            ->assertStatus(200);
     }
 
     /**
+     * Test the response on a invalid lease id.
+     *
      * @test
      */
     public function testShowLeaseInvalidId()
@@ -46,7 +63,7 @@ class LeaseInfoTest extends TestCase
      */
     public function testUpdateLeaseInvalid()
     {
-        // TODO: write test.
+        // TODO: Wrtie test
     }
 
     /**
