@@ -3,11 +3,8 @@
 namespace Sijot\Http\Controllers;
 
 use Sijot\Http\Requests\LeaseValidator;
-use Sijot\Lease;
-use Sijot\Mail\LeaseInfoRequester;
-use Sijot\Mail\LeaseInfoAdmin;
-use Sijot\User;
-use Sijot\LeaseAdmin;
+use Sijot\{Lease, LeaseAdmin, User};
+use Sijot\Mail\{LeaseInfoRequester, LeaseInfoAdmin};
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;

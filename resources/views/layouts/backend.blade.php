@@ -155,6 +155,14 @@
                                 </a>
                             </li> 
                         @endif
+
+                        @if ($user->hasRole('admin'))
+                            <li @if (Request::is('api*')) class="active" @endif>
+                                <a href="">
+                                    <i class="fa fa-key" aria-hidden="true"></i> <span>API sleutels</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </section> {{-- /.sidebar --}}
             </aside>
