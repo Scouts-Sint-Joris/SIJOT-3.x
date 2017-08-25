@@ -29,6 +29,8 @@ class ApiKeyController extends Controller
     public function __construct(ApiKeyRepository $apiKeyRepository)
     {
         $this->middleware('auth');
+        $this->middleware('acl-role:admin');
+
         $this->apiKeyRepository = $apiKeyRepository;
     }
 

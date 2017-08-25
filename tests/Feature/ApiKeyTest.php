@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Sijot\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -11,14 +12,14 @@ class ApiKeyTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
 
-    public function testUnauthorizedAccessIndex()
-    {
-
-    }
-
     public function testKeyCreateUnAuthorizedAccess()
     {
+        $user = factory(User::class)->create();
 
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('api.key.create'), ['service' => 'test'])
+            ->assertStatus(403);
     }
 
     public function testKeyCreateValidationErrors()
