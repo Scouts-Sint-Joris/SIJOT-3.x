@@ -52,11 +52,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        // Framework middleware instances.
         'auth'                  => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic'            => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings'              => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can'                   => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle'              => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        // Custom middleware instances.
+        'auth.apikey'           => \Sijot\Http\Middleware\AuthenticateApiKey::class,
         'guest'                 => \Sijot\Http\Middleware\RedirectIfAuthenticated::class,
         'forbid-banned-user'    => \Sijot\Http\Middleware\ForbidBannedUser::class,
         'acl-role'              => \Sijot\Http\Middleware\RoleMiddleware::class,
