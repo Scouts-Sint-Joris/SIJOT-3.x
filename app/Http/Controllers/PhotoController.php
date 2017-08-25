@@ -71,7 +71,7 @@ class PhotoController extends Controller
     /**
      * Display the photos based on the scouting group.
      *
-     * @param  mixed $seleup selector in the database.
+     * @param  mixed $selector selector in the database.
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function getByGroup($selector)
