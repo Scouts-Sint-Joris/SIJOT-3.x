@@ -5,6 +5,7 @@ namespace Sijot\Providers;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Mpociot\ApiDoc\ApiDocGeneratorServiceProvider;
 use Sijot\News;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment() !== 'production') {
             $this->app->register(IdeHelperServiceProvider::class);
+            $this->app->register(ApiDocGeneratorServiceProvider::class);
         }
     }
 }
