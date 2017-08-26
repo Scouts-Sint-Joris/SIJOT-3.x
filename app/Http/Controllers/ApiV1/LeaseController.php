@@ -75,7 +75,7 @@ class LeaseController extends ApiGuardController
             return $this->response->withArray([
                 'error' => [
                     'code'      => 'GEN-NOT-FOUND',
-                    'http_code' => Response::HTTP_NO_CONTENT,
+                    'http_code' => $this->response->getStatusCode(),
                     'message'   => 'The resource has been successfully deleted.'
                 ]
             ]);
@@ -95,7 +95,11 @@ class LeaseController extends ApiGuardController
         $this->leaseRepository->create($request->all());
 
         return $this->response->withArray([
-
+            'error' => [
+                'code'      => 'GEN-CREATED',
+                'http_code' => $this->response->getStatusCode(),
+                'message'   => 'The resource has been created.'
+            ]
         ]);
     }
 
