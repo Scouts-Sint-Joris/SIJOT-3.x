@@ -21,7 +21,8 @@ class AccountTest extends TestCase
      * Test the account index route.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\AccountController::index()
      */
     public function testAccountIndex()
     {
@@ -37,7 +38,8 @@ class AccountTest extends TestCase
      * Test the account information update method (With validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\AccountController::updateInfo()
      */
     public function testAccountSettingsUpdateWithValidationErr()
     {
@@ -56,7 +58,8 @@ class AccountTest extends TestCase
      * Test the user update method for an account. (Without the validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\AccountController::updateInfo()
      */
     public function testAccountSettingsWithoutValidationErr()
     {
@@ -80,7 +83,8 @@ class AccountTest extends TestCase
      * Test the account password update (without validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\AccountController::updateSecurity()
      */
     public function testAccountPasswordWithoutValidationErr()
     {
@@ -103,7 +107,8 @@ class AccountTest extends TestCase
      * Test the account password update (with validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\AccountController::updateSecurity()
      */
     public function testAcccountPasswordWithValidationErr()
     {
@@ -122,7 +127,8 @@ class AccountTest extends TestCase
      * Test if we can update an invalid user his password.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\AccountController::updateSecurity()
      */
     public function testAccountPasswordInvalidUser()
     {

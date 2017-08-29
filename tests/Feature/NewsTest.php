@@ -23,7 +23,8 @@ class NewsTest extends TestCase
      * Test the backend view for the news items.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::index()
      */
     public function testIndexRoute()
     {
@@ -39,7 +40,8 @@ class NewsTest extends TestCase
      * Test the view for creating a new news item.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::create()
      */
     public function testCreateview()
     {
@@ -55,7 +57,8 @@ class NewsTest extends TestCase
      * Test if we can get an json response for one specific news item.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::getById()
      */
     public function testGetByIdNoErr()
     {
@@ -73,7 +76,8 @@ class NewsTest extends TestCase
      * Test the response when we gat an invalid news item.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::getById()
      */
     public function testGetByIdErr()
     {
@@ -89,7 +93,8 @@ class NewsTest extends TestCase
      * Store a new news item. (No validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::store()
      */
     public function testStoreNoValidationError()
     {
@@ -115,7 +120,8 @@ class NewsTest extends TestCase
      * Store a new news item. (No validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::store()
      */
     public function testStoreNoValidationErrorWithCategories()
     {
@@ -147,7 +153,8 @@ class NewsTest extends TestCase
      * Try to create a new news item. (with validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::store()
      */
     public function testStoreWithValidationError()
     {
@@ -165,7 +172,8 @@ class NewsTest extends TestCase
      * Try to show a specific news item.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::store()
      */
     public function testShowValid()
     {
@@ -183,7 +191,8 @@ class NewsTest extends TestCase
      * Check for the response when the news item is not found in the database.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::show()
      */
     public function testShowInValid()
     {
@@ -199,7 +208,8 @@ class NewsTest extends TestCase
      * Try to update a news item when there iss a incorrect id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::update()
      */
     public function testUpdateIdNotFound()
     {
@@ -222,7 +232,8 @@ class NewsTest extends TestCase
      * Try to insert a new news item. (without validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::update()
      */
     public function testUpdateWithValidationErrors()
     {
@@ -241,7 +252,8 @@ class NewsTest extends TestCase
      * Try to insert a new news item. (without validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::update()
      */
     public function testUpdateNoValidationErrors()
     {
@@ -276,7 +288,8 @@ class NewsTest extends TestCase
      * Try to change the status off a news item with an invalid id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::status()
      */
     public function testStatusInvalidId()
     {
@@ -292,7 +305,8 @@ class NewsTest extends TestCase
      * Try to change the news item id in the database to publish.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::status()
      */
     public function testStatusPublish()
     {
@@ -312,7 +326,8 @@ class NewsTest extends TestCase
      * Try to change the status to a draft in the database.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::status()
      */
     public function testStatusDraft()
     {
@@ -332,7 +347,8 @@ class NewsTest extends TestCase
      * Try to delete an news item with a valid id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::delete()
      */
     public function testDeleteValidId()
     {
@@ -350,7 +366,8 @@ class NewsTest extends TestCase
      * Try to delete news item with incorrect id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\NewsController::delete()
      */
     public function testDeleteInvalidId()
     {

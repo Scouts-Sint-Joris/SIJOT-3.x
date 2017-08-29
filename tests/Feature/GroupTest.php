@@ -17,7 +17,8 @@ class GroupTest extends TestCase
      * Test the group index page
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\GroupController::index()
      */
     public function testIndex()
     {
@@ -29,7 +30,8 @@ class GroupTest extends TestCase
      * Test The backend route.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\GroupController::backend()
      */
     public function testBackendIndex()
     {
@@ -45,7 +47,8 @@ class GroupTest extends TestCase
      * Try to update a group (with validation errors)
      *
      * @test
-     * @group all
+     * @group  allµ
+     * @covers \Sijot\Http\Controllers\GroupController::update()
      */
     public function testUpdateValidationErrors()
     {
@@ -64,7 +67,8 @@ class GroupTest extends TestCase
      * Try to update a group (without validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\GroupController::update()
      */
     public function testUpdateSuccess()
     {
@@ -97,7 +101,8 @@ class GroupTest extends TestCase
      * Try to update a group (no valid id)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\GroupController::update()
      */
     public function testUpdateNoValidId()
     {
@@ -120,7 +125,8 @@ class GroupTest extends TestCase
      * Show a specific group (no valid id)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\GroupController::show()
      */
     public function testShowGroupNoValidId()
     {
@@ -132,7 +138,8 @@ class GroupTest extends TestCase
      * Show a specific group
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\GroupController::show()
      */
     public function testShowGroup()
     {

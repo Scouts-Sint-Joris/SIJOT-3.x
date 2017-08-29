@@ -17,7 +17,8 @@ class CategoryTest extends TestCase
      * Try to insert a new category without errors.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::insert()
      */
     public function testInsertNoError()
     {
@@ -43,7 +44,8 @@ class CategoryTest extends TestCase
      * Category insert with errors.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::insert()
      */
     public function testInsertError()
     {
@@ -61,7 +63,8 @@ class CategoryTest extends TestCase
      * Test the json response for a specific category.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::getById()
      */
     public function testJsonResponse()
     {
@@ -79,7 +82,8 @@ class CategoryTest extends TestCase
      * Test an invalid json response.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::getById()
      */
     public function testJsonResponseInvalid()
     {
@@ -95,7 +99,8 @@ class CategoryTest extends TestCase
      * Test a category update with an invalid id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::edit()
      */
     public function testResponseEditInvalidId()
     {
@@ -119,7 +124,8 @@ class CategoryTest extends TestCase
      * Test if we can edit a category when validation fails.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::edit()
      */
     public function testResponseErrEditValidation()
     {
@@ -136,6 +142,13 @@ class CategoryTest extends TestCase
             ->assertSessionMissing(['flash_notification.0.message' => trans('category.flash-edit')]);
     }
 
+    /**
+     * Test if the edit from the category has been happend successful.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::edit()
+     */
     public function testEditNoErrors()
     {
         $user     = factory(User::class)->create();
@@ -160,7 +173,8 @@ class CategoryTest extends TestCase
      * Test if we can delete a category.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::destroy()
      */
     public function testDeleteCategory()
     {
@@ -183,7 +197,8 @@ class CategoryTest extends TestCase
      * Test if we can delete an unvalid tag.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\CategoryController::destroy()
      */
     public function testDeleteInvalid()
     {
