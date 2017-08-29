@@ -3,16 +3,12 @@
 namespace Tests\Feature;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
-use Sijot\Mail\BlockEmailNotification;
-use Sijot\Mail\UserCreationMail;
+use Illuminate\Support\Facades\{Mail, Notification};
+use Sijot\Mail\{BlockEmailNotification, UserCreationMail};
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
 /**
  * Class UsersTest
