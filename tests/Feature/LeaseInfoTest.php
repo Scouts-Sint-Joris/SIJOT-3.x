@@ -236,6 +236,8 @@ class LeaseInfoTest extends TestCase
             ->post(route('lease.notitie.add', $lease), $input)
             ->assertSessionHas(['flash_notification.0.message' => 'De notitie is opgeslagen'])
             ->assertStatus(200);
+
+        $this->assertDatabaseHas('notitions', ['author_id' => $user->id, 'text' => 'Notition placeholder']);
     }
 
     /**
@@ -246,6 +248,17 @@ class LeaseInfoTest extends TestCase
      */
     public function testCreateNotitionInvalid()
     {
-        // TODO: write test.
+        $user = factory(User::class)->create();
+
+        Role::create(['name' => 'verhuur']);
+        User::find($user->id)->assignRole('verhuur');
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('lease.notitie.add', ['id' => '']), ['text' => 'Notition'])
+            ->assertStatus(200)
+            ->assertSessionMissing(['flash_notification.0.message' => 'De notitie is opgeslagen']);
+
+        $this->assertDatabaseMissing('Notitions', ['author_id' => $user->id, 'text' => 'Notition placeholder']);
     }
 }
