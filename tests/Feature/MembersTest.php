@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, Data
 class MembersTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
-
+    
     /**
      * Test the page with the information for a new member.
      *
