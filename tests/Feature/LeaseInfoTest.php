@@ -234,6 +234,7 @@ class LeaseInfoTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('lease.notitie.add', $lease), $input)
+            ->assertSessionHas(['flash_notification.0.message' => 'De notitie is opgeslagen'])
             ->assertStatus(200);
     }
 

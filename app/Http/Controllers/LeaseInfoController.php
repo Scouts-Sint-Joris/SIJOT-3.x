@@ -172,8 +172,8 @@ class LeaseInfoController extends Controller
         $input->merge(['author_id' => auth()->user()->id]);
 
         if ($note = $this->notitions->create($input->all())) {
-            $this->lease->findOrFail($input->lease_id)->notitions()->attach($note->id);
             flash('De notitie is opgeslagen')->success();
+            $this->lease->findOrFail($input->lease_id)->notitions()->attach($note->id);
         }
 
         return redirect()->route('lease.info.show', $input->lease_id);
