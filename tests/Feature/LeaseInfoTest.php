@@ -2,14 +2,15 @@
 
 namespace Tests\Feature;
 
-use Sijot\Lease;
-use Sijot\Role;
-use Sijot\User;
+use Sijot\{Lease, Role, User};
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
+/**
+ * Class LeaseInfoTest
+ *
+ * @package Tests\Feature
+ */
 class LeaseInfoTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
@@ -158,7 +159,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
-     * @group all
+     * @group  all
      */
     public function testMakeLeaseAdminInvalid()
     {
@@ -166,8 +167,11 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test if we can delete a lease admin with an invalid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteAdminPerson()
      */
     public function testDeleteLeaseAdminInvalid()
     {
@@ -175,8 +179,11 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test àif we can delete a lease admin with some valid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteAdminPerson()
      */
     public function testDeleteAdminLeaseAdminValid()
     {
@@ -184,8 +191,11 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test iàs we can delete a lease notition with invalid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteNotition()
      */
     public function testDeleteNotitionInvalid()
     {
@@ -193,8 +203,11 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test if we can delete a notition with some valid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteNotition()
      */
     public function testDeleteNotitionValid()
     {
@@ -202,17 +215,33 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test if we can store a lease without validation errors.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::addNotition()
      */
     public function testCreateNotitionValid()
     {
-        // TODO: write test.
+        $user  = factory(User::class)->create();
+        $lease = factory(Lease::class)->create();
+
+        Role::create(['name' => 'verhuur']);
+        User::find($user->id)->assignRole('verhuur');
+
+        $input = ['text' => 'Notition placeholder'];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('lease.notitie.add', $lease), $input)
+            ->assertStatus(200);
     }
 
     /**
+     * test we can store a notition with validation errors.
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::addNotition()
      */
     public function testCreateNotitionInvalid()
     {
