@@ -6,17 +6,18 @@ use Sijot\Activity;
 use Sijot\Groups;
 use Sijot\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
 class ActivityTest extends TestCase
 {
+    use DatabaseMigrations, DatabaseTransactions;
+
     /**
      * Test the backend route for the activities
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::backend()
      */
     public function testBackendRoute()
     {
@@ -32,7 +33,8 @@ class ActivityTest extends TestCase
      * Test the activity creation (with validation error.)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::store()
      */
     public function testStoreWithError()
     {
@@ -52,7 +54,8 @@ class ActivityTest extends TestCase
      * Test the activity creation (no validation error.)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::store()
      */
     public function testStoreNoError()
     {
@@ -84,7 +87,8 @@ class ActivityTest extends TestCase
      * Test if we can get a json response for a specific activity.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::getByid()
      */
     public function testGetByIdValid()
     {
@@ -102,7 +106,8 @@ class ActivityTest extends TestCase
      * Test the response if we can get a json response when the id is invalid.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::getByid()
      */
     public function testGetByIdInvalid()
     {
@@ -118,7 +123,8 @@ class ActivityTest extends TestCase
      * Try to change the status of an invalid activity id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::status()
      */
     public function testStatusInvalidId()
     {
@@ -134,7 +140,8 @@ class ActivityTest extends TestCase
      * Try to set an activity to draft.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::status()
      */
     public function testStatusDraft()
     {
@@ -155,7 +162,8 @@ class ActivityTest extends TestCase
      * Try to set an activity to publish
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::status()
      */
     public function testStatusPublish()
     {
@@ -175,7 +183,8 @@ class ActivityTest extends TestCase
      * Try to show an activity.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::show()
      */
     public function testShowNoError()
     {
@@ -192,7 +201,8 @@ class ActivityTest extends TestCase
      * Try to show an incorrect activity.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::show()
      */
     public function testShowError()
     {
@@ -208,7 +218,8 @@ class ActivityTest extends TestCase
      * Delete event error
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::destroy()
      */
     public function testDeleteError()
     {
@@ -224,7 +235,8 @@ class ActivityTest extends TestCase
      * Delete event success.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\ActivityController::destroy()
      */
     public function testDeleteSuccess()
     {

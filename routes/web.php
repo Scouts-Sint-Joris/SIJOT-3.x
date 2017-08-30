@@ -38,6 +38,9 @@ Route::post('/verhuur/verhuur/aanpassen/{id}', 'LeaseInfoController@update')->na
 Route::post('/verhuur/toevoegen/admin', 'LeaseInfoController@addAdminPerson')->name('lease.add.admin');
 Route::get('/verhuur/verwijder/admin/{id}', 'LeaseInfoController@deleteAdminPerson')->name('lease.remove.admin');
 
+// API key routes. TODO: Routes still need testing
+Route::post('api/sleutel', 'ApiKeyController@makeKey')->name('api.key.create');
+
 // Members routes
 Route::get('/lid-worden', 'MemberController@index')->name('members.new');
 

@@ -48,8 +48,8 @@ class NewsController extends Controller
         $this->middleware('auth')->only($routes);
         $this->middleware('forbid-banned-user')->only($routes);
 
-        $this->categoriesDb = $_categoriesDb;
-        $this->newsDb       = $_newsDb;
+        $this->_categoriesDb = $_categoriesDb;
+        $this->_newsDb       = $_newsDb;
     }
 
     /**
@@ -60,8 +60,8 @@ class NewsController extends Controller
     public function index()
     {
         $data['title']      = 'Nieuws management';
-        $data['news']       = $this->newsDb->with(['author'])->get();
-        $data['categories'] = $this->categoriesDb->all();
+        $data['news']       = $this->_newsDb->with(['author'])->get();
+        $data['categories'] = $this->_categoriesDb->all();
 
         return view('news.index', $data);
     }
@@ -74,7 +74,7 @@ class NewsController extends Controller
     public function create()
     {
         $data['title']      = 'Nieuw Nieuwsbericht';
-        $data['categories'] = $this->categoriesDb->with(['author', 'news'])->get();
+        $data['categories'] = $this->_categoriesDb->with(['author', 'news'])->get();
 
         return view('news.create', $data);
     }
@@ -90,7 +90,7 @@ class NewsController extends Controller
     {
         try { // Try to find and output the record.
             //? Maybe we need convert this in some API form.
-            return(json_encode($this->newsDb->findOrFail($newsId)));
+            return(json_encode($this->_newsDb->findOrFail($newsId)));
         } catch (ModelNotFoundException $notFoundException) { // The user is not found.
             return app()->abort(404);
         }
@@ -107,9 +107,9 @@ class NewsController extends Controller
     {
         $filter = ['_token', 'categories'];
 
-        if ($item = $this->newsDb->create($input->except($filter))) { // The news message has been stored.
+        if ($item = $this->_newsDb->create($input->except($filter))) { // The news message has been stored.
             if (! is_null($input->categories)) { // There are categories find in the user input.
-                $this->newsDb->find($item->id)->categories()->attach($input->categories);
+                $this->_newsDb->find($item->id)->categories()->attach($input->categories);
             }
 
             flash('Het nieuwsbericht is opgeslagen.');
@@ -128,8 +128,8 @@ class NewsController extends Controller
     public function show($newsId)
     {
         try { // Try to find the record
-            $data['news']       = $this->newsDb->with(['author'])->findOrFail($newsId);
-            $data['categories'] = $this->categoriesDb->all();
+            $data['news']       = $this->_newsDb->with(['author'])->findOrFail($newsId);
+            $data['categories'] = $this->_categoriesDb->all();
             $data['title']      = $data['news']->title;
 
             return view('news.show', $data);
@@ -149,7 +149,7 @@ class NewsController extends Controller
     public function update(NewsValidator $input, $newsId)
     {
         try { // Try to find the record.
-            $newsItem = $this->newsDb->findOrfail($newsId);
+            $newsItem = $this->_newsDb->findOrfail($newsId);
 
             if ($newsItem->update($input->except(['_token', 'categories']))) { // Record has been updated.
                 $newsItem->categories()->sync($input->get('categories'));
@@ -173,7 +173,7 @@ class NewsController extends Controller
     public function status($status, $newsId)
     {
         try { // Try to find the news item in the database.
-            $newsItem = $this->newsDb->findOrFail($newsId);
+            $newsItem = $this->_newsDb->findOrFail($newsId);
 
             if ($newsItem->update(['publish' => $status])) { // Try to update the record.
                 // The record has been updated.
@@ -200,7 +200,7 @@ class NewsController extends Controller
     public function delete($newsId)
     {
         try { // Try to find the record.
-            $news = $this->newsDb->findOrFail($newsId);
+            $news = $this->_newsDb->findOrFail($newsId);
 
             if ($news->delete()) { // Record has been deleted.
                 flash('Het nieuwsbericht is verwijderd.');

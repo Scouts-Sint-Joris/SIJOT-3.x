@@ -14,40 +14,28 @@
 @section('content')
     <div class="row">
         <div class="col-md-3">
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ asset('img/user.jpg') }}" alt="{{ auth()->user()->name }}">
+            <div class="list-group">
+                <a href="#" class="list-group-item disabled"><strong>Menu:</strong></a>
+                <a href="#settings" data-toggle="tab" class="list-group-item">Account informatie</a>
+                <a href="#security" data-toggle="tab" class="list-group-item">Account veiligheid</a>
 
-                    <h3 class="profile-username text-center">{{ $user->name }}</h3>
-
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Creatie:</b> <span class="pull-right">{{ $user->created_at }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Gewijzigd:</b> <span class="pull-right">{{ $user->updated_at }}</span>
-                        </li>
-                    </ul>
-
-                    <a href="mailto:{{ $user->email }}" class="btn btn-primary btn-block"><b>Contact</b></a>
-                </div>
+                @if ($user->hasRole('admin'))
+                    <a href="#api" data-toggle="tab" class="list-group-item">API sleutels</a>
+                @endif
             </div>
         </div>
 
         <div class="col-sm-9">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li><a href="#settings" data-toggle="tab">Account informatie</a></li>
-                    <li><a href="#security" data-toggle="tab">Account veiligheid</a></li>
-                    <li class="active"><a href="#notifications" data-toggle="tab">Notificaties</a></li>
-                </ul>
-                <div class="tab-content">
-                    {{-- Includes --}}
+            <div class="tab-content">
+                {{-- Includes --}}
                     @include('account.settings')
                     @include('account.security')
-                    @include('account.notifications')
-                    {{-- /Includes --}}
-                </div>
+
+                    @if ($user->hasRole('admin')) {{-- If the user is an admin. Give him to possibility to make api keys. --}}
+                        {{-- TODO: If the user is admin and the remove the role. They should also remove his api keys. --}}
+                        @include('account.api')
+                    @endif
+                {{-- /Includes --}}
             </div>
         </div>
     </div>

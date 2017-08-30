@@ -5,9 +5,7 @@ namespace Tests\Feature;
 use Sijot\Events;
 use Sijot\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
 class EventsTest extends TestCase
 {
@@ -17,7 +15,8 @@ class EventsTest extends TestCase
      * Test the backend routes for the events section.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::index()
      */
     public function testIndexRoute()
     {
@@ -33,7 +32,8 @@ class EventsTest extends TestCase
      * Test event creation in the database (with validation errors).
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::store()
      */
     public function testEventStoreWithValidationErr()
     {
@@ -51,21 +51,22 @@ class EventsTest extends TestCase
      * Test event creation in the database (without validation errors).
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::store()
      */
     public function testEventStoreWithoutValidationErr()
     {
         $user = factory(User::class)->create();
 
         $input = [
-            'author_id' => $user->id,
-            'title' => 'Ik ben een titel',
-            'description' => 'Ik ben een beschrijving',
-            'start_date' => '10/10/1995',
-            'end_date' => '11/10/1996',
-            'status' => 'Y',
-            'end_hour' => '10:10',
-            'start_hour' => '12:10',
+            'author_id'     => $user->id,
+            'title'         => 'Ik ben een titel',
+            'description'   => 'Ik ben een beschrijving',
+            'start_date'    => '10/10/1995',
+            'end_date'      => '11/10/1996',
+            'status'        => 'Y',
+            'end_hour'      => '10:10',
+            'start_hour'    => '12:10',
         ];
 
         $this->actingAs($user)
@@ -75,9 +76,9 @@ class EventsTest extends TestCase
             ->assertSessionHasAll(['flash_notification.0.message' => trans('events.flash-event-create')]);
 
         $this->assertDatabaseHas('events', [
-            'author_id' => $user->id,
-            'title' => 'Ik ben een titel',
-            'description' => 'Ik ben een beschrijving',
+            'author_id'     => $user->id,
+            'title'         => 'Ik ben een titel',
+            'description'   => 'Ik ben een beschrijving',
         ]);
     }
 
@@ -85,7 +86,8 @@ class EventsTest extends TestCase
      * Test the response when an event id is valid.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::show()
      */
     public function testShowEventValidId()
     {
@@ -99,7 +101,8 @@ class EventsTest extends TestCase
      * Test the response when an event id in invalid.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::show()
      */
     public function testShowEventInvalidId()
     {
@@ -107,6 +110,13 @@ class EventsTest extends TestCase
             ->assertStatus(404);
     }
 
+    /**
+     * Test the event status with an invalid id.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::status()
+     */
     public function testEventStatusInvalidId()
     {
         $event  = factory(Events::class)->create(['id' => 1]);
@@ -123,7 +133,8 @@ class EventsTest extends TestCase
      * Test if an event can be converted to draft.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::status()
      */
     public function testEventStatusDraft()
     {
@@ -142,7 +153,8 @@ class EventsTest extends TestCase
      * Test if an event can be published
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\EventsController::status()
      */
     public function testEventPublish()
     {

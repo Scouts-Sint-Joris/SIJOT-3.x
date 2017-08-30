@@ -2,13 +2,10 @@
 
 namespace Sijot\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Sijot\{Permission, Role, User};
+use Sijot\Http\Requests\{PermissionValidator, RoleValidator};
 use Illuminate\Http\Request;
-use Sijot\Http\Requests\PermissionValidator;
-use Sijot\Http\Requests\RoleValidator;
-use Sijot\Permission;
-use Sijot\Role;
-use Sijot\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class AclHandlingsController

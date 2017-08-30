@@ -5,9 +5,7 @@ namespace Tests\Feature;
 use Sijot\Lease;
 use Sijot\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
 class LeaseTest extends TestCase
 {
@@ -17,7 +15,8 @@ class LeaseTest extends TestCase
      * Test the front-end page for the leases.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::index()
      */
     public function testLeaseIndexFrontEnd()
     {
@@ -28,7 +27,8 @@ class LeaseTest extends TestCase
      * Test the backend index page for the leases.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::backend()
      */
     public function testLeaseBackendIndex()
     {
@@ -43,8 +43,9 @@ class LeaseTest extends TestCase
     /**
      * T6est the export method for the leases.
      *
-     * @group all
      * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::export()
      */
     public function testLeaseExportMethod()
     {
@@ -60,7 +61,8 @@ class LeaseTest extends TestCase
      * Test the front-end lease request page.
      *
      * @test
-     * @route all
+     * @route  all
+     * @covers \Sijot\Http\Controllers\LeaseController::leaseRequest()
      */
     public function testLeaseRequestViewNoAuthencation()
     {
@@ -82,7 +84,8 @@ class LeaseTest extends TestCase
      * Try to delete an invalid lease.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::domainAccess()
      */
     public function testLeaseDeleteInvalidId()
     {
@@ -98,7 +101,8 @@ class LeaseTest extends TestCase
      * try to delete a valid lease.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::delete()
      */
     public function testLeaseDelete()
     {
@@ -115,7 +119,8 @@ class LeaseTest extends TestCase
      * The the front-end lease calendar.
      * 
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::calendar()
      */
     public function testLeaseCalendarFrontEnd()
     {
