@@ -173,6 +173,9 @@ class LeaseInfoController extends Controller
 
         if ($note = $this->notitions->create($input->all())) {
             flash('De notitie is opgeslagen')->success();
+
+            //! This is palced below the flash messqage. Because it give an error on the test
+            //! In a strange way. | TODO: Need to investigate this one.
             $this->lease->findOrFail($input->lease_id)->notitions()->attach($note->id);
         }
 
