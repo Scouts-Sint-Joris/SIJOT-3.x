@@ -173,3 +173,12 @@ $factory->define(Chrisbjr\ApiGuard\Models\ApiKey::class, function (Faker\Generat
     ];
 });
 
+$factory->define(Sijot\Notitions::class, function (Faker\Generator $faker) {
+    return [
+        'author_id' => function () {
+            return factory(Sijot\User::class)->create()->id;
+        },
+        'text' => $faker->paragraph(),
+    ];
+});
+

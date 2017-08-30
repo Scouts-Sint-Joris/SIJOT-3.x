@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
-use Sijot\{Lease, Role, User};
+use Sijot\{
+    Lease, Notitions, Role, User
+};
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
@@ -211,7 +213,20 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteNotitionValid()
     {
-        // TODO: write test.
+        $role     = factory(Role::class)->create(['name' => 'verhuur']);
+        $user     = factory(User::class)->create();
+        $lease    = factory(Lease::class)->create();
+        $notition = factory(Notitions::class)->create();
+
+        User::find($user->id)->assignRole($role->name);
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('lease.notitie.delete', ['notitionId' => $notition->id, 'leaseId' => $lease->id]))
+            ->assertSessionHas(['flash_notification.0.message' => 'De notitie is verwijderd.'])
+            ->assertStatus(302);
+
+        $this->assertDatabaseMissing('Notitions', ['id' => $notition->id]);
     }
 
     /**
@@ -226,7 +241,7 @@ class LeaseInfoTest extends TestCase
         $user  = factory(User::class)->create();
         $lease = factory(Lease::class)->create();
 
-        Role::create(['name' => 'verhuur']);
+        factory(Role::class)->create(['name' => 'verhuur']);
         User::find($user->id)->assignRole('verhuur');
 
         $input = ['text' => 'Notition placeholder'];
@@ -250,7 +265,7 @@ class LeaseInfoTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        Role::create(['name' => 'verhuur']);
+        factory(Role::class)->create(['name' => 'verhuur']);
         User::find($user->id)->assignRole('verhuur');
 
         $this->actingAs($user)
