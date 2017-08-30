@@ -190,6 +190,7 @@ return [
         // Sijot\Providers\BroadcastServiceProvider::class,
         Sijot\Providers\EventServiceProvider::class,
         Sijot\Providers\RouteServiceProvider::class,
+        Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider::class,
 
     ],
 

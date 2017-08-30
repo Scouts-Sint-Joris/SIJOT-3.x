@@ -7,7 +7,7 @@ use Sijot\{Lease, LeaseAdmin, User};
 use Sijot\Mail\{LeaseInfoRequester, LeaseInfoAdmin};
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response as Status;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -114,7 +114,7 @@ class LeaseController extends Controller
             }
         }
 
-        return back(302);
+        return back(Status::HTTP_FOUND);
     }
 
     /**
@@ -131,10 +131,10 @@ class LeaseController extends Controller
     /**
      * Change the lease status in the database.
      *
-     * @param string  $status  The new lease status.
+     * @param string $status The new lease status.
      * @param integer $leaseId The database id for the lease
-     * 
-     * @return \Illuminate\Http\RedirectResponse|void
+     *
+     * @return mixed
      */
     public function status($status, $leaseId)
     {
@@ -151,9 +151,9 @@ class LeaseController extends Controller
                 flash(trans('lease.flash-lease-status-change'));
             }
 
-            return back(302);
+            return back(Status::HTTP_FOUND);
         } catch (ModelNotFoundException $exception) { // The record doesn't exists
-             return app()->abort(404);
+             return app()->abort(Status::HTTP_NOT_FOUND);
         }
     }
 

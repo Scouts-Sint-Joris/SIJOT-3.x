@@ -161,3 +161,15 @@ $factory->define(Sijot\Role::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(Chrisbjr\ApiGuard\Models\ApiKey::class, function (Faker\Generator $faker) {
+    return [
+        'apikeyable_id' => function () {
+            return factory(Sijot\User::class)->create()->id;
+        },
+        'apikeyable_type' => 'Sijot\User',
+        'key' => str_random(50),
+        'last_ip_address' => $faker->ipv4,
+        'service' => $faker->name,
+    ];
+});
+

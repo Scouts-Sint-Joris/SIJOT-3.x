@@ -99,7 +99,7 @@ class AccountController extends Controller
                 flash(trans('account.flash-account-info'));
             }
 
-            return back(Status::HTTP_FOUND);
+            return back(302);
         }
 
         return app()->abort(Status::HTTP_NOT_FOUND);
@@ -120,7 +120,7 @@ class AccountController extends Controller
                 flash(trans('account.flash-account-password'));
             }
 
-            return back(Status::HTTP_FOUND);
+            return back(302);
         } 
 
         return app()->abort(Status::HTTP_NOT_FOUND);
