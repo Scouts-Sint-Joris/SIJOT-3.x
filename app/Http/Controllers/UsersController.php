@@ -260,8 +260,6 @@ class UsersController extends Controller
      */
     public function delete($userId) 
     {
-        // TODO: Unassign the values from all the relations. 
-
         try { // To find the user in the database. 
             $user = $this->userDB->findOrfail($userId); 
 
