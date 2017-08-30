@@ -18,6 +18,7 @@ class LeaseInfoTest extends TestCase
      * Test the response on a valid lease id.
      *
      * @test
+     * @group all
      */
     public function testShowLeaseValidId()
     {
@@ -40,6 +41,7 @@ class LeaseInfoTest extends TestCase
      * Test the response on a invalid lease id.
      *
      * @test
+     * @group all
      */
     public function testShowLeaseInvalidId()
     {
@@ -62,6 +64,7 @@ class LeaseInfoTest extends TestCase
      * Try to update a lease with an invalid id.
      *
      * @test
+     * @group all
      */
     public function testUpdateLeaseInvalidId()
     {
@@ -92,6 +95,7 @@ class LeaseInfoTest extends TestCase
      * Test a valid lease update.
      *
      * @test
+     * @group all
      */
     public function testUpdateLeaseValid()
     {
@@ -123,6 +127,7 @@ class LeaseInfoTest extends TestCase
      * Test the validation errors when we try to update a lease.
      *
      * @test
+     * @group all
      */
     public function testUpdateLeaseValidIdValidationErrors()
     {
@@ -144,6 +149,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testMakeLeaseAdminValid()
     {
@@ -152,6 +158,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testMakeLeaseAdminInvalid()
     {
@@ -160,6 +167,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testDeleteLeaseAdminInvalid()
     {
@@ -168,6 +176,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testDeleteAdminLeaseAdminValid()
     {
@@ -176,6 +185,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testDeleteNotitionInvalid()
     {
@@ -184,6 +194,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testDeleteNotitionValid()
     {
@@ -192,6 +203,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testCreateNotitionValid()
     {
@@ -200,6 +212,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
+     * @group all
      */
     public function testCreateNotitionInvalid()
     {
