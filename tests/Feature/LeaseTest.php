@@ -40,6 +40,21 @@ class LeaseTest extends TestCase
             ->assertStatus(200);
     }
 
+    public function testStatusOption()
+    {
+
+    }
+
+    /**
+     * @@test
+     * @group  all
+     * @covers
+     */
+    public function testStatusConfirm()
+    {
+
+    }
+
     /**
      * T6est the export method for the leases.
      *
