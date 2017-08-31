@@ -40,17 +40,39 @@ class LeaseTest extends TestCase
             ->assertStatus(200);
     }
 
+    /**
+     * Set if we can set a lease to option.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::status()
+     */
     public function testStatusOption()
+    {
+        $user  = factory(User::class)->create();
+        $lease = factory(Lease::class)->create();
+    }
+
+    /**
+     * Test if we can confirm al lease.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::status()
+     */
+    public function testStatusConfirm()
     {
 
     }
 
     /**
-     * @@test
+     * Test the response when trying to set the status based on invalid lease.
+     *
+     * @test
      * @group  all
-     * @covers
+     * @covers \Sijot\Http\Controllers\LeaseController::status()
      */
-    public function testStatusConfirm()
+    public function testStatusInvalidId()
     {
 
     }
