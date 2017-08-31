@@ -19,6 +19,7 @@ use Sijot\LeaseAdmin;
 
 /**
  * Class UsersController
+ * 
  * @package Sijot\Http\Controllers
  */
 class UsersController extends Controller
@@ -47,7 +48,7 @@ class UsersController extends Controller
     /**
      * The variable for the lease admin table.
      *
-     * @var AdminLease
+     * @var LeaseAdmin
      */
     private $leaseAdmin;
 

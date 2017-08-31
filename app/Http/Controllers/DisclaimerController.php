@@ -20,7 +20,6 @@ class DisclaimerController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Disclaimer';
-        return view('disclaimer', $data);
+        return view('disclaimer', ['title' => 'Disclaimer']);
     }
 }

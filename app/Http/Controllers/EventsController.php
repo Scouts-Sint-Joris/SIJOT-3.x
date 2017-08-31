@@ -45,8 +45,7 @@ class EventsController extends Controller
     /**
      * Store a new event in the database.
      *
-     * @param EventValidator $input The user validation.
-     * 
+     * @param  EventValidator $input The user validation.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(EventValidator $input)
@@ -92,7 +91,7 @@ class EventsController extends Controller
     }
 
     /**
-     * Change the st§atus for the event.
+     * Change the status for the event.
      *
      * @param integer $statusId The id to indicate the status for the event.
      * @param integer $eventId  The id in the database for the event.

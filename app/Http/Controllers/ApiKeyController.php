@@ -42,7 +42,7 @@ class ApiKeyController extends Controller
     /**
      * Create a new api key in the system.
      *
-     * @param  ApiKeyValidator $input
+     * @param  ApiKeyValidator $input The user given input
      * @return \Illuminate\Http\RedirectResponse
      */
     public function makeKey(ApiKeyValidator $input)
