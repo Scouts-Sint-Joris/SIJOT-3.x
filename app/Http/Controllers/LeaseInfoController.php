@@ -113,7 +113,7 @@ class LeaseInfoController extends Controller
     /**
      * Delete the lease admin in the system.
      *
-     * @param  integer $userId The primary key for the user in the database. 
+     * @param  integer $recordId The primary key for the user in the database.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteAdminPerson($recordId) 

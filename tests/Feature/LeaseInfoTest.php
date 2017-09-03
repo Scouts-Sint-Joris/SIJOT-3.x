@@ -195,7 +195,16 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteAdminLeaseAdminValid()
     {
-        // TODO: write test.
+        $user = factory(User::class, 2)->create();
+        $role = factory(Lease::class)->create(['name' => 'verhuur']);
+
+        User::find($user[0]->id)->assignRole('verhuur');
+        User::find($user[1]->id)->assignRole('verhuur');
+
+        $this->actingAs($user[0])
+            ->seeIsAuthenticatedAs($user[0]);
+
+        // TODO: Complete tests.
     }
 
     /**
