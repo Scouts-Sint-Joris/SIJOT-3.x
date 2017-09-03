@@ -179,6 +179,6 @@ class LeaseInfoController extends Controller
             $this->lease->findOrFail($input->lease_id)->notitions()->attach($note->id);
         }
 
-        return back();
-}
+        return redirect()->route('lease.info.show', ['id' => $input->lease_id]);
+    }
 }
