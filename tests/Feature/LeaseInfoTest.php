@@ -177,7 +177,13 @@ class LeaseInfoTest extends TestCase
      */
     public function testDeleteLeaseAdminInvalid()
     {
-        // TODO: write test.
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('lease.remove.admin', ['id' => 100000000000]))
+            ->assertSessionHas(['flash_notification.0.message' => 'Wij konden de verhuur administrator niet vinden in het systeem.'])
+            ->assertStatus(302);
     }
 
     /**
