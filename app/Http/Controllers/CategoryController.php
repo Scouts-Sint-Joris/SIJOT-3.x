@@ -22,13 +22,14 @@ class CategoryController extends Controller
     /**
      * The categories model variable. 
      * 
-     * @var Categories
+     * @var CategoryRepository
      */
     private $categories;
 
     /**
      * CategoryController constructor.
-     * @param Categories $categories The categories model.
+     *
+     * @param CategoryRepository $categories The categories model.
      */
     public function __construct(CategoryRepository $categories)
     {

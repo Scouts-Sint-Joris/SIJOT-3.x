@@ -27,8 +27,9 @@ class AclHandlingsController extends Controller
     /**
      * AclHandlingsController constructor.
      *
-     * @param Permission $permissions The permisson DB instance.
-     * @param Role $roles The role DB instance.
+     * @param Permission $permissions   The permisson DB instance.
+     * @param Role       $roles         The role DB instance.
+     * @param User       $users         The permissions repository.
      *
      * @return void
      */
