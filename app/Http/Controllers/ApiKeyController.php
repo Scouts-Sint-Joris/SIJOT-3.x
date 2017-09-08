@@ -34,9 +34,12 @@ class ApiKeyController extends Controller
         $this->apiKeyRepository = $apiKeyRepository;
     }
 
+    /**
+     * @todo Implement docblock.
+     */
     public function index()
     {
-
+        // TODO: Implement controller logic.
     }
 
     /**

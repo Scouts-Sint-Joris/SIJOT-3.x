@@ -41,6 +41,43 @@ class LeaseTest extends TestCase
     }
 
     /**
+     * Set if we can set a lease to option.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::status()
+     */
+    public function testStatusOption()
+    {
+        $user  = factory(User::class)->create();
+        $lease = factory(Lease::class)->create();
+    }
+
+    /**
+     * Test if we can confirm al lease.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::status()
+     */
+    public function testStatusConfirm()
+    {
+
+    }
+
+    /**
+     * Test the response when trying to set the status based on invalid lease.
+     *
+     * @test
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseController::status()
+     */
+    public function testStatusInvalidId()
+    {
+
+    }
+
+    /**
      * T6est the export method for the leases.
      *
      * @test

@@ -2,8 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\Activity;
-use Sijot\Groups;
+use Sijot\{Activity, Groups};
 use Sijot\Http\Requests\ActivityValidator;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
