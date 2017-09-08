@@ -43,7 +43,11 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::dropIfExists('news');
         Schema::dropIfExists('categories_news');
+
+        Schema::enableForeignKeyConstraints();
     }
 }
