@@ -76,7 +76,7 @@ class LeaseController extends ApiGuardController
                 'error' => [
                     'code'      => 'GEN-NOT-FOUND',
                     'http_code' => $this->response->getStatusCode(),
-                    'message'   => 'The resource has been successfully deleted.'
+                    'message'   => trans('api.lease-destroy-success')
                 ]
             ]);
         } catch (ModelNotFoundException $exception) {
@@ -98,7 +98,7 @@ class LeaseController extends ApiGuardController
             'error' => [
                 'code'      => 'GEN-CREATED',
                 'http_code' => $this->response->getStatusCode(),
-                'message'   => 'The resource has been created.'
+                'message'   => trans('api.lease-create-success'),
             ]
         ]);
     }

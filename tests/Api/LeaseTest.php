@@ -92,7 +92,7 @@ class LeaseTest extends TestCase
 
         $this->post('api/lease', $input, ['X-Authorization' => $api->key])
             ->assertStatus(200)
-            ->assertJson(["error" => ["code" => "GEN-CREATED", "http_code" => 200, "message" => "The resource has been created.",]]);
+            ->assertJson(["error" => ["code" => "GEN-CREATED", "http_code" => 200, "message" => trans('api.lease-create-success'),]]);
     }
 
     /**
@@ -117,7 +117,7 @@ class LeaseTest extends TestCase
 
         $this->delete(route('lease.destroy', $lease), [], ['X-Authorization' => $api->key])
             ->assertStatus(200)
-            ->assertJson(["error" => ["code" => "GEN-NOT-FOUND", "http_code" => 200, "message" => "The resource has been successfully deleted."]]);
+            ->assertJson(["error" => ["code" => "GEN-NOT-FOUND", "http_code" => 200, "message" => trans('api.lease-destroy-success')]]);
     }
 
     /**
