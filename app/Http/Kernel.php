@@ -35,6 +35,7 @@ class Kernel extends HttpKernel
             \Sijot\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Sijot\Http\Middleware\LogLastUserActivity::class,
+            \Sijot\Http\Middleware\LanguageMiddleware::class,
         ],
 
         'api' => [
