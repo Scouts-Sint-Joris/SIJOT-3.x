@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            'lang-api',
             'throttle:60,1',
             'bindings',
             'auth.apikey'
@@ -60,6 +61,7 @@ class Kernel extends HttpKernel
         'throttle'              => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         // Custom middleware instances.
+        'lang-api'              => \Sijot\Http\Middleware\ApiLanguage::class,
         'auth.apikey'           => \Sijot\Http\Middleware\AuthenticateApiKey::class,
         'guest'                 => \Sijot\Http\Middleware\RedirectIfAuthenticated::class,
         'forbid-banned-user'    => \Sijot\Http\Middleware\ForbidBannedUser::class,
