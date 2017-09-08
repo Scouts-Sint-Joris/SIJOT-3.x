@@ -113,7 +113,7 @@ class LeaseInfoController extends Controller
     /**
      * Delete the lease admin in the system.
      *
-     * @param  integer $userId The primary key for the user in the database. 
+     * @param  integer $recordId The primary key for the user in the database.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteAdminPerson($recordId) 
@@ -172,10 +172,13 @@ class LeaseInfoController extends Controller
         $input->merge(['author_id' => auth()->user()->id]);
 
         if ($note = $this->notitions->create($input->all())) {
-            $this->lease->findOrFail($input->lease_id)->notitions()->attach($note->id);
             flash('De notitie is opgeslagen')->success();
+
+            //! This is palced below the flash messqage. Because it give an error on the test
+            //! In a strange way. | TODO: Need to investigate this one.
+            $this->lease->findOrFail($input->lease_id)->notitions()->attach($note->id);
         }
 
-        return redirect()->route('lease.info.show', $input->lease_id);
+        return redirect()->route('lease.info.show', ['id' => $input->lease_id]);
     }
 }

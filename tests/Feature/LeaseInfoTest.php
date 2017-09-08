@@ -2,14 +2,17 @@
 
 namespace Tests\Feature;
 
-use Sijot\Lease;
-use Sijot\Role;
-use Sijot\User;
+use Sijot\{
+    Lease, Notitions, Role, User
+};
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
+/**
+ * Class LeaseInfoTest
+ *
+ * @package Tests\Feature
+ */
 class LeaseInfoTest extends TestCase
 {
     use DatabaseMigrations, DatabaseTransactions;
@@ -158,7 +161,7 @@ class LeaseInfoTest extends TestCase
 
     /**
      * @test
-     * @group all
+     * @group  all
      */
     public function testMakeLeaseAdminInvalid()
     {
@@ -166,26 +169,50 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test if we can delete a lease admin with an invalid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteAdminPerson()
      */
     public function testDeleteLeaseAdminInvalid()
     {
-        // TODO: write test.
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('lease.remove.admin', ['id' => 100000000000]))
+            ->assertSessionHas(['flash_notification.0.message' => 'Wij konden de verhuur administrator niet vinden in het systeem.'])
+            ->assertStatus(302);
     }
 
     /**
+     * Test àif we can delete a lease admin with some valid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteAdminPerson()
      */
     public function testDeleteAdminLeaseAdminValid()
     {
-        // TODO: write test.
+        $user = factory(User::class, 2)->create();
+        $role = factory(Lease::class)->create(['name' => 'verhuur']);
+
+        User::find($user[0]->id)->assignRole('verhuur');
+        User::find($user[1]->id)->assignRole('verhuur');
+
+        $this->actingAs($user[0])
+            ->seeIsAuthenticatedAs($user[0]);
+
+        // TODO: Complete tests.
     }
 
     /**
+     * Test iàs we can delete a lease notition with invalid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteNotition()
      */
     public function testDeleteNotitionInvalid()
     {
@@ -193,29 +220,75 @@ class LeaseInfoTest extends TestCase
     }
 
     /**
+     * Test if we can delete a notition with some valid id.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::deleteNotition()
      */
     public function testDeleteNotitionValid()
     {
-        // TODO: write test.
+        $role     = factory(Role::class)->create(['name' => 'verhuur']);
+        $user     = factory(User::class)->create();
+        $lease    = factory(Lease::class)->create();
+        $notition = factory(Notitions::class)->create();
+
+        User::find($user->id)->assignRole($role->name);
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->get(route('lease.notitie.delete', ['notitionId' => $notition->id, 'leaseId' => $lease->id]))
+            ->assertSessionHas(['flash_notification.0.message' => 'De notitie is verwijderd.'])
+            ->assertStatus(302);
+
+        $this->assertDatabaseMissing('Notitions', ['id' => $notition->id]);
     }
 
     /**
+     * Test if we can store a lease without validation errors.
+     *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::addNotition()
      */
     public function testCreateNotitionValid()
     {
-        // TODO: write test.
+        $user  = factory(User::class)->create();
+        $lease = factory(Lease::class)->create();
+
+        factory(Role::class)->create(['name' => 'verhuur']);
+        User::find($user->id)->assignRole('verhuur');
+
+        $input = ['text' => 'Notition placeholder'];
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('lease.notitie.add', $lease), $input)
+            ->assertSessionHas(['flash_notification.0.message' => 'De notitie is opgeslagen'])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('notitions', ['author_id' => $user->id, 'text' => 'Notition placeholder']);
     }
 
     /**
+     * test we can store a notition with validation errors.
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\LeaseInfoController::addNotition()
      */
     public function testCreateNotitionInvalid()
     {
-        // TODO: write test.
+        $user = factory(User::class)->create();
+
+        factory(Role::class)->create(['name' => 'verhuur']);
+        User::find($user->id)->assignRole('verhuur');
+
+        $this->actingAs($user)
+            ->seeIsAuthenticatedAs($user)
+            ->post(route('lease.notitie.add', ['id' => '']), ['text' => 'Notition'])
+            ->assertStatus(200)
+            ->assertSessionMissing(['flash_notification.0.message' => 'De notitie is opgeslagen']);
+
+        $this->assertDatabaseMissing('Notitions', ['author_id' => $user->id, 'text' => 'Notition placeholder']);
     }
 }
