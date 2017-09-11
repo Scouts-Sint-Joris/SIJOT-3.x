@@ -16,12 +16,16 @@ use Sijot\Repositories\{
 class HomeController extends Controller
 {
     /**
-     * @var Events
+     * The database model variable for the events.
+     *
+     * @var EventsRepository
      */
     private $eventDb;
 
     /**
-     * @var News
+     * The database model variable for the news messages.
+     *
+     * @var NewsRepository
      */
     private $newsDb;
 
