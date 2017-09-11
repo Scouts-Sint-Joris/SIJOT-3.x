@@ -2,7 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\{Permission, Role, User};
+use Sijot\Repositories\{PermissionRepository, RoleRepository, UsersRepository};
 use Sijot\Http\Requests\{PermissionValidator, RoleValidator};
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -20,20 +20,20 @@ class AclHandlingsController extends Controller
     // TODO: Fill in the validators.
     // TODO: Implement validation errors to the form views.
 
-    private $permissions;   /** @var Permission $permissions The permissions database model variable.   */
-    private $roles;         /** @var Role       $roles       The role database model variable.          */
-    private $users;         /** @var User       $users       The user database model variable.          */
+    private $permissions;   /** @var PermissionRepository $permissions The permissions database model variable.   */
+    private $roles;         /** @var RoleRepository       $roles       The role database model variable.          */
+    private $users;         /** @var UsersRepository      $users       The user database model variable.          */
 
     /**
      * AclHandlingsController constructor.
      *
-     * @param Permission $permissions   The permisson DB instance.
-     * @param Role       $roles         The role DB instance.
-     * @param User       $users         The permissions repository.
+     * @param PermissionRepository $permissions   The permisson DB instance.
+     * @param RoleRepository       $roles         The role DB instance.
+     * @param UsersRepository      $users         The permissions repository.
      *
      * @return void
      */
-    public function __construct(Permission $permissions, Role $roles, User $users)
+    public function __construct(PermissionRepository $permissions, RoleRepository $roles, UsersRepository $users)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');
