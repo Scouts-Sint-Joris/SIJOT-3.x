@@ -26,8 +26,7 @@ class GroupRepository extends Repository
     /**
      * The scope used for getting groups.
      *
-     * @param string $selector The where criteria
-     *
+     * @param  string $selector The where criteria
      * @return mixed
      */
     public function getGroup($selector)
@@ -35,6 +34,12 @@ class GroupRepository extends Repository
         return $this->model->where('selector', $selector)->first();
     }
 
+    /**
+     * Find a group based on their selector.
+     *
+     * @param  string $selector The selector in the database where u want to look for.
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
     public function findGroup($selector)
     {
         return $this->model->where('selector', $selector)->firstOrFail();

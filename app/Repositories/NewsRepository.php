@@ -32,6 +32,11 @@ class NewsRepository extends Repository
         return $this->model->where('publish', 'Y')->paginate($perPage);
     }
 
+    /**
+     * Count all the news messages in the database.
+     *
+     * @return integer
+     */
     public function count()
     {
         return $this->model->count();

@@ -13,7 +13,6 @@ use Sijot\Lease;
  */
 class LeaseAdminRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *

@@ -23,6 +23,11 @@ class LeaseRepository extends Repository
         return Lease::class;
     }
 
+    /**
+     * Count all the leases in the databases.
+     *
+     * @return integer
+     */
     public function count()
     {
         return $this->model->count();

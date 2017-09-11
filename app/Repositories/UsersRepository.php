@@ -23,11 +23,22 @@ class UsersRepository extends Repository
         return User::class;
     }
 
+    /**
+     * Cocunt all the users in the database.
+     *
+     * @return integer
+     */
     public function count()
     {
         return $this->model->count();
     }
 
+    /**
+     * Find a user in the database based on their id.
+     *
+     * @param  integer $userId The id from the user in the database.
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
     public function findUser($userId)
     {
         return $this->model->select(['id', 'name'])->findOrFail($userId);

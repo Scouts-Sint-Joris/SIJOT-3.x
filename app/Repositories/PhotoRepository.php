@@ -13,7 +13,6 @@ use Sijot\Photos;
  */
 class PhotoRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
