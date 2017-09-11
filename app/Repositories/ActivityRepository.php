@@ -4,14 +4,14 @@ namespace Sijot\Repositories;
 
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
-use Sijot\Lease;
+use Sijot\Activity;
 
 /**
- * Class LeaseRepository
+ * Class ActivityRepository
  *
  * @package Sijot\Repositories
  */
-class LeaseRepository extends Repository
+class ActivityRepository extends Repository
 {
     /**
      * Set the eloquent model class for the repository.
@@ -20,11 +20,21 @@ class LeaseRepository extends Repository
      */
     public function model()
     {
-        return Lease::class;
+        return Activity::class;
     }
 
     public function count()
     {
         return $this->model->count();
+    }
+
+    public function getByGroup($id, $limit)
+    {
+        return $this->model->where('group_id', $id)
+            ->where('activiteit_datum', '>=', date('d-m-Y'))
+            ->where('status', '=', 1)
+            ->orderBy('activiteit_datum', 'asc')
+            ->take($limit)
+            ->get();
     }
 }

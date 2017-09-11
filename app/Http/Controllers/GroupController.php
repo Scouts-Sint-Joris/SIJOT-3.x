@@ -2,7 +2,9 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\{Activity, Groups};
+use Sijot\{
+    Activity, Groups, Repositories\ActivityRepository, Repositories\GroupRepository
+};
 use Sijot\Http\Requests\GroupValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -19,26 +21,26 @@ class GroupController extends Controller
     /**
      * The variable for the activity model.
      * 
-     * @var Activity
+     * @var ActivityRepository
      */
     private $activity;
 
     /**
      * The variable for the groups model. 
      * 
-     * @var Groups
+     * @var GroupRepository
      */
     private $groups;
 
     /**
      * GroupController constructor.
      *
-     * @param Activity $activity The activity model for the database.
-     * @param Groups   $groups   The groups model for the database.
+     * @param ActivityRepository $activity The activity model for the database.
+     * @param GroupRepository    $groups   The groups model for the database.
      * 
      * @return void
      */
-    public function __construct(Activity $activity, Groups $groups)
+    public function __construct(ActivityRepository $activity, GroupRepository $groups)
     {
         $routes = ['backend', 'update'];
 
@@ -113,14 +115,9 @@ class GroupController extends Controller
     public function show($selector)
     {
         try { // To find the record.
-            $data['group']      = $this->groups->where('selector', $selector)->firstOrFail();
+            $data['group']      = $this->groups->findGroup($selector);
             $data['title']      = $data['group']->title;
-            $data['activities'] = $this->activity->where('group_id', $data['group']->id)
-                ->where('activiteit_datum', '>=', date('d-m-Y'))
-                ->where('status', '=', 1)
-                ->orderBy('activiteit_datum', 'asc')
-                ->take(7)
-                ->get();
+            $data['activities'] = $this->activity->getByGroup($data['group']->id, 7);
 
             return view('groups.show', $data);
         } catch (ModelNotFoundException $notFoundErr) { // Could not find the record.

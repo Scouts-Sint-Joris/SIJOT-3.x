@@ -3,10 +3,11 @@
 namespace Sijot\Http\Controllers;
 
 use Sijot\News;
-use Sijot\Categories;
 use Sijot\Http\Requests\NewsValidator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Sijot\Repositories\CategoryRepository;
+use Sijot\Repositories\NewsRepository;
 
 /**
  * Class NewsController
@@ -36,12 +37,12 @@ class NewsController extends Controller
     /**
      * NewsController constructor
      *
-     * @param Categories $_categoriesDb The categories database model.
-     * @param News       $_newsDb       The news database model.
+     * @param CategoryRepository  $_categoriesDb The categories database model.
+     * @param NewsRepository      $_newsDb       The news database model.
      * 
      * @return void
      */
-    public function __construct(Categories $_categoriesDb, News $_newsDb)
+    public function __construct(CategoryRepository $_categoriesDb, NewsRepository $_newsDb)
     {
         $routes = ['store', 'update', 'delete', 'create', 'index', 'status', 'getById'];
 

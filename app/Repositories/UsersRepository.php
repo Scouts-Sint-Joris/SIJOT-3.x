@@ -4,14 +4,14 @@ namespace Sijot\Repositories;
 
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
-use Sijot\Lease;
+use Sijot\User;
 
 /**
- * Class LeaseRepository
+ * Class UsersRepository
  *
  * @package Sijot\Repositories
  */
-class LeaseRepository extends Repository
+class UsersRepository extends Repository
 {
     /**
      * Set the eloquent model class for the repository.
@@ -20,11 +20,16 @@ class LeaseRepository extends Repository
      */
     public function model()
     {
-        return Lease::class;
+        return User::class;
     }
 
     public function count()
     {
         return $this->model->count();
+    }
+
+    public function findUser($userId)
+    {
+        return $this->model->select(['id', 'name'])->findOrFail($userId);
     }
 }

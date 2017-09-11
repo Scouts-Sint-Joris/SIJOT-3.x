@@ -4,15 +4,16 @@ namespace Sijot\Repositories;
 
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
-use Sijot\Lease;
+use Sijot\Photos;
 
 /**
- * Class LeaseRepository
+ * Class PhotoRepository
  *
  * @package Sijot\Repositories
  */
-class LeaseRepository extends Repository
+class PhotoRepository extends Repository
 {
+
     /**
      * Set the eloquent model class for the repository.
      *
@@ -20,11 +21,6 @@ class LeaseRepository extends Repository
      */
     public function model()
     {
-        return Lease::class;
-    }
-
-    public function count()
-    {
-        return $this->model->count();
+        return Photos::class;
     }
 }

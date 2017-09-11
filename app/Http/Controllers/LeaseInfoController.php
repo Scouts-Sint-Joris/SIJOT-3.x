@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Sijot\Http\Requests\LeaseValidator;
 use Sijot\Http\Requests\LeaseAdminValidator;
 use Sijot\Http\Requests\NotitionValidator;
-use Sijot\Lease;
-use Sijot\Notitions;
-use Sijot\User;
-use Sijot\LeaseAdmin;
+use Sijot\Repositories\LeaseAdminRepository;
+use Sijot\Repositories\LeaseRepository;
+use Sijot\Repositories\NotitionRepository;
+use Sijot\Repositories\UsersRepository;
 
 /**
  * Class LeaseInfoController
@@ -28,11 +28,13 @@ class LeaseInfoController extends Controller
     /**
      * LeaseInfoController constructor.
      *
-     * @param  Lease        $lease     The lease database instance.
-     * @param  Notitions    $notitions The lease notition database instance.
+     * @param  LeaseRepository        $lease      The lease database instance.
+     * @param  NotitionRepository     $notitions  The lease notition database instance.
+     * @param  UsersRepository        $users      The user database instance.
+     * @param  LeaseAdminRepository   $leaseAdmin The leaseAdmin database instance.
      * @return void
      */
-    public function __construct(Lease $lease, Notitions $notitions, User $users, LeaseAdmin $leaseAdmin)
+    public function __construct(LeaseRepository $lease, NotitionRepository $notitions, UsersRepository $users, LeaseAdminRepository $leaseAdmin)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');

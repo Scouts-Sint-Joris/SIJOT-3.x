@@ -25,6 +25,17 @@ class EventsRepository extends Repository
     }
 
     /**
+     * Paginate the events for the index page.
+     *
+     * @param  integer $limit The amount of events u want per page.
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function indexEvents($limit)
+    {
+        return $this->model->limit($limit)->get();
+    }
+
+    /**
      * Find an event in the database based on the primary key.
      *
      * @param  integer $eventId The auto increment (PK) record id form the database.
