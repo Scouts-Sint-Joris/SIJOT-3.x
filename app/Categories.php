@@ -30,9 +30,13 @@ class Categories extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    /**
+     * Get the news through the data relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function news()
     {
-        // TODO implementation docblock 
         return $this->belongsToMany(News::class)->withTimestamps();
     }
 }
