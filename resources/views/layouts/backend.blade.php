@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>AdminLTE 2 | Blank Page</title>
+        <title>Scouts en Gidsen Sint-Joris | Backend</title>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -101,47 +101,68 @@
 
                     <ul class="sidebar-menu"> {{-- sidebar menu: : style can be found in sidebar.less --}}
                         <li class="header">NAVIGATIE</li>
+                        
                         <li @if (Request::route()->getName() === 'account') class="active" @endif>
                             <a href="{{ route('account') }}">
                                 <i class="fa fa-user" aria-hidden="true"></i> <span>Mijn account</span>
                             </a>
                         </li>
-                        <li @if (Request::route()->getName() === 'lease.backend') class="active" @endif>
-                            <a href="{{ route('lease.backend') }}">
-                                <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
-                            </a>
-                        </li>
-                        <li @if (Request::route()->getName() === 'users.index') class="active" @endif>
-                            <a href="{{ route('users.index') }}">
-                                <i class="fa fa-users" aria-hidden="true"></i> <span>Gebruikersbeheer</span>
-                            </a>
-                        </li>
+
+                        @if ($user->hasRole('verhuur') || $user->hasRole('admin')) 
+                            <li class="@if (Request::route()->getName() === 'lease.backend') active @endif">
+                                <a href="{{ route('lease.backend') }}">
+                                    <i class="fa fa-home" aria-hidden="true"></i> <span>Verhuringen</span>
+                                </a>
+                            </li>
+                        @endif
+                       
+                        @if ($user->hasRole('admin'))
+                            <li @if (Request::route()->getName() === 'users.index') class="active" @endif>
+                                <a href="{{ route('users.index') }}">
+                                    <i class="fa fa-users" aria-hidden="true"></i> <span>Gebruikersbeheer</span>
+                                </a>
+                            </li>
+                        @endif
+                        
                         <li @if (Request::route()->getName() === 'groups.backend') class="active" @endif>
                             <a href="{{ route('groups.backend') }}">
                                 <i class="fa fa-leaf" aria-hidden="true"></i> <span>Takken</span>
                             </a>
                         </li>
-                        <li @if (Request::route()->getName() === 'activity.backend') class="active" @endif>
-                            <a href="{{ route('activity.backend') }}">
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
-                            </a>
-                        </li>
+                        
                         <li @if (Request::route()->getName() === 'events.index') class="active" @endif>
                             <a href="{{ route('events.index') }}">
                                 <i class="fa fa-asterisk" aria-hidden="true"></i> <span>Evenementen</span>
                             </a>
                         </li>
-                        <li @if (Request::route()->getName() === 'news.index') class="active" @endif>
-                            <a href="{{ route('news.index') }}">
-                                <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Nieuws</span>
-                            </a>
-                        </li>
 
-                        <li @if(Request::is('fotos*')) class="active" @endif>
-                            <a href="{{ route('photos.index.backend') }}">
-                                <i class="fa fa-camera-retro" aria-hidden="true"></i> <span>Foto's</span> 
-                            </a>
-                        </li>
+                        @if ($user->hasRole('leiding') || $user->hasRole('hoofdleiding') || $user->hasRole('admin'))
+                            <li @if (Request::route()->getName() === 'news.index') class="active" @endif>
+                                <a href="{{ route('news.index') }}">
+                                    <i class="fa fa-newspaper-o" aria-hidden="true"></i> <span>Nieuws</span>
+                                </a>
+                            </li>
+
+                            <li @if (Request::route()->getName() === 'activity.backend') class="active" @endif>
+                                <a href="{{ route('activity.backend') }}">
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Activiteiten</span>
+                                </a>
+                            </li>
+
+                            <li @if (Request::is('fotos*')) class="active" @endif>
+                                <a href="{{ route('photos.index.backend') }}">
+                                    <i class="fa fa-camera-retro" aria-hidden="true"></i> <span>Foto's</span> 
+                                </a>
+                            </li> 
+                        @endif
+
+                        @if ($user->hasRole('admin'))
+                            <li @if (Request::is('api*')) class="active" @endif>
+                                <a href="">
+                                    <i class="fa fa-key" aria-hidden="true"></i> <span>API sleutels</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </section> {{-- /.sidebar --}}
             </aside>

@@ -109,3 +109,76 @@ $factory->define(Sijot\Themes::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(Sijot\LeaseAdmin::class, function (Faker\Generator $faker) {
+    return [
+        'persons_id' => function () {
+             return factory(Sijot\User::class)->create()->id;
+        },
+        'info' => $faker->text,
+    ];
+});
+
+$factory->define(Sijot\Notitions::class, function (Faker\Generator $faker) {
+    return [
+        'author_id' => function () {
+             return factory(Sijot\User::class)->create()->id;
+        },
+        'text' => $faker->text,
+    ];
+});
+
+$factory->define(Sijot\Permission::class, function (Faker\Generator $faker) {
+    return [
+        'author_id' => function () {
+             return factory(Sijot\User::class)->create()->id;
+        },
+        'system_permission' => $faker->word,
+        'name' => $faker->name,
+        'description' => $faker->text,
+    ];
+});
+
+$factory->define(Sijot\Photos::class, function (Faker\Generator $faker) {
+    return [
+        'author_id' => function () {
+             return factory(Sijot\User::class)->create()->id;
+        },
+        'title' => $faker->word,
+        'image_path' => $faker->word,
+        'url' => $faker->url,
+        'description' => $faker->text,
+    ];
+});
+
+$factory->define(Sijot\Role::class, function (Faker\Generator $faker) {
+    return [
+        'author_id' => function () {
+             return factory(Sijot\User::class)->create()->id;
+        },
+        'system_role' => $faker->word,
+        'name' => $faker->name,
+        'description' => $faker->text,
+    ];
+});
+
+$factory->define(Chrisbjr\ApiGuard\Models\ApiKey::class, function (Faker\Generator $faker) {
+    return [
+        'apikeyable_id' => function () {
+            return factory(Sijot\User::class)->create()->id;
+        },
+        'apikeyable_type' => 'Sijot\User',
+        'key' => str_random(50),
+        'last_ip_address' => $faker->ipv4,
+        'service' => $faker->name,
+    ];
+});
+
+$factory->define(Sijot\Notitions::class, function (Faker\Generator $faker) {
+    return [
+        'author_id' => function () {
+            return factory(Sijot\User::class)->create()->id;
+        },
+        'text' => $faker->paragraph(),
+    ];
+});
+

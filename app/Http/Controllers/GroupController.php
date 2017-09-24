@@ -2,8 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\Activity;
-use Sijot\Groups;
+use Sijot\{Activity, Groups};
 use Sijot\Http\Requests\GroupValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

@@ -38,15 +38,11 @@ class ExtendAclTables extends Migration
         $config = config('laravel-permission.table_names');
 
         Schema::table($config['roles'], function (Blueprint $table) {
-            $table->dropColumn('author_id');
-            $table->dropColumn('system_role');
-            $table->dropColumn('description');
+            $table->dropColumn(['author_id', 'system_role', 'description']);
         });
 
         Schema::table($config['permissions'], function (Blueprint $table) {
-            $table->dropColumn('author_id'); 
-            $table->dropColumn('system_permission');
-            $table->dropColumn('description');
+            $table->dropColumn(['author_id', 'system_permission', 'description']);
         });
     }
 }

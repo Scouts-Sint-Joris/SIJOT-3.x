@@ -3,16 +3,12 @@
 namespace Tests\Feature;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
-use Sijot\Mail\BlockEmailNotification;
-use Sijot\Mail\UserCreationMail;
+use Illuminate\Support\Facades\{Mail, Notification};
+use Sijot\Mail\{BlockEmailNotification, UserCreationMail};
 use Sijot\Notifications\BlockNotification;
 use Sijot\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{WithoutMiddleware, DatabaseTransactions, DatabaseMigrations};
 
 /**
  * Class UsersTest
@@ -27,7 +23,8 @@ class UsersTest extends TestCase
      * Test the index route for the user section.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::index()
      */
     public function testUsersIndex()
     {
@@ -43,7 +40,8 @@ class UsersTest extends TestCase
      * Test if we can get a specific user.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::getById()
      */
     public function testGetByValidId()
     {
@@ -60,7 +58,8 @@ class UsersTest extends TestCase
      * Test if we can get an 404 on a invalid user request.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::getById()
      */
     public function testGetByInvalidId()
     {
@@ -69,14 +68,15 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.getId', 1000))
-            ->assertStatus(200);
+            ->assertStatus(404);
     }
 
     /**
      * Test if we can ban a user. Without validation errors.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::block()
      */
     public function testBanUserValidIdNoValidationError()
     {
@@ -108,7 +108,8 @@ class UsersTest extends TestCase
      * Test the error message. If a current logged in user bans himself.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::block()
      */
     public function testBanCurrentLoggedInUser()
     {
@@ -129,7 +130,8 @@ class UsersTest extends TestCase
      * Test if we can ban a user. With validation errors.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::block()
      */
     public function testBanUserValidIdValidationError()
     {
@@ -148,7 +150,8 @@ class UsersTest extends TestCase
      * Test if wa can ban an user with an invalid id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::block()
      */
     public function testBanUserInvalidId()
     {
@@ -161,14 +164,15 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->post(route('users.block'), $input)
-            ->assertStatus(200);
+            ->assertStatus(404);
     }
 
     /**
      * Test if we can unblock a user when the user in case is already active.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::unblock()
      */
     public function testUnblockValidIdNotBanned()
     {
@@ -185,7 +189,8 @@ class UsersTest extends TestCase
      * Test if we can unblock a banned user.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::unblock()
      */
     public function testUnblockActivateUserCorrect()
     {
@@ -208,7 +213,8 @@ class UsersTest extends TestCase
      * Test the output when the user is not found in the database with his id.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::unblock()
      */
     public function testUnblockInvalidId()
     {
@@ -217,14 +223,15 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.unblock', ['id' => 1000]))
-            ->assertStatus(302);
+            ->assertStatus(404);
     }
 
     /**
      * Test inserting new user. (with validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::store()
      */
     public function testStoreValidationError()
     {
@@ -242,7 +249,8 @@ class UsersTest extends TestCase
      * Test inserting new user. (with validation errors)
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::store()
      */
     public function testStoreNoValidationErr()
     {
@@ -280,7 +288,8 @@ class UsersTest extends TestCase
      * Test if we can delete a user.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::delete()
      */
     public function testUserDeleteValidId()
     {
@@ -297,7 +306,8 @@ class UsersTest extends TestCase
      * Test if we get an invalid response on user delete.
      *
      * @test
-     * @group all
+     * @group  all
+     * @covers \Sijot\Http\Controllers\UsersController::delete()
      */
     public function testUserDeleteInvalidId()
     {
@@ -306,6 +316,6 @@ class UsersTest extends TestCase
         $this->actingAs($user)
             ->seeIsAuthenticatedAs($user)
             ->get(route('users.delete', ['id' => 1000]))
-            ->assertStatus(302);
+            ->assertStatus(404);
     }
 }

@@ -18,7 +18,7 @@
             <h3 class="box-title">Wijzig ACL: {{ $user->name }}</h3>
         </div>
         <div class="box-body">
-            <form action="" method="POST" class="form-horizontal">
+            <form action="{{ route('acl.user.update', $user) }}" method="POST" class="form-horizontal">
                 {{ csrf_field() }}
 
                 <div class="form-group">

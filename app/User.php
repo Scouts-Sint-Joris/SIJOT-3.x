@@ -2,6 +2,7 @@
 
 namespace Sijot;
 
+use Chrisbjr\ApiGuard\Models\Mixins\Apikeyable;
 use Cog\Ban\Traits\HasBans;
 use Cog\Ban\Contracts\HasBans as HasBansContract;
 use Illuminate\Notifications\Notifiable;
@@ -20,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements HasBansContract
 {
-    use HasRoles, Notifiable, HasBans;
+    use HasRoles, Notifiable, HasBans, Apikeyable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +45,15 @@ class User extends Authenticatable implements HasBansContract
     public function isOnline()
     {
         return Cache::has('user-is-online-' . $this->id);
+    }
+
+    /**
+     * Lease admins database relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function leaseAdmin() 
+    {
+        return $this->belongsTo(LeaseAdmin::class, 'id', 'persons_id');
     }
 }

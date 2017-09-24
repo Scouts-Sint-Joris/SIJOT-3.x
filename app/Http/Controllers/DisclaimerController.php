@@ -11,8 +11,6 @@ use Illuminate\Http\Request;
  */
 class DisclaimerController extends Controller
 {
-    // TODO Complete the class docblock. 
-    
     /**
      * Get the disclaimer page.
      *
@@ -20,7 +18,6 @@ class DisclaimerController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Disclaimer';
-        return view('disclaimer', $data);
+        return view('disclaimer', ['title' => 'Disclaimer']);
     }
 }

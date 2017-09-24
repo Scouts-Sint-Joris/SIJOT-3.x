@@ -2,28 +2,32 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\User;
-use Sijot\Themes;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Sijot\{User, Themes};
+use Illuminate\Http\{Response as Status};
+use Illuminate\Support\Facades\{Storage};
 use Intervention\Image\Facades\Image;
-use Sijot\Http\Requests\AccountInfoValidator;
-use Sijot\Http\Requests\AccountSecurityValidator;
+use Sijot\Http\Requests\{AccountInfoValidator, AccountSecurityValidator};
 
 /**
  * Class AccountController
  *
- * @package Sijot\Http\Controllers
+ * @category AccountController
+ * @package  Sijot\Http\Controllers
+ * @author   Tim Joosten <topairy@gmail.com>
+ * @link     http://www.st-joris-turnhout.be
  */
 class AccountController extends Controller
 {
     /**
+     * The user database model. 
+     * 
      * @var User
      */
     private $userDb;
 
     /**
+     * The back-end theme database model. 
+     * 
      * @var Themes
      */
     private $themes; 
@@ -52,8 +56,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $data['user']   = auth()->user();
-        $data['title']  = $data['user']->name;
+        $data['title']  = auth()->user()->name;
         $data['themes'] = $this->themes->all();
 
         return view('account.index', $data);
@@ -96,10 +99,10 @@ class AccountController extends Controller
                 flash(trans('account.flash-account-info'));
             }
 
-            return back();
+            return back(302);
         }
 
-        return app()->abort(404);
+        return app()->abort(Status::HTTP_NOT_FOUND);
     }
 
     /**
@@ -111,14 +114,15 @@ class AccountController extends Controller
      */
     public function updateSecurity(AccountSecurityValidator $input) 
     {
-        if ((int) $input->user_id === auth()->user()->id) { // The user and the form user are identical. 
+        if ((int) $input->user_id === auth()->user()->id) { 
+            // The user and the form user are identical. 
             if ($this->userDb->find($input->user_id)->update($input->except(['_token', 'password_confirmation']))) { // The user has been changed.
                 flash(trans('account.flash-account-password'));
             }
 
-            return back();
+            return back(302);
         } 
 
-        return app()->abort(404);
+        return app()->abort(Status::HTTP_NOT_FOUND);
     }
 }

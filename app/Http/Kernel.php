@@ -35,11 +35,14 @@ class Kernel extends HttpKernel
             \Sijot\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Sijot\Http\Middleware\LogLastUserActivity::class,
+            \Sijot\Http\Middleware\LanguageMiddleware::class,
         ],
 
         'api' => [
+            'lang-api',
             'throttle:60,1',
             'bindings',
+            'auth.apikey'
         ],
     ];
 
@@ -51,11 +54,16 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        // Framework middleware instances.
         'auth'                  => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic'            => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings'              => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can'                   => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle'              => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        // Custom middleware instances.
+        'lang-api'              => \Sijot\Http\Middleware\ApiLanguage::class,
+        'auth.apikey'           => \Sijot\Http\Middleware\AuthenticateApiKey::class,
         'guest'                 => \Sijot\Http\Middleware\RedirectIfAuthenticated::class,
         'forbid-banned-user'    => \Sijot\Http\Middleware\ForbidBannedUser::class,
         'acl-role'              => \Sijot\Http\Middleware\RoleMiddleware::class,

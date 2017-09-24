@@ -3,7 +3,7 @@
 namespace Sijot\Http\Controllers;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response as Status;
 use Sijot\Http\Requests\EventValidator;
 use Sijot\Repositories\EventsRepository;
 
@@ -30,7 +30,7 @@ class EventsController extends Controller
     /**
      * EventsController constructor.
      *
-     * @param Events $events The events database model in the application.
+     * @param EventsRepository $events The events database model in the application.
      */
     public function __construct(EventsRepository $events)
     {
@@ -45,8 +45,7 @@ class EventsController extends Controller
     /**
      * Store a new event in the database.
      *
-     * @param EventValidator $input The user validation.
-     * 
+     * @param  EventValidator $input The user validation.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(EventValidator $input)
@@ -56,7 +55,7 @@ class EventsController extends Controller
             flash(trans('events.flash-event-create'));
         }
 
-        return back(302);
+        return back(Status::HTTP_FOUND);
     }
 
     /**
@@ -87,12 +86,12 @@ class EventsController extends Controller
 
             return view('events.show', $data);
         } catch (ModelNotFoundException $modelNotFoundException) {
-            return app()->abort(404); // Event not found in the db.
+            return app()->abort(Status::HTTP_NOT_FOUND); // Event not found in the db.
         }
     }
 
     /**
-     * Change the st§atus for the event.
+     * Change the status for the event.
      *
      * @param integer $statusId The id to indicate the status for the event.
      * @param integer $eventId  The id in the database for the event.
@@ -113,9 +112,9 @@ class EventsController extends Controller
                 }
             }
 
-            return back(302);
+            return back(Status::HTTP_FOUND);
         } catch (ModelNotFoundException $modelNotFoundException) { // Could not find the event in the database.
-            return app()->abort(404);
+            return app()->abort(Status::HTTP_NOT_FOUND);
         }
     }
 

@@ -24,8 +24,8 @@ class LanguageMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param \Illuminate\Http\Request $request The information about the request?
+     * @param \Closure                 $next    Closere call.
      *
      * @return mixed
      */
@@ -33,13 +33,14 @@ class LanguageMiddleware
     {
         $language = (Input::get('lang')) ?: Session::get('lang');
         $this->setSupportedLanguage($language);
+
         return $next($request);
     }
 
     /**
      * Check if the language is supported.
      *
-     * @param  string $lang
+     * @param  string $lang The language key.
      * @return bool
      */
     private function isLanguageSupported($lang)
@@ -50,7 +51,8 @@ class LanguageMiddleware
     /**
      * Set the supported language for the user.
      *
-     * @param string $lang
+     * @param  string $lang The language key.
+     * @return void
      */
     private function setSupportedLanguage($lang)
     {

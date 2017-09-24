@@ -2,13 +2,10 @@
 
 namespace Sijot\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Sijot\{Permission, Role, User};
+use Sijot\Http\Requests\{PermissionValidator, RoleValidator};
 use Illuminate\Http\Request;
-use Sijot\Http\Requests\PermissionValidator;
-use Sijot\Http\Requests\RoleValidator;
-use Sijot\Permission;
-use Sijot\Role;
-use Sijot\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class AclHandlingsController
@@ -30,8 +27,9 @@ class AclHandlingsController extends Controller
     /**
      * AclHandlingsController constructor.
      *
-     * @param Permission $permissions The permisson DB instance.
-     * @param Role $roles The role DB instance.
+     * @param Permission $permissions   The permisson DB instance.
+     * @param Role       $roles         The role DB instance.
+     * @param User       $users         The permissions repository.
      *
      * @return void
      */
@@ -90,6 +88,8 @@ class AclHandlingsController extends Controller
 
         return redirect()->route('users.index');
     }
+
+
 
     /**
      * Update view for some acl role/permission

@@ -2,8 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\Activity;
-use Sijot\Groups;
+use Sijot\{Activity, Groups};
 use Sijot\Http\Requests\ActivityValidator;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -70,9 +69,8 @@ class ActivityController extends Controller
     /**
      * Generate a json feed for the modern news readers.
      *
-     * @param integer $groepId The idvan de groep in de database.
-     *
-     * @return \Illuminate\Http\Response
+     * @param  integer $groepId The idvan de groep in de database.
+     * @return array
      */
     public function jsonFeed($groepId) 
     {

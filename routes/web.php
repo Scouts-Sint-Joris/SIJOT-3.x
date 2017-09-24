@@ -35,6 +35,11 @@ Route::get('/verhuur/info/{id}', 'LeaseInfoController@show')->name('lease.info.s
 Route::get('/verhuur/notitie/verwijder/{notitionId}/{leaseId}', 'LeaseInfoController@deleteNotition')->name('lease.notitie.delete');
 Route::post('/verhuur/notitie/toevoegen', 'LeaseInfoController@addNotition')->name('lease.notitie.add');
 Route::post('/verhuur/verhuur/aanpassen/{id}', 'LeaseInfoController@update')->name('lease.info.update');
+Route::post('/verhuur/toevoegen/admin', 'LeaseInfoController@addAdminPerson')->name('lease.add.admin');
+Route::get('/verhuur/verwijder/admin/{id}', 'LeaseInfoController@deleteAdminPerson')->name('lease.remove.admin');
+
+// API key routes. TODO: Routes still need testing
+Route::post('api/sleutel', 'ApiKeyController@makeKey')->name('api.key.create');
 
 // Members routes
 Route::get('/lid-worden', 'MemberController@index')->name('members.new');
@@ -46,6 +51,7 @@ Route::get('/gebruikers/info/{id}', 'UsersController@getById')->name('users.getI
 Route::post('/gebruikers/blokkeer', 'UsersController@block')->name('users.block');
 Route::get('/gebruikers/activeer/{id}', 'UsersController@unblock')->name('users.unblock');
 Route::get('/gebruikers/verwijder/{id}', 'UsersController@delete')->name('users.delete');
+Route::post('account/wijzig/acl/{id}', 'UsersController@storePermission')->name('acl.user.update');
 
 // ACL routes (Admin)
 Route::post('rechten/opslaan', 'AclHandlingsController@storeRole')->name('roles.store');

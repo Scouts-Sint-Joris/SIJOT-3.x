@@ -14,31 +14,19 @@
 @endsection
 
 @section('content')
-    <div class="box"> {{-- Default box --}}
-        <div class="box-header with-border">
-            <h3 class="box-title">@lang('lease.title-box')</h3>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_1" data-toggle="tab"><span class="fa fa-list" aria-hidden="true"></span> @lang('lease.title-box')</a></li>
+            <li><a href="#tab_2" data-toggle="tab"><span class="fa fa-users" aria-hidden="true"></span> Verantwoordelijke</a></li>
+            <li><a href="#tab_3" data-toggle="tab"><span class="fa fa-plus" aria-hidden="true"></span> Verantwoordelijke toevoegen</a></li>
 
-            <div class="pull-right">
-                @if ((int) count($leases) > 0)
-                    <a class="label label-danger" href="{{ route('lease.export') }}">@lang('lease.btn-backend-export')</a> 
-                @endif
-                
-                <a class="label label-danger" href="#" data-toggle="modal" data-target="#create-lease">@lang('lease.btn-backend-add')</a>
-            </div>
-        </div>
+            <li class="pull-right"><a href="#" data-toggle="modal" data-target="#create-lease"><span class="fa fa-plus" aria-hidden="true"></span> @lang('lease.btn-backend-add')</a></li>
+            <li class="pull-right"><a href="{{ route('lease.export') }}"><span class="fa fa-file-text" aria-hidden="true"></span> @lang('lease.btn-backend-export')</a></li> 
+        </ul>
 
-        <div class="box-body">
-            @if ((int) count($leases) === 0)
-                <div class="alert alert-info alert-important" role="alert">
-                    <strong>
-                        <span class="fa fa-info-circle" aria-hidden="true"></span> Info:
-                    </strong>
-
-                    Er zijn geen verhuringen gevonden in het systeem.
-                </div>
-            @else
-                <div class="table-responsive">
-                    <table class="table table-condensed table-hover table-striped">
+        <div class="tab-content">
+            <div class="tab-pane active fade in" id="tab_1"> {{-- Start verhuur overzicht pane --}}
+                <table class="table table-condensed table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -72,7 +60,6 @@
                                     <td>{{ $lease->created_at->format('d/m/Y') }}</td>
 
                                     <td> {{-- Options --}}
-                                        <a href="{{ route('lease.info.show', $lease) }}" class="label label-info">Gegevens</a>
 
                                         @if ((int) $lease->status_id === 1)
                                             <a href="{{ route('lease.status', ['status' => 'optie', 'id' => $lease->id]) }}" class="label label-warning">@lang('lease.status-lease-option')</a>
@@ -83,6 +70,7 @@
                                             <a href="{{ route('lease.status', ['status' => 'optie', 'id' => $lease->id]) }}" class="label label-warning">@lang('lease.status-lease-option')</a>
                                         @endif
 
+                                        <a style="margin-left: 5px;" href="{{ route('lease.info.show', $lease) }}" class="label label-info">Gegevens</a>
                                         <a href="{{ route('lease.delete', ['id' => $lease->id]) }}" class="label label-danger">@lang('lease.btn-backend-delete')</a>
                                     </td> {{-- /Options --}}
                                 </tr>
@@ -91,10 +79,90 @@
                     </table>
 
                     {{ $leases->render() }} {{-- Pagination --}}
+            </div> {{-- End verhuring overzicht pane --}}
+
+            <div class="tab-pane fade in" id="tab_2"> {{-- Start verantwoordelijke overzicht pane --}}
+                <div class="row">
+                    <div class="col-md-8">
+                    
+                        @if ((int) count($admins) > 0)
+                            <table class="table table-hover table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Naam:</th>
+                                        <th>Email:</th>
+                                        <th colspan="2">Extra info:</th> {{-- Colspan="2" needed for the functions. --}}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($admins as $admin) {{-- Loop through the  admins --}} 
+                                        <tr>
+                                            <td><strong>#{{ $admin->id }}</strong></td>
+                                            <td>{{ $admin->person->name }}</td>
+                                            <td><a href="mailto:{{ $admin->person->email }}">{{ $admin->person->email }}</a></td>
+                                            <td>@if (is_null($admin->info)) Er is geen extra informatie gegeven. @else {{ $admin->info}} @endif</td>
+                                            
+                                            <td class="text-center"> {{-- Options --}}
+                                                <a href="{{ route('lease.remove.admin', $admin) }}" class="label label-danger">Verwijder</a>
+                                            </td> {{-- END options --}}
+                                        </tr>
+                                    @endforeach {{-- End loop --}}
+                                </tbody>
+                            </table>
+                        @else
+                            <div class="alert alert-info alert-important" role="alert">
+                                <strong><span class="fa fa-info-circle"></span></strong>
+                                Er zijn geen verhuur beheerders in het systeem gevonden.
+                            </div>
+                        @endif
+
+                    </div>
                 </div>
-            @endif
-        </div> {{-- /.box-body --}}
-    </div> {{-- /.box --}}
+            </div> {{-- END verantwoordelijke overzicht panel --}}
+
+            <div class="tab-pane fade in" id="tab_3"> {{-- Start verantwoordelijke toevoegen pane --}}
+                <form action="{{ route('lease.add.admin') }}" class="form-horizontal" method="POST">
+                    {{ csrf_field() }}
+
+                    <div class="form-group">
+                        <label class="control-label col-md-1">Naam persoon: <span class="text-danger">*</span></label>
+
+                        <div class="col-md-3">
+                            <select name="persons_id" class="form-control">
+                                <option value="">-- Selecteer de persoon. --</option>
+
+                                @foreach ($users as $user) {{-- Loop through the users. --}}
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach {{-- End users loop --}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-1">Extra info:</label>
+
+                        <div class="col-md-5">
+                            <textarea name="info" placeholder="Extra informatie omtrent de verantwoordelijke." rows="5" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-11">
+                            <button type="submit" class="btn btn-sm btn-flat btn-success">
+                                <span class="fa fa-check" aria-hidden="true"></span> Opslaan
+                            </button>
+
+                            <button type="reset" class="btn btn-sm btn-flat btn-danger">
+                                <span class="fa fa-undo" aria-hidden="true"></span> Reset
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div> {{-- END verantwoordelijke toevoegen pane --}}
+        </div>
+        <!-- /.tab-content -->
+    </div>
 
     {{-- Modal includes --}}
         @include('lease.backend-create')
