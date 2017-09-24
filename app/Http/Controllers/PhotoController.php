@@ -2,12 +2,11 @@
 
 namespace Sijot\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use Sijot\Http\Requests\PhotoValidator;
 use Intervention\Image\Facades\Image;
-use Sijot\Photos;
-use Sijot\Groups;
+use Sijot\Http\Requests\PhotoValidator;
+use Sijot\Repositories\{GroupRepository, PhotoRepository};
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class PhotoController
@@ -20,21 +19,21 @@ class PhotoController extends Controller
     // TODO: Repository Implementation.
     // TODO: Write tests.
 
-    private $photos; /** @var mixed Photos The photos database instance. */
-    private $groups; /** @var mixed Groups The groups database instance. */
+    private $photos; /** @var mixed PhotoRepository The photos database instance. */
+    private $groups; /** @var mixed GroupRepository The groups database instance. */
 
     /**
      * PhotoController constructor.
      *
-     * @param Photos $photos
-     * @param Groups $groups 
+     * @param PhotoRepository $photos
+     * @param GroupRepository $groups
      *  
      * @return void.
      */
-    public function __construct(Photos $photos, Groups $groups)
+    public function __construct(PhotoRepository $photos, GroupRepository $groups)
     {
         $this->middleware('auth');
-        // $this->middleware('lang'); // Throws bug when using. TODO: Trace this ons out
+        // $this->middleware('lang'); // Throws bug when using. TODO: Trace this one out
 
         $this->photos = $photos;
         $this->groups = $groups;

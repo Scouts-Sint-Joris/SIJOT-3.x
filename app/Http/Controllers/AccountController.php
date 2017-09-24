@@ -2,7 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\{User, Themes};
+use Sijot\Repositories\{ThemeRepository, UsersRepository};
 use Illuminate\Http\{Response as Status};
 use Illuminate\Support\Facades\{Storage};
 use Intervention\Image\Facades\Image;
@@ -21,14 +21,14 @@ class AccountController extends Controller
     /**
      * The user database model. 
      * 
-     * @var User
+     * @var UsersRepository
      */
     private $userDb;
 
     /**
      * The back-end theme database model. 
      * 
-     * @var Themes
+     * @var ThemeRepository
      */
     private $themes; 
 
@@ -36,11 +36,11 @@ class AccountController extends Controller
      * AccountController constructor.
      *
      * @param Themes $themes The themes database model.
-     * @param User   $userDb The user database model.
+     * @param UsersRepository   $userDb The user database model.
      * 
      * @return void
      */
-    public function __construct(Themes $themes, User $userDb)
+    public function __construct(ThemeRepository $themes, UsersRepository $userDb)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');
@@ -56,6 +56,8 @@ class AccountController extends Controller
      */
     public function index()
     {
+        // TODO: Setup system that tabs stay open when a redirect or insert happen.
+
         $data['title']  = auth()->user()->name;
         $data['themes'] = $this->themes->all();
 

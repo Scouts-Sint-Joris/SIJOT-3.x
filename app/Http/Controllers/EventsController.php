@@ -23,7 +23,7 @@ class EventsController extends Controller
     /**
      * The events database model in the application. 
      * 
-     * @var Events
+     * @var EventsRepository
      */
     private $events;
 

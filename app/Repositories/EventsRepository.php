@@ -13,7 +13,6 @@ use Sijot\Events;
  */
 class EventsRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
@@ -22,6 +21,17 @@ class EventsRepository extends Repository
     public function model()
     {
         return Events::class;
+    }
+
+    /**
+     * Paginate the events for the index page.
+     *
+     * @param  integer $limit The amount of events u want per page.
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function indexEvents($limit)
+    {
+        return $this->model->limit($limit)->get();
     }
 
     /**
@@ -51,11 +61,24 @@ class EventsRepository extends Repository
          return false; //! The event could not created. 
     }
 
+    /**
+     * GYet all the events for the backend.
+     *
+     * @param  array   $relations The database relations u want to use.
+     * @param  integer $perPage   The amount of events u want to display per page.
+     * @return mixed
+     */
     public function getBackendEvents($relations, $perPage)
     {
         return $this->with($relations)->paginate($perPage);
     }
 
+    /**
+     * Store a new event in the database.
+     *
+     * @param  string $data The input data for the new event.
+     * @return bool
+     */
     public function addRecord($data)
     {
         if ($this->create($data)) {

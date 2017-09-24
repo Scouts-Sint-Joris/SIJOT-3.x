@@ -23,6 +23,14 @@ class ApiKeyRepository extends Repository
      */
     private $user;
 
+    /**
+     * ApiKeyRepository constructor.
+     *
+     * @param  App          $app            The Laravel application provider.
+     * @param  Collection   $collection     The collection provider form the Eloquent ORM.
+     * @param  User         $user           The user database model.
+     * @return void
+     */
     public function __construct(App $app, Collection $collection, User $user)
     {
         parent::__construct($app, $collection);

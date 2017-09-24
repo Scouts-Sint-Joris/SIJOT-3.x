@@ -2,20 +2,14 @@
 
 namespace Sijot\Http\Controllers;
 
-use Illuminate\Support\Facades\Mail;
-use Sijot\Http\Requests\BanValidator;
-use Sijot\Http\Requests\Usersvalidator;
-use Sijot\Mail\BlockEmailNotification;
-use Sijot\Mail\UserCreationMail;
+use Sijot\Http\Requests\{Usersvalidator, BanValidator};
+use Sijot\Mail\{BlockEmailNotification, UserCreationMail};
+use Sijot\Repositories\{LeaseAdminRepository, PermissionRepository, RoleRepository, UsersRepository};
 use Sijot\Notifications\BlockNotification;
-use Sijot\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\{Mail, Notification};
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
-use Sijot\Role;
-use Sijot\Permission;
-use Sijot\LeaseAdmin;
 
 /**
  * Class UsersController
@@ -27,41 +21,42 @@ class UsersController extends Controller
     /**
      * Variable for the user model. 
      * 
-     * @var User
+     * @var UsersRepository
      */
     private $userDB;
 
     /**
      * Variable for the permissions model. 
      * 
-     * @var Permission
+     * @var PermissionRepository
      */
     private $permissions;
 
     /**
      * The variable for the roles model. 
      * 
-     * @var Role
+     * @var RoleRepository
      */
     private $roles;
 
     /**
      * The variable for the lease admin table.
      *
-     * @var LeaseAdmin
+     * @var LeaseAdminRepository
      */
     private $leaseAdmin;
 
     /**
      * UsersController constructor.
      *
-     * @param User       $userDB      The user model for the database.
-     * @param Role       $roles       The Roles database model.
-     * @param Permission $permissions The Permissions database model.
-     * 
+     * @param RoleRepository        $roles          The Roles database model.
+     * @param PermissionRepository  $permissions    The Permissions database model.
+     * @param UsersRepository       $userDB         The user model for the database.
+     * @param LeaseAdminRepository  $leaseAdmin     The lease admin database instance.
+     *
      * @return void
      */
-    public function __construct(Role $roles, Permission $permissions, User $userDB, LeaseAdmin $leaseAdmin)
+    public function __construct(RoleRepository $roles, PermissionRepository $permissions, UsersRepository $userDB, LeaseAdminRepository $leaseAdmin)
     {
         $this->middleware('auth');
         $this->middleware('forbid-banned-user');
@@ -98,7 +93,7 @@ class UsersController extends Controller
     {
         try { //* Try to find and output the record.
             //? Shouldn't this be not provide in some API form?  
-            return json_encode($this->userDB->select(['id', 'name'])->findOrFail($userId));
+            return json_encode($this->userDB->findUser($userId));
         } catch (ModelNotFoundException $notFoundException) { //* The user is not found.
             return app()->abort(404);
         }

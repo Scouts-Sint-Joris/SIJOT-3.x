@@ -2,7 +2,7 @@
 
 namespace Sijot\Http\Controllers;
 
-use Sijot\{Activity, Groups};
+use Sijot\Repositories\{ActivityRepository, GroupRepository};
 use Sijot\Http\Requests\ActivityValidator;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -22,26 +22,26 @@ class ActivityController extends Controller
     /**
      * The activity database model. 
      * 
-     * @var Activity
+     * @var ActivityRepository
      */
     private $activity;
 
     /**
      * The groups model variable. 
      * 
-     * @var Groups
+     * @var GroupRepository
      */
     private $groups;
 
     /**
      * ActivityController constructor.
      *
-     * @param Activity $activity The activity database model.
-     * @param Groups   $groups   The groups database model.
+     * @param ActivityRepository $activity The activity database model.
+     * @param GroupRepository    $groups   The groups database model.
      * 
      * @return void
      */
-    public function __construct(Activity $activity, Groups $groups)
+    public function __construct(ActivityRepository $activity, GroupRepository $groups)
     {
         $routes = ['backend', 'destroy', 'status'];
 

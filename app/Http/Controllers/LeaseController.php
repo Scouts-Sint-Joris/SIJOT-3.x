@@ -3,7 +3,7 @@
 namespace Sijot\Http\Controllers;
 
 use Sijot\Http\Requests\LeaseValidator;
-use Sijot\{Lease, LeaseAdmin, User};
+use Sijot\Repositories\{LeaseAdminRepository, LeaseRepository, UsersRepository};
 use Sijot\Mail\{LeaseInfoRequester, LeaseInfoAdmin};
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -27,12 +27,13 @@ class LeaseController extends Controller
     /**
      * LeaseController constructor
      *
-     * @param Lease $leaseDB The lease database model.
-     * @param User  $userDB  The user database model.
+     * @param LeaseRepository       $leaseDB        The lease database model.
+     * @param UsersRepository       $userDB         The user database model.
+     * @param LeaseAdminRepository  $adminLease     The lease admin repository.
      * 
      * @return void
      */
-    public function __construct(Lease $leaseDB, User $userDB, LeaseAdmin $adminLease)
+    public function __construct(LeaseRepository $leaseDB, UsersRepository $userDB, LeaseAdminRepository $adminLease)
     {
         $routes = ['backend', 'status'];
 
